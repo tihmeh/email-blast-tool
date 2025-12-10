@@ -11,11 +11,11 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   background: #f2f2f7;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  overflow: hidden;
 }
 
 /* LOGIN SCREEN */
@@ -53,72 +53,91 @@ body {
   cursor: pointer;
 }
 
-/* MAIN APP */
-#app {
+/* MAIN HOME SCREEN */
+#homeScreen {
   display: none;
-  width: 400px;
-  background: #ffffff;
-  border-radius: 30px;
+  width: 100%;
+  height: 100%;
   padding: 20px;
-  height: 90vh;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  overflow: hidden;
-  display: flex;
   flex-direction: column;
 }
 
-.title {
+.homeTitle {
   text-align: center;
-  font-size: 24px;
+  margin-bottom: 20px;
   font-weight: 700;
+  font-size: 24px;
 }
 
-/* CONTACT LIST */
-.listContainer {
-  flex: 1;
-  overflow-y: auto;
-  margin-top: 10px;
-  padding-right: 4px;
+/* APP GRID */
+.appGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  padding: 20px;
 }
 
-.contact {
-  padding: 12px;
-  background: #f9f9f9;
-  border-radius: 14px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
+.appIcon {
+  background: white;
+  border-radius: 22px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
   cursor: pointer;
+  transition: transform 0.15s;
 }
 
-.contact.selected {
-  background: #e8f4ee;
-  border-color: #123524;
+.appIcon:hover { transform: scale(1.06); }
+
+.appIcon img {
+  width: 34px;
+  margin-bottom: 6px;
 }
 
-/* BUTTONS */
-.btn {
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 8px;
-}
-
-.btn-green { background: #123524; color: white; }
-.btn-gray { background: #e3e3e8; color: #123524; }
-
-/* PREVIEW BOX */
-#preview {
-  background: #f8f8f8;
-  padding: 14px;
-  border-radius: 12px;
-  height: 100px;
-  margin-top: 10px;
-  font-family: monospace;
+.appLabel {
   font-size: 13px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
+  text-align: center;
+}
+
+/* CONTACT LIST SCREEN (inside an app) */
+#contactScreen {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background: #f2f2f7;
+}
+
+.backBtn {
+  font-size: 18px;
+  background: none;
+  border: none;
+  color: #123524;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.contactCard {
+  background: white;
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.contactCard strong {
+  color: #123524;
+  font-size: 15px;
+}
+
+.contactCard p {
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  color: #333;
 }
 </style>
 </head>
@@ -132,106 +151,122 @@ body {
   <p style="font-size:13px;color:#888;margin-top:6px;">Hint: sales</p>
 </div>
 
-<!-- MAIN APP -->
-<div id="app">
-  <div class="title">Email Blaster 4000</div>
+<!-- HOME SCREEN -->
+<div id="homeScreen">
+  <div class="homeTitle">Email Blaster 4000</div>
 
-  <input id="search" placeholder="Search..." style="padding:12px;border-radius:12px;border:1px solid #ccc;margin-top:12px;width:100%;font-size:15px;">
+  <div class="appGrid">
+    <div class="appIcon" onclick="openCategory('All')">
+      <img src="https://img.icons8.com/ios-filled/50/inbox.png">
+      <div class="appLabel">All Contacts</div>
+    </div>
 
-  <div class="listContainer" id="contactList"></div>
+    <div class="appIcon" onclick="openCategory('K12')">
+      <img src="https://img.icons8.com/ios-filled/50/school.png">
+      <div class="appLabel">K-12</div>
+    </div>
 
-  <button id="selectAllBtn" class="btn btn-gray">Select All</button>
-  <button id="copyBtn" class="btn btn-green">Copy Emails</button>
+    <div class="appIcon" onclick="openCategory('Public')">
+      <img src="https://img.icons8.com/ios-filled/50/city-buildings.png">
+      <div class="appLabel">Public Sector</div>
+    </div>
 
-  <div id="preview">No emails selected</div>
+    <div class="appIcon" onclick="openCategory('HigherEd')">
+      <img src="https://img.icons8.com/ios-filled/50/graduation-cap.png">
+      <div class="appLabel">Higher Ed</div>
+    </div>
+
+    <div class="appIcon" onclick="openCategory('Transit')">
+      <img src="https://img.icons8.com/ios-filled/50/bus.png">
+      <div class="appLabel">Transit</div>
+    </div>
+
+    <div class="appIcon" onclick="alert('Future Feature!')">
+      <img src="https://img.icons8.com/ios-filled/50/settings.png">
+      <div class="appLabel">Settings</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT LIST VIEW -->
+<div id="contactScreen">
+  <button class="backBtn" onclick="goHome()">← Back</button>
+  <h2 id="contactTitle"></h2>
+  <div id="contactList"></div>
 </div>
 
 <script>
 /* LOGIN */
 document.getElementById("loginBtn").onclick = () => {
   if (document.getElementById("passwordInput").value === "sales") {
-    document.getElementById("loginScreen").style.display = "none";
-    document.getElementById("app").style.display = "flex";
+    loginScreen.style.display = "none";
+    homeScreen.style.display = "flex";
   } else {
     alert("Incorrect password.");
   }
 };
 
-/* CONTACT DATA */
+/* CONTACTS */
 let contacts = [
-  {name:"Sean Jowell", email:"jowells@pcsb.org"},
-  {name:"Philip Martin", email:"philip.martin@sumter.k12.fl.us"},
-  {name:"Sarah Johnson", email:"sjohnson@stpete.org"},
-  {name:"Michael Nagy", email:"mwilliams@dunedinfl.gov"},
-  {name:"Ronbert Ignacio", email:"ronbert.ignacio@dunedin.gov"},
-  {name:"David Mather", email:"dmather@mygulfport.us"},
-  {name:"Chris Pagan", email:"cpagan@mytreasureisland.org"},
-  {name:"Matthew Sabella", email:"msabella@myseminole.com"},
-  {name:"Alex Britton-Kant", email:"abrittonkant@mysouthpasadena.com"},
-  {name:"Suzanne Linton", email:"slinton@ctsfl.us"},
-  {name:"Jessica Cinney", email:"cinneyj@eckerd.edu"},
-  {name:"Walter Moore", email:"moorewr@eckerd.edu"},
-  {name:"Tonya Womack", email:"womacktm@eckerd.edu"},
-  {name:"Emmett Andrews", email:"eandrews@polk.edu"},
-  {name:"Martin Gang", email:"mgang@polk.edu"},
-  {name:"Jennifer Angelo", email:"jangelo@myindianshores.com"},
-  {name:"Hansel Roush", email:"hroush@largo.com"},
-  {name:"Tim Clark", email:"tclark@largo.com"},
-  {name:"Missy Nevitt", email:"mnevitt@psta.net"}
+  {name:"Sean Jowell", email:"jowells@pcsb.org", cat:"K12"},
+  {name:"Philip Martin", email:"philip.martin@sumter.k12.fl.us", cat:"K12"},
+  {name:"Sarah Johnson", email:"sjohnson@stpete.org", cat:"Public"},
+  {name:"Michael Nagy", email:"mwilliams@dunedinfl.gov", cat:"Public"},
+  {name:"Ronbert Ignacio", email:"ronbert.ignacio@dunedin.gov", cat:"Public"},
+  {name:"David Mather", email:"dmather@mygulfport.us", cat:"Public"},
+  {name:"Chris Pagan", email:"cpagan@mytreasureisland.org", cat:"Public"},
+  {name:"Matthew Sabella", email:"msabella@myseminole.com", cat:"Public"},
+  {name:"Alex Britton-Kant", email:"abrittonkant@mysouthpasadena.com", cat:"Public"},
+  {name:"Suzanne Linton", email:"slinton@ctsfl.us", cat:"Public"},
+  {name:"Jessica Cinney", email:"cinneyj@eckerd.edu", cat:"HigherEd"},
+  {name:"Walter Moore", email:"moorewr@eckerd.edu", cat:"HigherEd"},
+  {name:"Tonya Womack", email:"womacktm@eckerd.edu", cat:"HigherEd"},
+  {name:"Emmett Andrews", email:"eandrews@polk.edu", cat:"HigherEd"},
+  {name:"Martin Gang", email:"mgang@polk.edu", cat:"HigherEd"},
+  {name:"Jennifer Angelo", email:"jangelo@myindianshores.com", cat:"Public"},
+  {name:"Hansel Roush", email:"hroush@largo.com", cat:"Public"},
+  {name:"Tim Clark", email:"tclark@largo.com", cat:"Public"},
+  {name:"Missy Nevitt", email:"mnevitt@psta.net", cat:"Transit"}
 ];
 
-let selected = new Set();
+/* OPEN CATEGORY */
+function openCategory(cat) {
+  homeScreen.style.display = "none";
+  contactScreen.style.display = "flex";
 
-/* RENDER CONTACT LIST */
-function renderContacts() {
-  const list = document.getElementById("contactList");
-  const search = document.getElementById("search").value.toLowerCase();
-  list.innerHTML = "";
+  contactTitle.innerText =
+    cat === "All" ? "All Contacts" :
+    cat === "K12" ? "K-12 Contacts" :
+    cat === "Public" ? "Public Sector" :
+    cat === "HigherEd" ? "Higher Ed" :
+    cat === "Transit" ? "Transit" : "Contacts";
 
+  renderContacts(cat);
+}
+
+/* RENDER CONTACTS */
+function renderContacts(cat) {
+  contactList.innerHTML = "";
   contacts
-    .filter(c => c.name.toLowerCase().includes(search) || c.email.toLowerCase().includes(search))
+    .filter(c => cat === "All" || c.cat === cat)
     .forEach(c => {
-      const div = document.createElement("div");
-      div.className = "contact" + (selected.has(c.email) ? " selected" : "");
-      div.textContent = `${c.name} – ${c.email}`;
-      div.onclick = () => toggle(c.email);
-      list.appendChild(div);
+      const card = document.createElement("div");
+      card.className = "contactCard";
+      card.innerHTML = `
+        <strong>${c.name}</strong>
+        <p>${c.email}</p>
+      `;
+      contactList.appendChild(card);
     });
-
-  updatePreview();
 }
 
-/* TOGGLE SELECT */
-function toggle(email) {
-  selected.has(email) ? selected.delete(email) : selected.add(email);
-  renderContacts();
+/* BACK HOME */
+function goHome() {
+  contactScreen.style.display = "none";
+  homeScreen.style.display = "flex";
 }
-
-/* SELECT ALL */
-document.getElementById("selectAllBtn").onclick = () => {
-  if (selected.size === contacts.length) selected.clear();
-  else contacts.forEach(c => selected.add(c.email));
-  renderContacts();
-};
-
-/* COPY EMAILS */
-document.getElementById("copyBtn").onclick = () => {
-  navigator.clipboard.writeText(Array.from(selected).join("; "));
-  alert("Copied!");
-};
-
-/* LIVE SEARCH */
-document.getElementById("search").oninput = renderContacts;
-
-/* PREVIEW */
-function updatePreview() {
-  document.getElementById("preview").textContent =
-    selected.size ? Array.from(selected).join("; ") : "No emails selected";
-}
-
-/* INITIAL LOAD */
-renderContacts();
 </script>
+
 </body>
 </html>
 
