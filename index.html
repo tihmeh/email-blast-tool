@@ -45,13 +45,18 @@ body {
     radial-gradient(circle at bottom, #0ea5e920 0, transparent 50%),
     var(--color-bg);
   color: var(--color-text);
-  height: 100vh;
-  overflow: hidden;
+  /* allow scrolling */
+  min-height: 100vh;
+  overflow-y: auto;
   transition: background var(--transition-med), color var(--transition-med);
 }
-.app-shell { height: 100%; }
+.app-shell {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 14px;
+}
 
-/* LOGIN */
+/* LOGIN: EB4000-EB4K VAULT */
 .login-screen {
   position: fixed;
   inset: 0;
@@ -99,63 +104,48 @@ body {
   position: absolute;
   inset: -40%;
   background:
-    radial-gradient(circle at top, rgba(34,197,94,0.15), transparent 55%),
-    radial-gradient(circle at bottom, rgba(234,179,8,0.22), transparent 60%);
+    radial-gradient(circle at top, rgba(34,197,94,0.18), transparent 55%),
+    radial-gradient(circle at bottom, rgba(234,179,8,0.25), transparent 60%);
   opacity: 0.9;
   pointer-events: none;
 }
 .login-content { position: relative; z-index: 1; }
 
-/* emblem = mail icon now */
 .login-emblem {
   width: 70px;
   height: 70px;
   border-radius: 24px;
   margin: 0 auto 14px;
-  background: radial-gradient(circle at 30% 20%, #fef9c3, #facc15);
+  background: conic-gradient(from 180deg, #22c55e, #16a34a, #22c55e);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow:
     0 0 0 3px #020617,
-    0 18px 40px rgba(250,204,21,0.7);
+    0 18px 40px rgba(22,163,74,0.65);
   position: relative;
 }
-.login-emblem-mail {
+.login-emblem-lock {
   width: 40px;
-  height: 28px;
-  border-radius: 6px;
-  background: #020617;
-  border: 2px solid #facc15;
-  position: relative;
-  box-shadow: 0 0 18px rgba(250,204,21,0.7);
-}
-.login-emblem-mail::before,
-.login-emblem-mail::after {
-  content: "";
-  position: absolute;
-  left: 2px;
-  right: 2px;
-  height: 2px;
-  background: linear-gradient(90deg,#facc15,#f97316,#facc15);
-  top: 50%;
-  transform: translateY(-50%);
-}
-.login-emblem-mail::after {
-  height: 1px;
-  top: auto;
-  bottom: 4px;
+  height: 40px;
+  border-radius: 14px;
+  background: radial-gradient(circle at top, #f9fafb, #e5e7eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111827;
+  font-size: 22px;
+  font-weight: 800;
 }
 .login-emblem-ring {
   position: absolute;
   inset: -8px;
   border-radius: 999px;
-  border: 1px solid rgba(250,204,21,0.7);
-  box-shadow: 0 0 20px rgba(250,204,21,0.7);
-  opacity: 0.9;
+  border: 1px solid rgba(148,163,184,0.5);
+  box-shadow: 0 0 16px rgba(34,197,94,0.5);
+  opacity: 0.8;
 }
 
-/* title / gold text */
 .login-model {
   font-size: 11px;
   text-transform: uppercase;
@@ -170,16 +160,12 @@ body {
   letter-spacing: 0.04em;
   color: #fefce8;
 }
-.login-title span {
-  color: var(--gold);
-}
+.login-title span { color: var(--gold); }
 .login-subtitle {
   font-size: 12px;
   color: var(--color-text-soft);
   margin-bottom: 16px;
 }
-
-/* encryption bar */
 .login-meta-bar {
   display: flex;
   justify-content: space-between;
@@ -191,11 +177,8 @@ body {
   margin-bottom: 14px;
   background: linear-gradient(120deg, rgba(15,23,42,0.8), rgba(15,23,42,0.9));
 }
-.login-meta-bar span strong {
-  color: var(--gold);
-}
+.login-meta-bar span strong { color: var(--gold); }
 
-/* inputs / buttons */
 .login-input {
   width: 100%;
   padding: 11px 12px;
@@ -211,11 +194,10 @@ body {
 .login-input::placeholder { color: #6b7280; }
 .login-input:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 2px rgba(250,204,21,0.3);
+  box-shadow: 0 0 0 2px rgba(250,204,21,0.35);
   background: #020617;
   transform: translateY(-0.5px);
 }
-
 .btn {
   appearance: none;
   border: none;
@@ -248,7 +230,6 @@ body {
   background: transparent;
   color: var(--color-text-soft);
 }
-
 .login-hint {
   font-size: 11px;
   color: var(--color-text-soft);
@@ -260,14 +241,24 @@ body {
   color: var(--color-text-soft);
 }
 
-/* APP LAYOUT */
-.app-shell {
+/* FOCUS OVERLAY */
+.focus-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.96));
   display: none;
-  max-width: 1360px;
-  margin: 0 auto;
-  padding: 14px;
-  height: 100%;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-focus);
+  color: #ecfdf3;
+  flex-direction: column;
+  text-align: center;
 }
+.focus-overlay h1 { font-size: 32px; margin-bottom: 8px; }
+.focus-overlay p { font-size: 13px; color: #cbd5f5; }
+
+/* APP LAYOUT */
+.app-shell { display: none; }
 .app-topbar {
   height: 56px;
   display: flex;
@@ -340,7 +331,7 @@ body {
   display: grid;
   grid-template-columns: 220px minmax(0, 1.8fr) minmax(0, 1.1fr);
   gap: 12px;
-  height: calc(100% - 56px - 12px);
+  /* allow inside scrolling if taller than viewport */
 }
 
 /* SIDEBAR */
@@ -401,7 +392,7 @@ body {
   color: var(--color-text-soft);
 }
 
-/* CENTER PANEL */
+/* CENTER PANEL (CONTACTS) */
 .panel {
   background: var(--color-bg-elevated);
   border-radius: var(--radius-lg);
@@ -429,6 +420,7 @@ body {
   background: var(--color-bg-subtle);
   color: var(--color-text-soft);
 }
+
 .search-input {
   width: 100%;
   border-radius: 999px;
@@ -449,11 +441,20 @@ body {
   box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
   background: var(--color-bg-elevated);
 }
+
+/* contacts controls row */
+.contacts-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 6px 0 8px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 .filter-row {
   display: flex;
   align-items: center;
   gap: 4px;
-  margin: 6px 0 10px;
   flex-wrap: wrap;
 }
 .filter-pill {
@@ -478,11 +479,23 @@ body {
   color: #022c22;
   border-color: #22c55e;
 }
+.contacts-actions-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.contacts-actions-buttons .btn {
+  font-size: 11px;
+  padding: 5px 10px;
+}
+
+/* list */
 .contact-list {
   flex: 1;
   overflow-y: auto;
   padding-right: 4px;
   margin-bottom: 6px;
+  max-height: 420px;
 }
 .contact-row {
   display: grid;
@@ -542,6 +555,8 @@ body.theme-light .contact-row:hover {
   background: var(--color-bg-subtle);
   border: 1px solid var(--color-border-subtle);
 }
+
+/* bulk bar */
 .bulk-bar {
   display: none;
   align-items: center;
@@ -550,12 +565,14 @@ body.theme-light .contact-row:hover {
   border-radius: 999px;
   background: rgba(34,197,94,0.15);
   font-size: 11px;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 .bulk-bar-actions {
   display: flex;
   gap: 6px;
 }
+
+/* preview */
 .preview-drawer {
   border-radius: var(--radius-lg);
   background: var(--color-bg-subtle);
@@ -566,6 +583,41 @@ body.theme-light .contact-row:hover {
   max-height: 60px;
   overflow-y: auto;
   color: var(--color-text-soft);
+}
+
+/* add contact form */
+.add-contact-form {
+  border-radius: 12px;
+  border: 1px solid var(--color-border-subtle);
+  padding: 8px;
+  background: var(--color-bg-subtle);
+  margin-bottom: 8px;
+  display: none;
+}
+.add-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+.add-contact-grid input {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+  font-size: 12px;
+}
+.add-contact-grid input:focus {
+  outline: none;
+  border-color: #22c55e;
+  box-shadow: 0 0 0 1px rgba(34,197,94,0.3);
+}
+.add-contact-actions {
+  margin-top: 6px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
 }
 
 /* RIGHT PANEL */
@@ -588,7 +640,6 @@ body.theme-light .contact-row:hover {
 }
 .tool-section h3 { margin: 0 0 5px; font-size: 13px; }
 .tool-section small { color: var(--color-text-soft); font-size: 11px; }
-
 .textarea-note,
 .textarea-template {
   width: 100%;
@@ -608,7 +659,6 @@ body.theme-light .contact-row:hover {
   border-color: #22c55e;
   box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
 }
-
 .todo-row {
   display: flex;
   align-items: center;
@@ -662,30 +712,12 @@ body.theme-light .contact-row:hover {
 .switch input:checked + .slider { background-color: #22c55e; }
 .switch input:checked + .slider::before { transform: translateX(16px); }
 
-/* FOCUS OVERLAY */
-.focus-overlay {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.96));
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: var(--z-focus);
-  color: #ecfdf3;
-  flex-direction: column;
-  text-align: center;
-}
-.focus-overlay h1 { font-size: 32px; margin-bottom: 8px; }
-.focus-overlay p { font-size: 13px; color: #cbd5f5; }
-
 /* RESPONSIVE */
 @media (max-width: 1040px) {
-  .app-main { grid-template-columns: 1fr; height: auto; }
-  .app-shell { height: auto; }
+  .app-main { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
   .app-shell { padding: 8px; }
-  .app-main { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -697,18 +729,16 @@ body.theme-light .contact-row:hover {
     <div class="login-content">
       <div class="login-emblem">
         <div class="login-emblem-ring"></div>
-        <div class="login-emblem-mail"></div>
+        <div class="login-emblem-lock">🔒</div>
       </div>
       <div class="login-model">EB4000-EB4K • ENCRYPTED ACCESS</div>
       <div class="login-title"><span>Email</span> Blaster 4000</div>
       <div class="login-subtitle">Secure outbound console for high-value prospects.</div>
-
       <div class="login-meta-bar">
         <span>Model: <strong>EB4K</strong></span>
         <span>Hash: <strong>SHA-512</strong></span>
         <span>Mode: <strong>Zero-Trust</strong></span>
       </div>
-
       <input
         id="passwordInput"
         type="password"
@@ -720,7 +750,6 @@ body.theme-light .contact-row:hover {
         <span>Unlock EB4000-EB4K</span> <span>▶</span>
       </button>
       <div class="login-hint">Hint: <code>sales</code></div>
-
       <div class="login-toggle">
         <button id="loginDarkToggle" class="btn btn-ghost" style="font-size:11px;padding:4px 10px;">
           Toggle light / dark UI
@@ -781,16 +810,46 @@ body.theme-light .contact-row:hover {
         <div class="chip"><span id="contactCountLabel">0</span> total</div>
       </header>
 
-      <input id="searchInput" class="search-input" placeholder="Search by name, email, or organization…" />
-
-      <div class="filter-row">
-        <button class="filter-pill active" data-filter="all">All</button>
-        <button class="filter-pill" data-filter="K-12">K-12</button>
-        <button class="filter-pill" data-filter="Public Sector">Public Sector</button>
-        <button class="filter-pill" data-filter="Higher Education">Higher Education</button>
-        <button class="filter-pill" data-filter="Transit">Transit</button>
+      <!-- Add Contact form toggle + search -->
+      <div style="display:flex; gap:8px; align-items:center; margin-bottom:6px; flex-wrap:wrap;">
+        <button id="addContactToggleBtn" class="btn btn-ghost" style="font-size:11px;padding:5px 10px;border-radius:999px;border:1px solid var(--color-border-subtle);">
+          ➕ Add Contact
+        </button>
+        <input id="searchInput" class="search-input" placeholder="Search by name, email, or organization…" />
       </div>
 
+      <!-- Add Contact Form -->
+      <div class="add-contact-form" id="addContactForm">
+        <div class="add-contact-grid">
+          <input id="addName" placeholder="Name" />
+          <input id="addTitle" placeholder="Title" />
+          <input id="addOrg" placeholder="Account / Organization" />
+          <input id="addEmail" placeholder="Email" />
+          <input id="addVertical" placeholder="Vertical (K-12, Public...)" />
+        </div>
+        <div class="add-contact-actions">
+          <button id="addContactCancel" class="btn btn-ghost" style="font-size:11px;">Cancel</button>
+          <button id="addContactSave" class="btn btn-primary" style="font-size:11px;">Save Contact</button>
+        </div>
+      </div>
+
+      <!-- Filters + selection controls -->
+      <div class="contacts-controls">
+        <div class="filter-row">
+          <button class="filter-pill active" data-filter="all">All</button>
+          <button class="filter-pill" data-filter="K-12">K-12</button>
+          <button class="filter-pill" data-filter="Public Sector">Public Sector</button>
+          <button class="filter-pill" data-filter="Higher Education">Higher Education</button>
+          <button class="filter-pill" data-filter="Transit">Transit</button>
+        </div>
+        <div class="contacts-actions-buttons">
+          <button id="selectAllBtn" class="btn" title="Select all in current filter">Select All</button>
+          <button id="deselectAllBtn" class="btn" title="Clear selection">Deselect</button>
+          <button id="copySelectedBtn" class="btn btn-primary" title="Copy selected emails">Copy Emails</button>
+        </div>
+      </div>
+
+      <!-- Bulk bar -->
       <div class="bulk-bar" id="bulkBar">
         <div><strong id="bulkCount">0</strong> selected</div>
         <div class="bulk-bar-actions">
@@ -799,6 +858,7 @@ body.theme-light .contact-row:hover {
         </div>
       </div>
 
+      <!-- List -->
       <section class="contact-list" id="contactList"></section>
       <footer class="preview-drawer" id="previewDrawer">No contacts selected.</footer>
     </main>
@@ -865,7 +925,8 @@ body.theme-light .contact-row:hover {
 </div>
 
 <script>
-const CONTACTS = [
+/* DATA */
+const DEFAULT_CONTACTS = [
   { name: "Sean Jowell", email: "jowells@pcsb.org",               title: "Director Safety & Security",           org: "Pinellas County School District", vertical: "K-12" },
   { name: "Philip Martin", email: "philip.martin@sumter.k12.fl.us", title: "Director of Safety & Security",       org: "Sumter County Public Schools",     vertical: "K-12" },
   { name: "Sarah Johnson", email: "sjohnson@stpete.org",          title: "IT Manager",                            org: "City of St. Petersburg",           vertical: "Public Sector" },
@@ -887,21 +948,21 @@ const CONTACTS = [
   { name: "Missy Nevitt", email: "mnevitt@psta.net",              title: "Superintendant of Facilities",          org: "PSTA",                             vertical: "Transit" }
 ];
 
-let selectedEmails = new Set();
-let activeFilter = "all";
-
 const storage = {
   get(key, fallback) {
-    try {
-      const raw = localStorage.getItem(key);
-      return raw ? JSON.parse(raw) : fallback;
-    } catch { return fallback; }
+    try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
+    catch { return fallback; }
   },
   set(key, value) {
     try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
   }
 };
 
+let CONTACTS = storage.get("eb4000-contacts", DEFAULT_CONTACTS.slice());
+let selectedEmails = new Set();
+let activeFilter = "all";
+
+/* LOGIN + THEME */
 const loginScreen = document.getElementById("loginScreen");
 const passwordInput = document.getElementById("passwordInput");
 const loginBtn = document.getElementById("loginBtn");
@@ -955,6 +1016,7 @@ document.addEventListener("keydown", e => {
   }
 });
 
+/* CONTACTS */
 const contactListEl = document.getElementById("contactList");
 const contactCountLabel = document.getElementById("contactCountLabel");
 const searchInput = document.getElementById("searchInput");
@@ -964,6 +1026,13 @@ const bulkCount = document.getElementById("bulkCount");
 const bulkCopyBtn = document.getElementById("bulkCopyBtn");
 const bulkClearBtn = document.getElementById("bulkClearBtn");
 const previewDrawer = document.getElementById("previewDrawer");
+const selectAllBtn = document.getElementById("selectAllBtn");
+const deselectAllBtn = document.getElementById("deselectAllBtn");
+const copySelectedBtn = document.getElementById("copySelectedBtn");
+
+function persistContacts() {
+  storage.set("eb4000-contacts", CONTACTS);
+}
 
 function getFilteredContacts() {
   const query = searchInput.value.toLowerCase().trim();
@@ -974,6 +1043,7 @@ function getFilteredContacts() {
     return `${c.name} ${c.email} ${c.org} ${c.title}`.toLowerCase().includes(query);
   });
 }
+
 function renderContacts() {
   const contacts = getFilteredContacts();
   contactListEl.innerHTML = "";
@@ -1000,6 +1070,7 @@ function renderContacts() {
   updateBulkBar();
   updatePreviewDrawer();
 }
+
 function toggleSelect(email) {
   selectedEmails.has(email) ? selectedEmails.delete(email) : selectedEmails.add(email);
   renderContacts();
@@ -1007,6 +1078,17 @@ function toggleSelect(email) {
 function copySingleEmail(email) {
   navigator.clipboard.writeText(email).then(() => alert(`Copied: ${email}`));
 }
+
+function selectAllFiltered() {
+  const contacts = getFilteredContacts();
+  contacts.forEach(c => selectedEmails.add(c.email));
+  renderContacts();
+}
+function deselectAll() {
+  selectedEmails.clear();
+  renderContacts();
+}
+
 function updateBulkBar() {
   const count = selectedEmails.size;
   bulkBar.style.display = count ? "flex" : "none";
@@ -1015,6 +1097,8 @@ function updateBulkBar() {
 function updatePreviewDrawer() {
   previewDrawer.textContent = selectedEmails.size ? Array.from(selectedEmails).join("; ") : "No contacts selected.";
 }
+
+/* Filters and search */
 filterButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     filterButtons.forEach(b => b.classList.remove("active"));
@@ -1024,16 +1108,70 @@ filterButtons.forEach(btn => {
   });
 });
 searchInput.addEventListener("input", renderContacts);
+
+/* Selection / copy controls */
+selectAllBtn.addEventListener("click", () => selectAllFiltered());
+deselectAllBtn.addEventListener("click", () => deselectAll());
+copySelectedBtn.addEventListener("click", () => {
+  if (!selectedEmails.size) return;
+  navigator.clipboard.writeText(Array.from(selectedEmails).join("; ")).then(() =>
+    alert(`Copied ${selectedEmails.size} emails.`)
+  );
+});
 bulkCopyBtn.addEventListener("click", () => {
   if (!selectedEmails.size) return;
   navigator.clipboard.writeText(Array.from(selectedEmails).join("; ")).then(() =>
     alert(`Copied ${selectedEmails.size} emails.`)
   );
 });
-bulkClearBtn.addEventListener("click", () => {
-  selectedEmails.clear();
-  renderContacts();
+bulkClearBtn.addEventListener("click", () => deselectAll());
+
+/* ADD CONTACT */
+const addContactToggleBtn = document.getElementById("addContactToggleBtn");
+const addContactForm = document.getElementById("addContactForm");
+const addName = document.getElementById("addName");
+const addTitle = document.getElementById("addTitle");
+const addOrg = document.getElementById("addOrg");
+const addEmail = document.getElementById("addEmail");
+const addVertical = document.getElementById("addVertical");
+const addContactSave = document.getElementById("addContactSave");
+const addContactCancel = document.getElementById("addContactCancel");
+
+function toggleAddContactForm() {
+  const isOpen = addContactForm.style.display === "block";
+  addContactForm.style.display = isOpen ? "none" : "block";
+  if (!isOpen) addName.focus();
+}
+addContactToggleBtn.addEventListener("click", toggleAddContactForm);
+addContactCancel.addEventListener("click", () => {
+  addContactForm.style.display = "none";
 });
+
+function saveNewContact() {
+  const name = addName.value.trim();
+  const title = addTitle.value.trim();
+  const org = addOrg.value.trim();
+  const email = addEmail.value.trim();
+  const vertical = addVertical.value.trim() || "Other";
+  if (!name || !email) {
+    alert("Name and Email are required.");
+    return;
+  }
+  if (CONTACTS.some(c => c.email.toLowerCase() === email.toLowerCase())) {
+    alert("That email already exists in your list.");
+    return;
+  }
+  CONTACTS.push({ name, title, org, email, vertical });
+  persistContacts();
+  addName.value = "";
+  addTitle.value = "";
+  addOrg.value = "";
+  addEmail.value = "";
+  addVertical.value = "";
+  addContactForm.style.display = "none";
+  renderContacts();
+}
+addContactSave.addEventListener("click", saveNewContact);
 
 /* TOOLS */
 const notesArea = document.getElementById("notesArea");
@@ -1115,7 +1253,6 @@ focusOverlay.addEventListener("click", exitFocusMode);
 
 /* NAVIGATION */
 const navList = document.getElementById("navList");
-const contactsPanel = document.getElementById("contactsPanel");
 const notesSection = document.getElementById("notesSection");
 const tasksSection = document.getElementById("tasksSection");
 const templatesSection = document.getElementById("templatesSection");
@@ -1125,8 +1262,6 @@ function highlightSection(section) {
   if (section) {
     section.scrollIntoView({ behavior: "smooth", block: "start" });
     section.style.outline = "2px solid rgba(34,197,94,0.25)";
-  } else {
-    contactsPanel.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 }
 function switchView(view) {
@@ -1134,7 +1269,7 @@ function switchView(view) {
   else if (view === "tasks") highlightSection(tasksSection);
   else if (view === "templates") highlightSection(templatesSection);
   else if (view === "integrations") highlightSection(integrationsSection);
-  else highlightSection(null);
+  else window.scrollTo({top: 0, behavior: "smooth"});
 }
 navList.addEventListener("click", e => {
   const btn = e.target.closest(".nav-link");
@@ -1171,15 +1306,13 @@ document.addEventListener("keydown", e => {
     searchInput.select();
   }
   if (e.key === "Escape" && selectedEmails.size > 0) {
-    selectedEmails.clear();
-    renderContacts();
+    deselectAll();
   }
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "a") {
     e.preventDefault();
     const filtered = getFilteredContacts();
-    if (selectedEmails.size === filtered.length) selectedEmails.clear();
-    else filtered.forEach(c => selectedEmails.add(c.email));
-    renderContacts();
+    if (selectedEmails.size === filtered.length) deselectAll();
+    else selectAllFiltered();
   }
 });
 
@@ -1194,3 +1327,4 @@ document.addEventListener("keydown", e => {
 </script>
 </body>
 </html>
+
