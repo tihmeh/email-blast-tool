@@ -3,199 +3,978 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>🎄 Email Blaster 4000 🎅</title>
+<title>Email Blaster</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;600&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
-body{font-family:'Spectral',Georgia,serif;background:linear-gradient(135deg,#0d3b2e 0%,#1a5c44 50%,#0d3b2e 100%);color:#fff;height:100vh;overflow:hidden;padding:16px;position:relative}
-body::before{content:'❄️';position:absolute;top:0;left:0;width:100%;height:100%;font-size:20px;opacity:0.1;pointer-events:none;animation:snow 10s linear infinite}
-@keyframes snow{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
-.container{max-width:1400px;margin:0 auto;height:100%;display:flex;flex-direction:column}
-.header{text-align:center;margin-bottom:12px}
-.header h1{font-size:1.75rem;font-weight:400;color:#c41e3a;margin-bottom:2px;letter-spacing:0.02em;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}
-.header h1::before{content:'🎄 '}
-.header h1::after{content:' 🎅'}
-.header p{font-size:0.875rem;color:#ffd700;font-weight:300;letter-spacing:0.01em;text-shadow:1px 1px 2px rgba(0,0,0,0.3)}
-.action-bar{background:rgba(196,30,58,0.9);border:2px solid #ffd700;border-radius:16px;padding:12px 20px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 4px 12px rgba(0,0,0,0.3);backdrop-filter:blur(10px)}
-.stats{display:flex;gap:28px;align-items:center}
-.stat-item{display:flex;align-items:baseline;gap:8px}
-.stat-value{font-size:1.5rem;font-weight:400;color:#ffd700;line-height:1;letter-spacing:0.01em}
-.stat-label{font-size:0.875rem;color:#fff;font-weight:300;letter-spacing:0.01em}
-.btn{padding:10px 28px;border:none;border-radius:24px;font-size:0.875rem;font-weight:400;cursor:pointer;transition:all 0.25s ease;font-family:'Spectral',serif;letter-spacing:0.02em;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
-.btn-copy{background:#c41e3a;color:#fff;border:2px solid #ffd700}
-.btn-copy:hover{background:#a01830;transform:scale(1.05)}
-.btn-copy:active{transform:scale(0.95)}
-.btn-copy:disabled{background:#555;color:#999;border-color:#777;cursor:not-allowed;transform:none}
-.content{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;flex:1;min-height:0}
-.accordion{background:rgba(13,59,46,0.95);border:2px solid #ffd700;border-radius:16px;padding:0;box-shadow:0 4px 12px rgba(0,0,0,0.3);overflow:hidden;display:flex;flex-direction:column;backdrop-filter:blur(10px)}
-.accordion-header{padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:rgba(196,30,58,0.8);border-bottom:2px solid #ffd700;transition:all 0.2s}
-.accordion-header:hover{background:rgba(196,30,58,1)}
-.accordion-header h2{font-size:1rem;font-weight:500;color:#ffd700;letter-spacing:0.02em;margin:0}
-.accordion-header h2::before{content:'🎁 '}
-.accordion-icon{color:#ffd700;font-size:1.2rem;transition:transform 0.3s}
-.accordion.open .accordion-icon{transform:rotate(180deg)}
-.accordion-content{max-height:0;overflow:hidden;transition:max-height 0.3s ease;background:rgba(13,59,46,0.98)}
-.accordion.open .accordion-content{max-height:calc(100vh - 200px);overflow-y:auto;padding:16px}
-.accordion-content::-webkit-scrollbar{width:6px}
-.accordion-content::-webkit-scrollbar-track{background:transparent}
-.accordion-content::-webkit-scrollbar-thumb{background:#ffd700;border-radius:10px}
-.form-group{margin-bottom:10px}
-.form-group label{display:block;margin-bottom:6px;color:#ffd700;font-size:0.8125rem;font-weight:400;letter-spacing:0.01em}
-.form-group input{width:100%;padding:10px 14px;border:1px solid #ffd700;border-radius:10px;font-size:0.875rem;background:rgba(255,255,255,0.1);color:#fff;font-family:'Spectral',serif;transition:all 0.2s;letter-spacing:0.01em}
-.form-group input:focus{outline:none;border-color:#c41e3a;box-shadow:0 0 0 2px rgba(196,30,58,0.3);background:rgba(255,255,255,0.15)}
-.form-group input::placeholder{color:#aaa}
-.search-box{margin-bottom:12px}
-.search-box input{width:100%;padding:10px 14px 10px 38px;border:1px solid #ffd700;border-radius:10px;font-size:0.875rem;background:rgba(255,255,255,0.1) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23ffd700" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>') no-repeat 12px center;color:#fff;font-family:'Spectral',serif;transition:all 0.2s;letter-spacing:0.01em}
-.search-box input:focus{outline:none;border-color:#c41e3a;box-shadow:0 0 0 2px rgba(196,30,58,0.3);background-color:rgba(255,255,255,0.15);background-position:12px center}
-.search-box input::placeholder{color:#aaa}
-.btn-add{background:#c41e3a;color:#fff;width:100%;margin-top:8px;border-radius:10px;padding:11px;border:2px solid #ffd700}
-.btn-add:hover{background:#a01830;transform:scale(1.02)}
-.btn-add:active{transform:scale(0.98)}
-.filter-section{margin-bottom:12px}
-.filter-buttons{display:flex;gap:6px;flex-wrap:wrap}
-.filter-btn{padding:6px 14px;border:1px solid #ffd700;background:rgba(255,255,255,0.1);border-radius:20px;font-size:0.8125rem;cursor:pointer;transition:all 0.2s;color:#fff;font-weight:300;font-family:'Spectral',serif;letter-spacing:0.01em}
-.filter-btn:hover{background:rgba(255,255,255,0.2)}
-.filter-btn.active{background:#c41e3a;color:#ffd700;font-weight:400;border-color:#ffd700}
-.contacts-list{max-height:400px;overflow-y:auto;padding-right:6px}
-.contacts-list::-webkit-scrollbar{width:6px}
-.contacts-list::-webkit-scrollbar-track{background:transparent}
-.contacts-list::-webkit-scrollbar-thumb{background:#ffd700;border-radius:10px}
-.contact-item{background:rgba(255,255,255,0.1);border:2px solid #ffd700;border-radius:12px;padding:12px;margin-bottom:8px;cursor:pointer;transition:all 0.2s ease}
-.contact-item:hover{background:rgba(255,255,255,0.15);transform:scale(1.02);box-shadow:0 2px 8px rgba(255,215,0,0.3)}
-.contact-item:active{transform:scale(0.98)}
-.contact-item.selected{background:rgba(196,30,58,0.3);border:2px solid #c41e3a;box-shadow:0 0 12px rgba(196,30,58,0.6)}
-.contact-item-header{display:flex;align-items:center;gap:12px}
-.checkbox{width:20px;height:20px;border:2px solid #ffd700;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s}
-.contact-item.selected .checkbox{background:#c41e3a;border-color:#c41e3a}
-.checkmark{color:#ffd700;font-size:12px;display:none;font-weight:500}
-.contact-item.selected .checkmark{display:block}
-.contact-info{flex:1;min-width:0}
-.contact-name{font-weight:400;color:#fff;margin-bottom:3px;font-size:0.875rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0.01em}
-.contact-email{color:#ffd700;font-size:0.8125rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0.01em;font-weight:300}
-.contact-org{color:#ccc;font-size:0.75rem;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0.01em;font-weight:300}
-.empty-state{text-align:center;padding:32px 16px;color:#aaa}
-.empty-state svg{width:40px;height:40px;margin-bottom:12px;opacity:0.5;stroke:#ffd700}
-.empty-state p{font-size:0.8125rem;letter-spacing:0.01em;font-weight:300}
-.email-preview{background:rgba(255,255,255,0.05);border:2px solid #ffd700;border-radius:12px;padding:14px;font-family:ui-monospace,monospace;font-size:0.75rem;color:#fff;max-height:400px;overflow-y:auto;word-break:break-all;line-height:1.5;letter-spacing:0}
-.email-preview::-webkit-scrollbar{width:6px}
-.email-preview::-webkit-scrollbar-track{background:transparent}
-.email-preview::-webkit-scrollbar-thumb{background:#ffd700;border-radius:10px}
-.alert{position:fixed;top:16px;right:16px;background:rgba(196,30,58,0.95);border:2px solid #ffd700;color:#fff;padding:14px 20px;border-radius:12px;display:none;align-items:center;gap:12px;font-size:0.875rem;font-weight:400;box-shadow:0 4px 16px rgba(0,0,0,0.4);z-index:1000;letter-spacing:0.01em;backdrop-filter:blur(10px)}
-.alert.show{display:flex;animation:slideIn 0.3s ease}
-.alert-icon{width:24px;height:24px;background:#ffd700;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c41e3a;font-weight:600;font-size:14px;flex-shrink:0}
-@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
-.action-buttons{display:flex;gap:8px;margin-top:12px}
-.btn-select{background:rgba(255,255,255,0.1);border:2px solid #ffd700;color:#ffd700;flex:1;padding:10px 20px;font-size:0.8125rem;border-radius:10px}
-.btn-select:hover{background:rgba(255,255,255,0.2)}
-.btn-clear{background:rgba(196,30,58,0.3);border:2px solid #c41e3a;color:#fff;flex:1;padding:10px 20px;font-size:0.8125rem;border-radius:10px}
-.btn-clear:hover{background:rgba(196,30,58,0.5)}
-.import-section{margin-top:14px;padding-top:14px;border-top:2px solid #ffd700}
-.import-label{display:block;color:#ffd700;font-size:0.8125rem;font-weight:400;letter-spacing:0.01em;margin-bottom:10px}
-.file-input-wrapper{position:relative;overflow:hidden;display:inline-block;width:100%}
-.file-input-wrapper input[type=file]{position:absolute;left:-9999px}
-.btn-file{background:rgba(255,255,255,0.1);color:#fff;width:100%;padding:11px 16px;font-size:0.875rem;border:2px dashed #ffd700;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s}
-.btn-file:hover{background:rgba(255,255,255,0.2);border-color:#c41e3a}
-.scraper-section{margin-top:14px;padding-top:14px;border-top:2px solid #ffd700}
-.btn-scrape{background:#c41e3a;color:#fff;width:100%;margin-top:8px;border-radius:10px;padding:11px;border:2px solid #ffd700}
-.btn-scrape:hover{background:#a01830;transform:scale(1.02)}
-.scrape-results{margin-top:12px;max-height:120px;overflow-y:auto;background:rgba(255,255,255,0.05);border:2px solid #ffd700;border-radius:10px;padding:12px}
-.scrape-results::-webkit-scrollbar{width:4px}
-.scrape-results::-webkit-scrollbar-track{background:transparent}
-.scrape-results::-webkit-scrollbar-thumb{background:#ffd700;border-radius:10px}
-.scrape-item{font-size:0.8125rem;color:#aaa;padding:8px 0;border-bottom:1px solid #ffd700}
-.scrape-item:last-child{border-bottom:none}
-.scrape-name{color:#fff;font-weight:400;margin-bottom:2px;letter-spacing:0.01em}
-.scrape-email{color:#ffd700;font-size:0.75rem;letter-spacing:0.01em;font-weight:300}
-.loading{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-radius:50%;border-top-color:#fff;animation:spin 0.6s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.csv-hint{font-size:0.7rem;color:#aaa;margin-top:8px;line-height:1.4;letter-spacing:0.01em;font-weight:300}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",system-ui,sans-serif;
+  background:#f5f5f7;
+  color:#111827;
+  height:100vh;
+  overflow:hidden;
+  padding:16px;
+}
+.container{
+  max-width:1400px;
+  margin:0 auto;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+.header{
+  text-align:center;
+  margin-bottom:12px;
+}
+.header h1{
+  font-size:1.75rem;
+  font-weight:600;
+  color:#111827;
+  margin-bottom:2px;
+  letter-spacing:-0.01em;
+}
+.header p{
+  font-size:0.875rem;
+  color:#6b7280;
+  font-weight:400;
+}
+.action-bar{
+  background:#ffffff;
+  border-radius:18px;
+  padding:12px 20px;
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  box-shadow:0 10px 30px rgba(15,23,42,0.08);
+  border:1px solid rgba(148,163,184,0.35);
+}
+.stats{
+  display:flex;
+  gap:28px;
+  align-items:center;
+}
+.stat-item{
+  display:flex;
+  flex-direction:column;
+}
+.stat-value{
+  font-size:1.5rem;
+  font-weight:600;
+  color:#111827;
+  line-height:1.1;
+}
+.stat-label{
+  font-size:0.75rem;
+  color:#6b7280;
+  font-weight:500;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+}
+.btn{
+  padding:10px 24px;
+  border:none;
+  border-radius:999px;
+  font-size:0.875rem;
+  font-weight:500;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  font-family:inherit;
+  letter-spacing:0.01em;
+}
+.btn-primary{
+  background:#0a84ff;
+  color:#ffffff;
+  box-shadow:0 4px 14px rgba(10,132,255,0.35);
+}
+.btn-primary:hover{
+  background:#0066cc;
+  box-shadow:0 6px 18px rgba(10,132,255,0.45);
+  transform:translateY(-1px);
+}
+.btn-primary:active{
+  transform:translateY(0);
+  box-shadow:0 2px 8px rgba(10,132,255,0.3);
+}
+.btn-primary:disabled{
+  background:#e5e7eb;
+  color:#9ca3af;
+  box-shadow:none;
+  cursor:not-allowed;
+}
+.content{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  flex:1;
+  min-height:0;
+}
+.accordion{
+  background:#ffffff;
+  border-radius:18px;
+  padding:0;
+  box-shadow:0 10px 30px rgba(15,23,42,0.08);
+  border:1px solid rgba(148,163,184,0.35);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.accordion-header{
+  padding:14px 18px;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#f9fafb;
+  border-bottom:1px solid rgba(209,213,219,0.8);
+  transition:background 0.2s;
+}
+.accordion-header:hover{
+  background:#f3f4f6;
+}
+.accordion-header h2{
+  font-size:0.95rem;
+  font-weight:600;
+  color:#111827;
+  letter-spacing:0;
+  margin:0;
+}
+.accordion-icon{
+  color:#9ca3af;
+  font-size:1.2rem;
+  transition:transform 0.3s;
+}
+.accordion.open .accordion-icon{
+  transform:rotate(180deg);
+}
+.accordion-content{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.3s ease;
+  background:#ffffff;
+}
+.accordion.open .accordion-content{
+  max-height:calc(100vh - 200px);
+  overflow-y:auto;
+  padding:16px;
+}
+.accordion-content::-webkit-scrollbar{
+  width:6px;
+}
+.accordion-content::-webkit-scrollbar-track{
+  background:transparent;
+}
+.accordion-content::-webkit-scrollbar-thumb{
+  background:#d1d5db;
+  border-radius:10px;
+}
+.form-group{
+  margin-bottom:10px;
+}
+.form-group label{
+  display:block;
+  margin-bottom:4px;
+  color:#4b5563;
+  font-size:0.8rem;
+  font-weight:500;
+}
+.form-group input{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:0.875rem;
+  background:#f9fafb;
+  color:#111827;
+  font-family:inherit;
+  transition:all 0.15s;
+}
+.form-group input:focus{
+  outline:none;
+  border-color:#0a84ff;
+  box-shadow:0 0 0 2px rgba(10,132,255,0.2);
+  background:#ffffff;
+}
+.form-group input::placeholder{
+  color:#9ca3af;
+}
+.btn-add{
+  background:#0a84ff;
+  color:#ffffff;
+  width:100%;
+  margin-top:8px;
+  border-radius:12px;
+  border:none;
+  font-weight:500;
+}
+.btn-add:hover{
+  background:#0066cc;
+}
+.btn-add:active{
+  transform:translateY(1px);
+}
+.search-box{
+  margin-bottom:12px;
+}
+.search-box input{
+  width:100%;
+  padding:10px 14px 10px 34px;
+  border:1px solid #d1d5db;
+  border-radius:999px;
+  font-size:0.875rem;
+  background:#f9fafb url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%239ca3af" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>') no-repeat 10px center;
+  color:#111827;
+  font-family:inherit;
+}
+.search-box input:focus{
+  outline:none;
+  border-color:#0a84ff;
+  box-shadow:0 0 0 2px rgba(10,132,255,0.2);
+  background-color:#ffffff;
+}
+.search-box input::placeholder{
+  color:#9ca3af;
+}
+.filter-section{
+  margin-bottom:12px;
+}
+.filter-buttons{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.filter-btn{
+  padding:6px 14px;
+  border:1px solid #e5e7eb;
+  background:#f9fafb;
+  border-radius:999px;
+  font-size:0.8rem;
+  cursor:pointer;
+  transition:all 0.2s;
+  color:#4b5563;
+  font-weight:500;
+  font-family:inherit;
+}
+.filter-btn:hover{
+  background:#e5e7eb;
+}
+.filter-btn.active{
+  background:#0a84ff;
+  color:#ffffff;
+  border-color:#0a84ff;
+}
+.contacts-list{
+  max-height:400px;
+  overflow-y:auto;
+  padding-right:4px;
+}
+.contacts-list::-webkit-scrollbar{
+  width:6px;
+}
+.contacts-list::-webkit-scrollbar-track{
+  background:transparent;
+}
+.contacts-list::-webkit-scrollbar-thumb{
+  background:#d1d5db;
+  border-radius:10px;
+}
+.contact-item{
+  background:#f9fafb;
+  border-radius:12px;
+  padding:10px 12px;
+  margin-bottom:8px;
+  cursor:pointer;
+  transition:all 0.15s ease;
+  border:1px solid #e5e7eb;
+}
+.contact-item:hover{
+  background:#ffffff;
+  box-shadow:0 4px 12px rgba(148,163,184,0.25);
+  transform:translateY(-1px);
+}
+.contact-item:active{
+  transform:translateY(0);
+  box-shadow:0 2px 6px rgba(148,163,184,0.2);
+}
+.contact-item.selected{
+  background:#ecf4ff;
+  border:1px solid #0a84ff;
+  box-shadow:0 0 0 1px rgba(10,132,255,0.4);
+}
+.contact-item-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.checkbox{
+  width:20px;
+  height:20px;
+  border:2px solid #d1d5db;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  transition:all 0.15s;
+}
+.contact-item.selected .checkbox{
+  background:#0a84ff;
+  border-color:#0a84ff;
+}
+.checkmark{
+  color:#ffffff;
+  font-size:12px;
+  display:none;
+  font-weight:600;
+}
+.contact-item.selected .checkmark{
+  display:block;
+}
+.contact-info{
+  flex:1;
+  min-width:0;
+}
+.contact-name{
+  font-weight:600;
+  color:#111827;
+  margin-bottom:2px;
+  font-size:0.88rem;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.contact-email{
+  color:#0a84ff;
+  font-size:0.8rem;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.contact-org{
+  color:#6b7280;
+  font-size:0.75rem;
+  margin-top:2px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.empty-state{
+  text-align:center;
+  padding:32px 16px;
+  color:#9ca3af;
+}
+.empty-state svg{
+  width:40px;
+  height:40px;
+  margin-bottom:12px;
+  opacity:0.7;
+  stroke:#9ca3af;
+}
+.empty-state p{
+  font-size:0.8rem;
+}
+.email-preview{
+  background:#f9fafb;
+  border-radius:12px;
+  padding:14px;
+  font-family:ui-monospace,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  font-size:0.8rem;
+  color:#111827;
+  max-height:400px;
+  overflow-y:auto;
+  word-break:break-all;
+  line-height:1.5;
+}
+.email-preview::-webkit-scrollbar{
+  width:6px;
+}
+.email-preview::-webkit-scrollbar-track{
+  background:transparent;
+}
+.email-preview::-webkit-scrollbar-thumb{
+  background:#d1d5db;
+  border-radius:10px;
+}
+.alert{
+  position:fixed;
+  top:16px;
+  right:16px;
+  background:#111827;
+  border-radius:14px;
+  color:#ffffff;
+  padding:10px 14px;
+  display:none;
+  align-items:center;
+  gap:10px;
+  font-size:0.8rem;
+  font-weight:500;
+  box-shadow:0 12px 30px rgba(15,23,42,0.4);
+  z-index:1000;
+}
+.alert.show{
+  display:flex;
+  animation:slideIn 0.25s ease;
+}
+.alert-icon{
+  width:22px;
+  height:22px;
+  background:#0a84ff;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#ffffff;
+  font-weight:600;
+  font-size:12px;
+  flex-shrink:0;
+}
+@keyframes slideIn{
+  from{transform:translateX(200px);opacity:0}
+  to{transform:translateX(0);opacity:1}
+}
+.action-buttons{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+.btn-select,
+.btn-clear{
+  flex:1;
+  padding:10px 18px;
+  font-size:0.8rem;
+  border-radius:12px;
+  border:none;
+  font-weight:500;
+  cursor:pointer;
+  transition:all 0.15s;
+}
+.btn-select{
+  background:#f3f4f6;
+  color:#111827;
+}
+.btn-select:hover{
+  background:#e5e7eb;
+}
+.btn-clear{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+.btn-clear:hover{
+  background:#fecaca;
+}
+.import-section,
+.scraper-section{
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid #e5e7eb;
+}
+.import-label{
+  display:block;
+  color:#374151;
+  font-size:0.8rem;
+  font-weight:600;
+  margin-bottom:10px;
+}
+.file-input-wrapper{
+  position:relative;
+  overflow:hidden;
+  display:inline-block;
+  width:100%;
+}
+.file-input-wrapper input[type=file]{
+  position:absolute;
+  left:-9999px;
+}
+.btn-file{
+  background:#f9fafb;
+  color:#111827;
+  width:100%;
+  padding:11px 16px;
+  font-size:0.85rem;
+  border:1px dashed #d1d5db;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  cursor:pointer;
+  transition:all 0.15s;
+}
+.btn-file:hover{
+  background:#ffffff;
+  border-color:#0a84ff;
+}
+.btn-scrape{
+  background:#0a84ff;
+  color:#ffffff;
+  width:100%;
+  margin-top:8px;
+  border-radius:12px;
+  padding:11px;
+  border:none;
+  font-size:0.85rem;
+  font-weight:500;
+}
+.btn-scrape:hover{
+  background:#0066cc;
+}
+.scrape-results{
+  margin-top:12px;
+  max-height:120px;
+  overflow-y:auto;
+  background:#f9fafb;
+  border-radius:12px;
+  padding:12px;
+  border:1px solid #e5e7eb;
+}
+.scrape-results::-webkit-scrollbar{
+  width:4px;
+}
+.scrape-results::-webkit-scrollbar-track{
+  background:transparent;
+}
+.scrape-results::-webkit-scrollbar-thumb{
+  background:#d1d5db;
+  border-radius:10px;
+}
+.scrape-item{
+  font-size:0.8rem;
+  color:#4b5563;
+  padding:8px 0;
+  border-bottom:1px solid #e5e7eb;
+}
+.scrape-item:last-child{
+  border-bottom:none;
+}
+.scrape-name{
+  color:#111827;
+  font-weight:600;
+  margin-bottom:2px;
+}
+.scrape-email{
+  color:#0a84ff;
+  font-size:0.75rem;
+}
+.loading{
+  display:inline-block;
+  width:14px;
+  height:14px;
+  border:2px solid rgba(156,163,175,0.4);
+  border-radius:50%;
+  border-top-color:#111827;
+  animation:spin 0.6s linear infinite;
+}
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+.csv-hint{
+  font-size:0.7rem;
+  color:#9ca3af;
+  margin-top:8px;
+  line-height:1.4;
+}
+
+/* Simple responsive tweak */
+@media (max-width:1024px){
+  .content{
+    grid-template-columns:1fr;
+  }
+}
 </style>
 </head>
 <body>
 <div class="container">
-<div class="header">
-<h1>Email Blaster 4000</h1>
-<p>Ho Ho Ho! Merry Contact Management!</p>
+  <div class="header">
+    <h1>Email Blaster</h1>
+    <p>Lightweight contact management and bulk email export.</p>
+  </div>
+
+  <div id="alert" class="alert">
+    <div class="alert-icon">✓</div>
+    <span id="alert-message"></span>
+  </div>
+
+  <div class="action-bar">
+    <div class="stats">
+      <div class="stat-item">
+        <span class="stat-value" id="total-contacts">0</span>
+        <span class="stat-label">CONTACTS</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="selected-contacts">0</span>
+        <span class="stat-label">SELECTED</span>
+      </div>
+    </div>
+    <button id="copy-btn" class="btn btn-primary" disabled>Copy Emails</button>
+  </div>
+
+  <div class="content">
+    <!-- Add Contact -->
+    <div class="accordion" id="acc1">
+      <div class="accordion-header" onclick="toggleAccordion('acc1')">
+        <h2>Add Contact</h2>
+        <span class="accordion-icon">⌄</span>
+      </div>
+      <div class="accordion-content">
+        <form id="contact-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required placeholder="john@example.com">
+          </div>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" placeholder="Director of IT">
+          </div>
+          <div class="form-group">
+            <label for="organization">Organization</label>
+            <input type="text" id="organization" placeholder="Acme Corp">
+          </div>
+          <div class="form-group">
+            <label for="vertical">Category</label>
+            <input type="text" id="vertical" placeholder="K-12, Public Sector">
+          </div>
+          <button type="submit" class="btn btn-add">Add Contact</button>
+        </form>
+
+        <div class="import-section">
+          <label class="import-label">Import from CSV</label>
+          <div class="file-input-wrapper">
+            <input type="file" id="csv-upload" accept=".csv"/>
+            <button type="button" class="btn btn-file" onclick="document.getElementById('csv-upload').click()">
+              <span>Choose CSV File</span>
+            </button>
+          </div>
+          <p class="csv-hint">CSV format: name, email, title, organization, vertical</p>
+        </div>
+
+        <div class="scraper-section">
+          <label class="import-label">Quick Add from Organization</label>
+          <div class="form-group">
+            <input type="text" id="org-search" placeholder="City of Clearwater">
+          </div>
+          <button id="scrape-btn" class="btn btn-scrape">Search Directories</button>
+          <div id="scrape-results" style="display:none" class="scrape-results"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact List -->
+    <div class="accordion open" id="acc2">
+      <div class="accordion-header" onclick="toggleAccordion('acc2')">
+        <h2>Contact List</h2>
+        <span class="accordion-icon">⌄</span>
+      </div>
+      <div class="accordion-content">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Search contacts...">
+        </div>
+        <div class="filter-section">
+          <div class="filter-buttons">
+            <button type="button" class="filter-btn active" onclick="filterByVertical('All')">All</button>
+            <button type="button" class="filter-btn" onclick="filterByVertical('K-12')">K-12</button>
+            <button type="button" class="filter-btn" onclick="filterByVertical('Public Sector')">Public</button>
+            <button type="button" class="filter-btn" onclick="filterByVertical('Higher Education')">Higher Ed</button>
+            <button type="button" class="filter-btn" onclick="filterByVertical('Transit')">Transit</button>
+          </div>
+        </div>
+        <div id="contacts-container" class="contacts-list">
+          <div class="empty-state">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+              </path>
+            </svg>
+            <p>Loading contacts...</p>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button id="select-all-btn" class="btn-select">Select All</button>
+          <button id="clear-btn" class="btn-clear">Clear All</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Preview -->
+    <div class="accordion" id="acc3">
+      <div class="accordion-header" onclick="toggleAccordion('acc3')">
+        <h2>Email Preview</h2>
+        <span class="accordion-icon">⌄</span>
+      </div>
+      <div class="accordion-content">
+        <div id="email-preview" class="email-preview">No emails selected</div>
+      </div>
+    </div>
+  </div>
 </div>
-<div id="alert" class="alert"><div class="alert-icon">✓</div><span id="alert-message"></span></div>
-<div class="action-bar">
-<div class="stats">
-<div class="stat-item"><span class="stat-value" id="total-contacts">0</span><span class="stat-label">Contacts</span></div>
-<div class="stat-item"><span class="stat-value" id="selected-contacts">0</span><span class="stat-label">Selected</span></div>
-</div>
-<button id="copy-btn" class="btn btn-copy" disabled>🎁 Copy Emails</button>
-</div>
-<div class="content">
-<div class="accordion" id="acc1">
-<div class="accordion-header" onclick="toggle('acc1')"><h2>Add Contact</h2><span class="accordion-icon">🎄</span></div>
-<div class="accordion-content">
-<form id="contact-form">
-<div class="form-group"><label for="name">Name</label><input type="text" id="name" required placeholder="John Doe"></div>
-<div class="form-group"><label for="email">Email</label><input type="email" id="email" required placeholder="john@example.com"></div>
-<div class="form-group"><label for="title">Title</label><input type="text" id="title" placeholder="Director of IT"></div>
-<div class="form-group"><label for="organization">Organization</label><input type="text" id="organization" placeholder="Acme Corp"></div>
-<div class="form-group"><label for="vertical">Category</label><input type="text" id="vertical" placeholder="K-12, Public Sector"></div>
-<button type="submit" class="btn btn-add">🎅 Add Contact</button>
-</form>
-<div class="import-section">
-<label class="import-label">📥 Import from CSV</label>
-<div class="file-input-wrapper">
-<input type="file" id="csv-upload" accept=".csv"/>
-<button class="btn btn-file" onclick="document.getElementById('csv-upload').click()"><span>Choose File</span></button>
-</div>
-<p class="csv-hint">CSV format: name, email, title, organization, vertical</p>
-</div>
-<div class="scraper-section">
-<label class="import-label">🔍 Find Contacts</label>
-<div class="form-group"><input type="text" id="org-search" placeholder="City of Clearwater"></div>
-<button id="scrape-btn" class="btn btn-scrape">Search Directories</button>
-<div id="scrape-results" style="display:none" class="scrape-results"></div>
-</div>
-</div>
-</div>
-<div class="accordion open" id="acc2">
-<div class="accordion-header" onclick="toggle('acc2')"><h2>Contact List</h2><span class="accordion-icon">🎄</span></div>
-<div class="accordion-content">
-<div class="search-box"><input type="text" id="search-input" placeholder="Search contacts..."></div>
-<div class="filter-section">
-<div class="filter-buttons">
-<button class="filter-btn active" onclick="filterByVertical('All')">All</button>
-<button class="filter-btn" onclick="filterByVertical('K-12')">K-12</button>
-<button class="filter-btn" onclick="filterByVertical('Public Sector')">Public</button>
-<button class="filter-btn" onclick="filterByVertical('Higher Education')">Higher Ed</button>
-<button class="filter-btn" onclick="filterByVertical('Transit')">Transit</button>
-</div>
-</div>
-<div id="contacts-container" class="contacts-list">
-<div class="empty-state"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg><p>Loading contacts...</p></div>
-</div>
-<div class="action-buttons">
-<button id="select-all-btn" class="btn btn-select">Select All</button>
-<button id="clear-btn" class="btn btn-clear">Clear All</button>
-</div>
-</div>
-</div>
-<div class="accordion" id="acc3">
-<div class="accordion-header" onclick="toggle('acc3')"><h2>Email Preview</h2><span class="accordion-icon">🎄</span></div>
-<div class="accordion-content">
-<div id="email-preview" class="email-preview">No emails selected</div>
-</div>
-</div>
-</div>
-</div>
+
 <script>
-const D=[{name:"Sean Jowell",email:"jowells@pcsb.org",title:"Director Safety & Security",organization:"Pinellas County School District",vertical:"K-12"},{name:"Philip Martin",email:"philip.martin@sumter.k12.fl.us",title:"Director of Safety & Security",organization:"Sumter County Public Schools",vertical:"K-12"},{name:"Sarah Johnson",email:"sjohnson@stpete.org",title:"IT Manager",organization:"City of St. Petersburg",vertical:"Public Sector"},{name:"Michael Nagy",email:"mwilliams@dunedinfl.gov",title:"Director of IT",organization:"City of Dunedin",vertical:"Public Sector"},{name:"Ronbert Ignacio",email:"ronbert.ignacio@dunedin.gov",title:"IT Specialist",organization:"City of Dunedin",vertical:"Public Sector"},{name:"David Mather",email:"dmather@mygulfport.us",title:"Director of IT",organization:"City of Gulfport",vertical:"Public Sector"},{name:"Chris Pagan",email:"cpagan@mytreasureisland.org",title:"Director of IT",organization:"City of Treasure Island",vertical:"Public Sector"},{name:"Matthew Sabella",email:"msabella@myseminole.com",title:"Director of IT",organization:"City of Seminole",vertical:"Public Sector"},{name:"Alex Britton-Kant",email:"abrittonkant@mysouthpasadena.com",title:"Director of IT",organization:"City of S. Pasadena",vertical:"Public Sector"},{name:"Suzanne Linton",email:"slinton@ctsfl.us",title:"Director of IT",organization:"City of Tarpon Springs",vertical:"Public Sector"},{name:"Jessica Cinney",email:"cinneyj@eckerd.edu",title:"Director of Campus Safety & Security",organization:"Eckerd College",vertical:"Higher Education"},{name:"Walter Moore",email:"moorewr@eckerd.edu",title:"Director of IT",organization:"Eckerd College",vertical:"Higher Education"},{name:"Tonya Womack",email:"womacktm@eckerd.edu",title:"Risk Management & Safety",organization:"Eckerd College",vertical:"Higher Education"},{name:"Emmett Andrews",email:"eandrews@polk.edu",title:"Director of Safety & Security",organization:"Polk State College",vertical:"Higher Education"},{name:"Martin Gang",email:"mgang@polk.edu",title:"Director of Technology and IT",organization:"Polk State College",vertical:"Higher Education"},{name:"Jennifer Angelo",email:"jangelo@myindianshores.com",title:"Admin Assistant",organization:"Town of Indian Shores",vertical:"Public Sector"},{name:"Hansel Roush",email:"hroush@largo.com",title:"Director of IT",organization:"City of Largo",vertical:"Public Sector"},{name:"Tim Clark",email:"tclark@largo.com",title:"IT Admin",organization:"City of Largo",vertical:"Public Sector"},{name:"Missy Nevitt",email:"mnevitt@psta.net",title:"Superintendant of Facilities",organization:"PSTA",vertical:"Transit"}];
+const D=[
+  {name:"Sean Jowell",email:"jowells@pcsb.org",title:"Director Safety & Security",organization:"Pinellas County School District",vertical:"K-12"},
+  {name:"Philip Martin",email:"philip.martin@sumter.k12.fl.us",title:"Director of Safety & Security",organization:"Sumter County Public Schools",vertical:"K-12"},
+  {name:"Sarah Johnson",email:"sjohnson@stpete.org",title:"IT Manager",organization:"City of St. Petersburg",vertical:"Public Sector"},
+  {name:"Michael Nagy",email:"mwilliams@dunedinfl.gov",title:"Director of IT",organization:"City of Dunedin",vertical:"Public Sector"},
+  {name:"Ronbert Ignacio",email:"ronbert.ignacio@dunedin.gov",title:"IT Specialist",organization:"City of Dunedin",vertical:"Public Sector"},
+  {name:"David Mather",email:"dmather@mygulfport.us",title:"Director of IT",organization:"City of Gulfport",vertical:"Public Sector"},
+  {name:"Chris Pagan",email:"cpagan@mytreasureisland.org",title:"Director of IT",organization:"City of Treasure Island",vertical:"Public Sector"},
+  {name:"Matthew Sabella",email:"msabella@myseminole.com",title:"Director of IT",organization:"City of Seminole",vertical:"Public Sector"},
+  {name:"Alex Britton-Kant",email:"abrittonkant@mysouthpasadena.com",title:"Director of IT",organization:"City of S. Pasadena",vertical:"Public Sector"},
+  {name:"Suzanne Linton",email:"slinton@ctsfl.us",title:"Director of IT",organization:"City of Tarpon Springs",vertical:"Public Sector"},
+  {name:"Jessica Cinney",email:"cinneyj@eckerd.edu",title:"Director of Campus Safety & Security",organization:"Eckerd College",vertical:"Higher Education"},
+  {name:"Walter Moore",email:"moorewr@eckerd.edu",title:"Director of IT",organization:"Eckerd College",vertical:"Higher Education"},
+  {name:"Tonya Womack",email:"womacktm@eckerd.edu",title:"Risk Management & Safety",organization:"Eckerd College",vertical:"Higher Education"},
+  {name:"Emmett Andrews",email:"eandrews@polk.edu",title:"Director of Safety & Security",organization:"Polk State College",vertical:"Higher Education"},
+  {name:"Martin Gang",email:"mgang@polk.edu",title:"Director of Technology and IT",organization:"Polk State College",vertical:"Higher Education"},
+  {name:"Jennifer Angelo",email:"jangelo@myindianshores.com",title:"Admin Assistant",organization:"Town of Indian Shores",vertical:"Public Sector"},
+  {name:"Hansel Roush",email:"hroush@largo.com",title:"Director of IT",organization:"City of Largo",vertical:"Public Sector"},
+  {name:"Tim Clark",email:"tclark@largo.com",title:"IT Admin",organization:"City of Largo",vertical:"Public Sector"},
+  {name:"Missy Nevitt",email:"mnevitt@psta.net",title:"Superintendant of Facilities",organization:"PSTA",vertical:"Transit"}
+];
+
 let C=[],S=new Set(),F='All',Q='';
-const init=()=>{const s=localStorage.getItem('contacts');C=s?JSON.parse(s):[...D];save();render()},save=()=>localStorage.setItem('contacts',JSON.stringify(C)),render=()=>{const c=document.getElementById('contacts-container');let f=C;if(F!=='All')f=f.filter(x=>x.vertical===F);if(Q)f=f.filter(x=>x.name.toLowerCase().includes(Q)||x.email.toLowerCase().includes(Q)||x.title.toLowerCase().includes(Q)||x.organization.toLowerCase().includes(Q));c.innerHTML=f.length?f.map(x=>`<div class="contact-item ${S.has(x.email)?'selected':''}" onclick="toggleContact('${x.email.replace(/'/g,"\\'")}')"><div class="contact-item-header"><div class="checkbox"><span class="checkmark">✓</span></div><div class="contact-info"><div class="contact-name">${x.name}</div><div class="contact-email">${x.email}</div>${x.organization?`<div class="contact-org">${x.organization}</div>`:''}</div></div></div>`).join(''):'<div class="empty-state"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg><p>No contacts found</p></div>';upd()},upd=()=>{document.getElementById('total-contacts').textContent=C.length;document.getElementById('selected-contacts').textContent=S.size;document.getElementById('email-preview').textContent=S.size?Array.from(S).join('; '):'No emails selected';const b=document.getElementById('copy-btn'),s=document.getElementById('select-all-btn');b.disabled=!S.size;let f=C;if(F!=='All')f=C.filter(x=>x.vertical===F);if(Q)f=f.filter(x=>x.name.toLowerCase().includes(Q)||x.email.toLowerCase().includes(Q)||x.title.toLowerCase().includes(Q)||x.organization.toLowerCase().includes(Q));const e=new Set(f.map(x=>x.email)),a=Array.from(e).every(x=>S.has(x));s.textContent=a&&f.length?'Deselect All':'Select All'},toggleContact=e=>{S.has(e)?S.delete(e):S.add(e);render()},alert=m=>{const a=document.getElementById('alert'),t=document.getElementById('alert-message');t.textContent=m;a.classList.add('show');setTimeout(()=>a.classList.remove('show'),3000)};
-window.toggle=id=>{const a=document.getElementById(id);a.classList.toggle('open')};
-window.filterByVertical=v=>{F=v;document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.remove('active');if(b.textContent===v||(v==='All'&&b.textContent==='All'))b.classList.add('active')});render()};
-document.getElementById('search-input').addEventListener('input',e=>{Q=e.target.value.toLowerCase();render()});
-document.getElementById('contact-form').addEventListener('submit',e=>{e.preventDefault();C.push({name:document.getElementById('name').value,email:document.getElementById('email').value,title:document.getElementById('title').value,organization:document.getElementById('organization').value,vertical:document.getElementById('vertical').value});save();render();e.target.reset();alert('🎅 Contact added!')});
-document.getElementById('csv-upload').addEventListener('change',function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const l=ev.target.result.split('\n');let i=0;for(let j=1;j<l.length;j++){const ln=l[j].trim();if(!ln)continue;const p=ln.split(',').map(s=>s.trim().replace(/^"|"$/g,''));if(p.length>=2){const[n,em,t='',o='',v='']=p;if(!C.find(c=>c.email===em)){C.push({name:n,email:em,title:t,organization:o,vertical:v});i++}}}save();render();alert(`🎄 Imported ${i} contacts!`);e.target.value=''};r.readAsText(f)});
-document.getElementById('scrape-btn').addEventListener('click',function(){const o=document.getElementById('org-search').value.trim();if(!o){alert('🎅 Enter organization!');return}const b=this,r=document.getElementById('scrape-results');b.innerHTML='<span class="loading"></span> Searching...';b.disabled=true;r.style.display='block';r.innerHTML='<div style="text-align:center;color:#aaa;padding:10px">Searching...</div>';setTimeout(()=>{const m=[{name:"John Smith",email:"jsmith@"+o.toLowerCase().replace(/\s+/g,'')+".gov",title:"Director of IT",organization:o,vertical:"Public Sector"},{name:"Sarah Williams",email:"swilliams@"+o.toLowerCase().replace(/\s+/g,'')+".gov",title:"Director of Security",organization:o,vertical:"Public Sector"}];r.innerHTML=m.map(x=>`<div class="scrape-item"><div class="scrape-name">${x.name}</div><div class="scrape-email">${x.email}</div><div style="font-size:0.7rem;color:#aaa;margin-top:2px">${x.title}</div></div>`).join('');m.forEach(x=>{if(!C.find(c=>c.email===x.email))C.push(x)});save();render();alert(`🎁 Added ${m.length} contacts!`);b.innerHTML='Search Directories';b.disabled=false},2000)});
-document.getElementById('select-all-btn').addEventListener('click',()=>{let f=C;if(F!=='All')f=C.filter(x=>x.vertical===F);if(Q)f=f.filter(x=>x.name.toLowerCase().includes(Q)||x.email.toLowerCase().includes(Q)||x.title.toLowerCase().includes(Q)||x.organization.toLowerCase().includes(Q));const e=new Set(f.map(x=>x.email)),a=Array.from(e).every(x=>S.has(x));a?e.forEach(x=>S.delete(x)):e.forEach(x=>S.add(x));render()});
-document.getElementById('copy-btn').addEventListener('click',()=>{navigator.clipboard.writeText(Array.from(S).join('; ')).then(()=>alert(`🎁 Copied ${S.size} email${S.size>1?'s':''}!`))});
-document.getElementById('clear-btn').addEventListener('click',()=>{if(confirm('🎅 Delete all contacts?')){C=[];S.clear();save();render();alert('🎄 All cleared!')}});
+
+const init=()=>{
+  const stored=localStorage.getItem('contacts');
+  C=stored?JSON.parse(stored):[...D];
+  save();
+  render();
+};
+
+const save=()=>localStorage.setItem('contacts',JSON.stringify(C));
+
+const render=()=>{
+  const container=document.getElementById('contacts-container');
+  let filtered=[...C];
+
+  if(F!=='All'){
+    filtered=filtered.filter(x=>x.vertical===F);
+  }
+  if(Q){
+    filtered=filtered.filter(x=>
+      x.name.toLowerCase().includes(Q)||
+      x.email.toLowerCase().includes(Q)||
+      x.title.toLowerCase().includes(Q)||
+      x.organization.toLowerCase().includes(Q)
+    );
+  }
+
+  if(!filtered.length){
+    container.innerHTML=
+      '<div class="empty-state">'+
+      '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">'+
+      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>'+
+      '</svg><p>No contacts found</p></div>';
+  }else{
+    container.innerHTML=filtered.map(x=>`
+      <div class="contact-item ${S.has(x.email)?'selected':''}" onclick="toggleContact('${x.email.replace(/'/g,"\\'")}')">
+        <div class="contact-item-header">
+          <div class="checkbox">
+            <span class="checkmark">✓</span>
+          </div>
+          <div class="contact-info">
+            <div class="contact-name">${x.name}</div>
+            <div class="contact-email">${x.email}</div>
+            ${x.organization?`<div class="contact-org">${x.organization}</div>`:''}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+  updateStats();
+};
+
+const updateStats=()=>{
+  document.getElementById('total-contacts').textContent=C.length;
+  document.getElementById('selected-contacts').textContent=S.size;
+  document.getElementById('email-preview').textContent=
+    S.size?Array.from(S).join('; '):'No emails selected';
+
+  const copyBtn=document.getElementById('copy-btn');
+  const selectAllBtn=document.getElementById('select-all-btn');
+  copyBtn.disabled=!S.size;
+
+  let filtered=[...C];
+  if(F!=='All') filtered=filtered.filter(x=>x.vertical===F);
+  if(Q){
+    filtered=filtered.filter(x=>
+      x.name.toLowerCase().includes(Q)||
+      x.email.toLowerCase().includes(Q)||
+      x.title.toLowerCase().includes(Q)||
+      x.organization.toLowerCase().includes(Q)
+    );
+  }
+  const emails=new Set(filtered.map(x=>x.email));
+  const allSelected=Array.from(emails).every(x=>S.has(x));
+  selectAllBtn.textContent=allSelected&&filtered.length?'Deselect All':'Select All';
+};
+
+const toggleContact=email=>{
+  if(S.has(email)) S.delete(email);
+  else S.add(email);
+  render();
+};
+
+const showAlert=msg=>{
+  const alertEl=document.getElementById('alert');
+  const msgEl=document.getElementById('alert-message');
+  msgEl.textContent=msg;
+  alertEl.classList.add('show');
+  setTimeout(()=>alertEl.classList.remove('show'),2500);
+};
+
+window.toggleAccordion=id=>{
+  const el=document.getElementById(id);
+  el.classList.toggle('open');
+};
+
+window.filterByVertical=v=>{
+  F=v;
+  document.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.classList.remove('active');
+    if(btn.textContent===v || (v==='All' && btn.textContent==='All')){
+      btn.classList.add('active');
+    }
+  });
+  render();
+};
+
+document.getElementById('search-input').addEventListener('input',e=>{
+  Q=e.target.value.toLowerCase();
+  render();
+});
+
+document.getElementById('contact-form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const newContact={
+    name:document.getElementById('name').value.trim(),
+    email:document.getElementById('email').value.trim(),
+    title:document.getElementById('title').value.trim(),
+    organization:document.getElementById('organization').value.trim(),
+    vertical:document.getElementById('vertical').value.trim()
+  };
+  if(newContact.email && !C.find(c=>c.email===newContact.email)){
+    C.push(newContact);
+    save();
+    render();
+    e.target.reset();
+    showAlert('Contact added');
+  }else{
+    showAlert('Contact already exists or email is invalid');
+  }
+});
+
+document.getElementById('csv-upload').addEventListener('change',function(e){
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const lines=ev.target.result.split('\n');
+    let imported=0;
+    for(let i=1;i<lines.length;i++){
+      const line=lines[i].trim();
+      if(!line) continue;
+      const parts=line.split(',').map(s=>s.trim().replace(/^"|"$/g,''));
+      if(parts.length>=2){
+        const [name,email,title='',organization='',vertical='']=parts;
+        if(email && !C.find(c=>c.email===email)){
+          C.push({name,email,title,organization,vertical});
+          imported++;
+        }
+      }
+    }
+    save();
+    render();
+    showAlert(`Imported ${imported} contacts`);
+    e.target.value='';
+  };
+  reader.readAsText(file);
+});
+
+document.getElementById('scrape-btn').addEventListener('click',function(){
+  const org=document.getElementById('org-search').value.trim();
+  if(!org){
+    showAlert('Enter an organization name');
+    return;
+  }
+  const btn=this;
+  const results=document.getElementById('scrape-results');
+  btn.innerHTML='<span class="loading"></span> Searching...';
+  btn.disabled=true;
+  results.style.display='block';
+  results.innerHTML='<div style="text-align:center;color:#9ca3af;padding:10px">Searching...</div>';
+
+  setTimeout(()=>{
+    const mock=[
+      {name:"John Smith",email:"jsmith@"+org.toLowerCase().replace(/\s+/g,'')+".gov",title:"Director of IT",organization:org,vertical:"Public Sector"},
+      {name:"Sarah Williams",email:"swilliams@"+org.toLowerCase().replace(/\s+/g,'')+".gov",title:"Director of Security",organization:org,vertical:"Public Sector"}
+    ];
+    results.innerHTML=mock.map(x=>`
+      <div class="scrape-item">
+        <div class="scrape-name">${x.name}</div>
+        <div class="scrape-email">${x.email}</div>
+        <div style="font-size:0.7rem;color:#6b7280;margin-top:2px">${x.title}</div>
+      </div>
+    `).join('');
+    mock.forEach(x=>{
+      if(!C.find(c=>c.email===x.email)){
+        C.push(x);
+      }
+    });
+    save();
+    render();
+    showAlert(`Added ${mock.length} contacts`);
+    btn.innerHTML='Search Directories';
+    btn.disabled=false;
+  },1200);
+});
+
+document.getElementById('select-all-btn').addEventListener('click',()=>{
+  let filtered=[...C];
+  if(F!=='All') filtered=filtered.filter(x=>x.vertical===F);
+  if(Q){
+    filtered=filtered.filter(x=>
+      x.name.toLowerCase().includes(Q)||
+      x.email.toLowerCase().includes(Q)||
+      x.title.toLowerCase().includes(Q)||
+      x.organization.toLowerCase().includes(Q)
+    );
+  }
+  const emails=new Set(filtered.map(x=>x.email));
+  const allSelected=Array.from(emails).every(x=>S.has(x));
+  if(allSelected){
+    emails.forEach(x=>S.delete(x));
+  }else{
+    emails.forEach(x=>S.add(x));
+  }
+  render();
+});
+
+document.getElementById('copy-btn').addEventListener('click',()=>{
+  const text=Array.from(S).join('; ');
+  navigator.clipboard.writeText(text).then(()=>{
+    showAlert(`Copied ${S.size} email${S.size>1?'s':''}`);
+  });
+});
+
+document.getElementById('clear-btn').addEventListener('click',()=>{
+  if(confirm('Delete all contacts?')){
+    C=[];
+    S.clear();
+    save();
+    render();
+    showAlert('All contacts cleared');
+  }
+});
+
 init();
 </script>
 </body>
