@@ -3,243 +3,235 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Email Blaster</title>
+<title>Email Blaster 4000</title>
 
 <style>
-/* ===== Base Styles ===== */
+/* GLOBAL iPHONE STYLE */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #f4f4f4;
-  color: #1a1a1a;
-  padding: 16px;
-}
-.container {
-  max-width: 1200px;
-  margin: auto;
-}
-
-/* ===== Reusable ===== */
-.card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  margin-bottom: 12px;
+  background: #f2f2f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.btn {
-  padding: 10px 18px;
-  border-radius: 10px;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-}
-.btn-primary {
-  background: #123524;
-  color: #fff;
-}
-.btn-secondary {
-  background: #e6e6e6;
-  color: #123524;
+/* LOGIN SCREEN */
+#loginScreen {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 32px;
+  width: 320px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
-/* ===== Inputs ===== */
-input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
+#loginScreen h1 {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+#passwordInput {
+  padding: 12px;
+  border-radius: 12px;
   border: 1px solid #ccc;
-  margin-bottom: 10px;
-  font-size: 14px;
+  margin-bottom: 16px;
+  font-size: 16px;
 }
 
-/* ===== Contact List ===== */
-.contact {
-  padding: 10px;
-  background: #fafafa;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 8px;
+#loginBtn {
+  background: #123524;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 16px;
   cursor: pointer;
 }
-.contact.selected {
-  border-color: #123524;
-  background: #e4f3ea;
+
+/* MAIN APP */
+#app {
+  display: none;
+  width: 400px;
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 20px;
+  height: 90vh;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ===== Two Column Layout ===== */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-@media(max-width: 800px) {
-  .grid { grid-template-columns: 1fr; }
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
 }
 
-/* ===== Email Preview ===== */
-.preview {
-  background: #fff;
-  padding: 14px;
-  border-radius: 10px;
-  height: 200px;
+/* CONTACT LIST */
+.listContainer {
+  flex: 1;
   overflow-y: auto;
+  margin-top: 10px;
+  padding-right: 4px;
+}
+
+.contact {
+  padding: 12px;
+  background: #f9f9f9;
+  border-radius: 14px;
+  margin-bottom: 10px;
   border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.contact.selected {
+  background: #e8f4ee;
+  border-color: #123524;
+}
+
+/* BUTTONS */
+.btn {
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+.btn-green { background: #123524; color: white; }
+.btn-gray { background: #e3e3e8; color: #123524; }
+
+/* PREVIEW BOX */
+#preview {
+  background: #f8f8f8;
+  padding: 14px;
+  border-radius: 12px;
+  height: 100px;
+  margin-top: 10px;
   font-family: monospace;
   font-size: 13px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
 }
 </style>
 </head>
 <body>
-<div class="container">
 
-<h1>Email Blaster</h1>
-
-<!-- Summary Bar -->
-<div class="card">
-  <strong>Total Contacts:</strong> <span id="countTotal">0</span>  
-  &nbsp; | &nbsp;
-  <strong>Selected:</strong> <span id="countSelected">0</span>
-  <button id="copyBtn" class="btn btn-primary" style="float:right;">Copy Emails</button>
+<!-- LOGIN PAGE -->
+<div id="loginScreen">
+  <h1>🔐 Email Blaster 4000</h1>
+  <input id="passwordInput" type="password" placeholder="Enter Password">
+  <button id="loginBtn">Login</button>
+  <p style="font-size:13px;color:#888;margin-top:6px;">Hint: sales</p>
 </div>
 
-<div class="grid">
+<!-- MAIN APP -->
+<div id="app">
+  <div class="title">Email Blaster 4000</div>
 
-  <!-- Add Contact -->
-  <div class="card">
-    <h3>Add Contact</h3>
-    <input id="name" placeholder="Name">
-    <input id="email" placeholder="Email">
-    <input id="title" placeholder="Title">
-    <input id="org" placeholder="Organization">
-    <input id="cat" placeholder="Category (K-12, Public, etc)">
-    <button id="addBtn" class="btn btn-primary">Add</button>
-  </div>
+  <input id="search" placeholder="Search..." style="padding:12px;border-radius:12px;border:1px solid #ccc;margin-top:12px;width:100%;font-size:15px;">
 
-  <!-- Contact List -->
-  <div class="card">
-    <h3>Contacts</h3>
-    <input id="search" placeholder="Search...">
-    <div id="list"></div>
-    <button id="selectAll" class="btn btn-secondary">Select All</button>
-  </div>
+  <div class="listContainer" id="contactList"></div>
 
-</div>
+  <button id="selectAllBtn" class="btn btn-gray">Select All</button>
+  <button id="copyBtn" class="btn btn-green">Copy Emails</button>
 
-<!-- Email Preview -->
-<div class="card">
-  <h3>Email Preview</h3>
-  <div id="preview" class="preview">No emails selected</div>
-</div>
-
+  <div id="preview">No emails selected</div>
 </div>
 
 <script>
-/* ===== Preloaded Contacts (Your 19 contacts) ===== */
-let contacts = [
-  {name:"Sean Jowell", email:"jowells@pcsb.org", title:"Director Safety & Security", organization:"Pinellas County School District"},
-  {name:"Philip Martin", email:"philip.martin@sumter.k12.fl.us", title:"Director of Safety & Security", organization:"Sumter County Public Schools"},
-  {name:"Sarah Johnson", email:"sjohnson@stpete.org", title:"IT Manager", organization:"City of St. Petersburg"},
-  {name:"Michael Nagy", email:"mwilliams@dunedinfl.gov", title:"Director of IT", organization:"City of Dunedin"},
-  {name:"Ronbert Ignacio", email:"ronbert.ignacio@dunedin.gov", title:"IT Specialist", organization:"City of Dunedin"},
-  {name:"David Mather", email:"dmather@mygulfport.us", title:"Director of IT", organization:"City of Gulfport"},
-  {name:"Chris Pagan", email:"cpagan@mytreasureisland.org", title:"Director of IT", organization:"City of Treasure Island"},
-  {name:"Matthew Sabella", email:"msabella@myseminole.com", title:"Director of IT", organization:"City of Seminole"},
-  {name:"Alex Britton-Kant", email:"abrittonkant@mysouthpasadena.com", title:"Director of IT", organization:"City of S. Pasadena"},
-  {name:"Suzanne Linton", email:"slinton@ctsfl.us", title:"Director of IT", organization:"City of Tarpon Springs"},
-  {name:"Jessica Cinney", email:"cinneyj@eckerd.edu", title:"Director of Campus Safety & Security", organization:"Eckerd College"},
-  {name:"Walter Moore", email:"moorewr@eckerd.edu", title:"Director of IT", organization:"Eckerd College"},
-  {name:"Tonya Womack", email:"womacktm@eckerd.edu", title:"Risk Management & Safety", organization:"Eckerd College"},
-  {name:"Emmett Andrews", email:"eandrews@polk.edu", title:"Director of Safety & Security", organization:"Polk State College"},
-  {name:"Martin Gang", email:"mgang@polk.edu", title:"Director of Technology and IT", organization:"Polk State College"},
-  {name:"Jennifer Angelo", email:"jangelo@myindianshores.com", title:"Admin Assistant", organization:"Town of Indian Shores"},
-  {name:"Hansel Roush", email:"hroush@largo.com", title:"Director of IT", organization:"City of Largo"},
-  {name:"Tim Clark", email:"tclark@largo.com", title:"IT Admin", organization:"City of Largo"},
-  {name:"Missy Nevitt", email:"mnevitt@psta.net", title:"Superintendant of Facilities", organization:"PSTA"}
-];
+/* LOGIN */
+document.getElementById("loginBtn").onclick = () => {
+  if (document.getElementById("passwordInput").value === "sales") {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("app").style.display = "flex";
+  } else {
+    alert("Incorrect password.");
+  }
+};
 
-/* LocalStorage Sync */
-if (!localStorage.getItem("contacts")) {
-  localStorage.setItem("contacts", JSON.stringify(contacts));
-}
-contacts = JSON.parse(localStorage.getItem("contacts"));
+/* CONTACT DATA */
+let contacts = [
+  {name:"Sean Jowell", email:"jowells@pcsb.org"},
+  {name:"Philip Martin", email:"philip.martin@sumter.k12.fl.us"},
+  {name:"Sarah Johnson", email:"sjohnson@stpete.org"},
+  {name:"Michael Nagy", email:"mwilliams@dunedinfl.gov"},
+  {name:"Ronbert Ignacio", email:"ronbert.ignacio@dunedin.gov"},
+  {name:"David Mather", email:"dmather@mygulfport.us"},
+  {name:"Chris Pagan", email:"cpagan@mytreasureisland.org"},
+  {name:"Matthew Sabella", email:"msabella@myseminole.com"},
+  {name:"Alex Britton-Kant", email:"abrittonkant@mysouthpasadena.com"},
+  {name:"Suzanne Linton", email:"slinton@ctsfl.us"},
+  {name:"Jessica Cinney", email:"cinneyj@eckerd.edu"},
+  {name:"Walter Moore", email:"moorewr@eckerd.edu"},
+  {name:"Tonya Womack", email:"womacktm@eckerd.edu"},
+  {name:"Emmett Andrews", email:"eandrews@polk.edu"},
+  {name:"Martin Gang", email:"mgang@polk.edu"},
+  {name:"Jennifer Angelo", email:"jangelo@myindianshores.com"},
+  {name:"Hansel Roush", email:"hroush@largo.com"},
+  {name:"Tim Clark", email:"tclark@largo.com"},
+  {name:"Missy Nevitt", email:"mnevitt@psta.net"}
+];
 
 let selected = new Set();
 
-/* ===== Render ===== */
-function render() {
-  const list = document.getElementById("list");
+/* RENDER CONTACT LIST */
+function renderContacts() {
+  const list = document.getElementById("contactList");
   const search = document.getElementById("search").value.toLowerCase();
-
   list.innerHTML = "";
 
   contacts
-    .filter(c =>
-      c.name.toLowerCase().includes(search) ||
-      c.email.toLowerCase().includes(search)
-    )
+    .filter(c => c.name.toLowerCase().includes(search) || c.email.toLowerCase().includes(search))
     .forEach(c => {
       const div = document.createElement("div");
       div.className = "contact" + (selected.has(c.email) ? " selected" : "");
       div.textContent = `${c.name} – ${c.email}`;
-      div.onclick = () => toggleSelect(c.email);
+      div.onclick = () => toggle(c.email);
       list.appendChild(div);
     });
 
-  document.getElementById("countTotal").textContent = contacts.length;
-  document.getElementById("countSelected").textContent = selected.size;
-
-  const preview = document.getElementById("preview");
-  preview.textContent = selected.size
-    ? Array.from(selected).join("; ")
-    : "No emails selected";
+  updatePreview();
 }
 
-/* ===== Select Toggle ===== */
-function toggleSelect(email) {
+/* TOGGLE SELECT */
+function toggle(email) {
   selected.has(email) ? selected.delete(email) : selected.add(email);
-  render();
+  renderContacts();
 }
 
-/* ===== Add Contact ===== */
-document.getElementById("addBtn").onclick = () => {
-  const c = {
-    name: name.value.trim(),
-    email: email.value.trim(),
-    title: title.value.trim(),
-    organization: org.value.trim(),
-    category: cat.value.trim()
-  };
-  if (!c.email) return alert("Email required");
-  if (contacts.find(x => x.email === c.email)) return alert("Already exists");
-
-  contacts.push(c);
-  localStorage.setItem("contacts", JSON.stringify(contacts));
-  [name, email, title, org, cat].forEach(i => (i.value = ""));
-  render();
+/* SELECT ALL */
+document.getElementById("selectAllBtn").onclick = () => {
+  if (selected.size === contacts.length) selected.clear();
+  else contacts.forEach(c => selected.add(c.email));
+  renderContacts();
 };
 
-/* ===== Copy Emails ===== */
+/* COPY EMAILS */
 document.getElementById("copyBtn").onclick = () => {
   navigator.clipboard.writeText(Array.from(selected).join("; "));
   alert("Copied!");
 };
 
-/* ===== Select All ===== */
-document.getElementById("selectAll").onclick = () => {
-  if (selected.size === contacts.length)
-    selected.clear();
-  else
-    contacts.forEach(c => selected.add(c.email));
-  render();
-};
+/* LIVE SEARCH */
+document.getElementById("search").oninput = renderContacts;
 
-/* ===== Search ===== */
-document.getElementById("search").oninput = render;
+/* PREVIEW */
+function updatePreview() {
+  document.getElementById("preview").textContent =
+    selected.size ? Array.from(selected).join("; ") : "No emails selected";
+}
 
-/* Initial Render */
-render();
+/* INITIAL LOAD */
+renderContacts();
 </script>
 </body>
 </html>
+
