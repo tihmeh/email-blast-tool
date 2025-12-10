@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Blaster 4000</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
 
         * {
             margin: 0;
@@ -14,12 +14,13 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0a0e27;
-            color: #e2e8f0;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #fef3c7 100%);
+            color: #1e293b;
             height: 100vh;
             overflow: hidden;
             padding: 20px;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
@@ -37,8 +38,8 @@
 
         .header h1 {
             font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-weight: 600;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -53,15 +54,18 @@
         }
 
         .action-bar {
-            background: rgba(100, 116, 139, 0.05);
-            border: 1px solid rgba(100, 116, 139, 0.1);
-            border-radius: 12px;
-            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 16px 24px;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
         }
 
         .stats {
@@ -78,8 +82,11 @@
 
         .stat-value {
             font-size: 1.75rem;
-            font-weight: 700;
-            color: #667eea;
+            font-weight: 600;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1;
         }
 
@@ -90,31 +97,35 @@
         }
 
         .btn {
-            padding: 10px 24px;
+            padding: 12px 28px;
             border: none;
-            border-radius: 8px;
+            border-radius: 14px;
             font-size: 0.875rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
             letter-spacing: -0.2px;
         }
 
         .btn-copy {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
         }
 
         .btn-copy:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-copy:active {
+            transform: translateY(0);
         }
 
         .btn-copy:disabled {
-            background: rgba(100, 116, 139, 0.2);
-            color: #64748b;
+            background: linear-gradient(135deg, #cbd5e1 0%, #e2e8f0 100%);
+            color: #94a3b8;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
@@ -122,53 +133,55 @@
 
         .content {
             display: grid;
-            grid-template-columns: 320px 1fr 380px;
+            grid-template-columns: 360px 1fr 400px;
             gap: 20px;
             flex: 1;
             min-height: 0;
         }
 
         .card {
-            background: rgba(100, 116, 139, 0.05);
-            border: 1px solid rgba(100, 116, 139, 0.1);
-            border-radius: 12px;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 24px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             min-height: 0;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
         }
 
         .card h2 {
-            font-size: 1rem;
+            font-size: 1.125rem;
             font-weight: 600;
-            color: #e2e8f0;
-            margin-bottom: 15px;
+            color: #1e293b;
+            margin-bottom: 18px;
             letter-spacing: -0.3px;
         }
 
         .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 4px;
-            color: #94a3b8;
-            font-size: 0.75rem;
+            margin-bottom: 6px;
+            color: #475569;
+            font-size: 0.8rem;
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: -0.1px;
         }
 
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 8px 12px;
-            border: 1px solid rgba(100, 116, 139, 0.2);
-            border-radius: 6px;
-            font-size: 0.875rem;
-            background: rgba(15, 23, 42, 0.5);
-            color: #e2e8f0;
-            font-family: 'Inter', sans-serif;
+            padding: 12px 16px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e293b;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
             transition: all 0.2s;
         }
 
@@ -179,59 +192,68 @@
 
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
-            background: rgba(15, 23, 42, 0.8);
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
         }
 
         .form-group input::placeholder, .form-group textarea::placeholder {
-            color: #475569;
+            color: #94a3b8;
         }
 
         .btn-add {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             color: white;
             width: 100%;
             margin-top: 8px;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+            border-radius: 14px;
+            padding: 12px;
         }
 
         .btn-add:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-add:active {
+            transform: translateY(0);
         }
 
         .filter-section {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .filter-buttons {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 6px 12px;
-            border: 1px solid rgba(100, 116, 139, 0.2);
-            background: rgba(15, 23, 42, 0.5);
-            border-radius: 6px;
-            font-size: 0.75rem;
+            padding: 8px 16px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.2s;
-            color: #94a3b8;
+            color: #475569;
             font-weight: 500;
-            font-family: 'Inter', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
         }
 
         .filter-btn:hover {
-            border-color: #667eea;
-            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.9);
+            border-color: #3b82f6;
+            color: #3b82f6;
         }
 
         .filter-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             color: white;
             border-color: transparent;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
         }
 
         .contacts-list {
@@ -242,54 +264,57 @@
         }
 
         .contacts-list::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
 
         .contacts-list::-webkit-scrollbar-track {
-            background: rgba(100, 116, 139, 0.05);
-            border-radius: 3px;
+            background: rgba(148, 163, 184, 0.1);
+            border-radius: 10px;
         }
 
         .contacts-list::-webkit-scrollbar-thumb {
-            background: rgba(100, 116, 139, 0.3);
-            border-radius: 3px;
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 10px;
         }
 
         .contacts-list::-webkit-scrollbar-thumb:hover {
-            background: rgba(100, 116, 139, 0.5);
+            background: rgba(148, 163, 184, 0.5);
         }
 
         .contact-item {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(100, 116, 139, 0.2);
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 10px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .contact-item:hover {
-            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(59, 130, 246, 0.3);
             transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .contact-item.selected {
-            background: rgba(102, 126, 234, 0.1);
-            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-color: #3b82f6;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
         }
 
         .contact-item-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .checkbox {
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(100, 116, 139, 0.4);
-            border-radius: 4px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(148, 163, 184, 0.4);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -298,13 +323,13 @@
         }
 
         .contact-item.selected .checkbox {
-            background: #667eea;
-            border-color: #667eea;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-color: transparent;
         }
 
         .checkmark {
             color: white;
-            font-size: 11px;
+            font-size: 12px;
             display: none;
             font-weight: 700;
         }
@@ -320,17 +345,17 @@
 
         .contact-name {
             font-weight: 600;
-            color: #e2e8f0;
-            margin-bottom: 2px;
-            font-size: 0.875rem;
+            color: #1e293b;
+            margin-bottom: 3px;
+            font-size: 0.9rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .contact-email {
-            color: #667eea;
-            font-size: 0.75rem;
+            color: #3b82f6;
+            font-size: 0.8rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -338,8 +363,8 @@
 
         .contact-org {
             color: #64748b;
-            font-size: 0.7rem;
-            margin-top: 2px;
+            font-size: 0.75rem;
+            margin-top: 3px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -348,68 +373,85 @@
         .empty-state {
             text-align: center;
             padding: 40px 20px;
-            color: #64748b;
+            color: #94a3b8;
         }
 
         .empty-state svg {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             margin-bottom: 12px;
             opacity: 0.4;
+            stroke: #3b82f6;
         }
 
         .empty-state p {
-            font-size: 0.875rem;
+            font-size: 0.9rem;
         }
 
         .email-preview {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(100, 116, 139, 0.2);
-            border-radius: 8px;
-            padding: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.75rem;
-            color: #94a3b8;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 16px;
+            padding: 18px;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #475569;
             flex: 1;
             overflow-y: auto;
             word-break: break-all;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .email-preview::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
 
         .email-preview::-webkit-scrollbar-track {
-            background: rgba(100, 116, 139, 0.05);
-            border-radius: 3px;
+            background: rgba(148, 163, 184, 0.1);
+            border-radius: 10px;
         }
 
         .email-preview::-webkit-scrollbar-thumb {
-            background: rgba(100, 116, 139, 0.3);
-            border-radius: 3px;
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 10px;
         }
 
         .alert {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #1e293b;
+            padding: 16px 24px;
+            border-radius: 16px;
             display: none;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-size: 0.875rem;
             font-weight: 500;
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             z-index: 1000;
         }
 
         .alert.show {
             display: flex;
-            animation: slideIn 0.3s ease;
+            animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .alert-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
         }
 
         @keyframes slideIn {
@@ -425,49 +467,54 @@
 
         .action-buttons {
             display: flex;
-            gap: 8px;
-            margin-top: 12px;
+            gap: 10px;
+            margin-top: 14px;
         }
 
         .btn-select {
-            background: rgba(100, 116, 139, 0.2);
-            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.7);
+            color: #475569;
             flex: 1;
-            padding: 8px 16px;
-            font-size: 0.75rem;
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            border-radius: 14px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
         }
 
         .btn-select:hover {
-            background: rgba(100, 116, 139, 0.3);
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #3b82f6;
+            color: #3b82f6;
         }
 
         .btn-clear {
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
             flex: 1;
-            padding: 8px 16px;
-            font-size: 0.75rem;
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            border-radius: 14px;
             border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
         .btn-clear:hover {
-            background: rgba(239, 68, 68, 0.2);
+            background: rgba(239, 68, 68, 0.15);
+            border-color: #ef4444;
         }
 
         .import-section {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(100, 116, 139, 0.2);
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(148, 163, 184, 0.15);
         }
 
         .import-label {
             display: block;
-            color: #94a3b8;
-            font-size: 0.75rem;
+            color: #475569;
+            font-size: 0.8rem;
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            letter-spacing: -0.1px;
+            margin-bottom: 10px;
         }
 
         .file-input-wrapper {
@@ -483,50 +530,59 @@
         }
 
         .btn-file {
-            background: rgba(100, 116, 139, 0.2);
-            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.7);
+            color: #475569;
             width: 100%;
-            padding: 10px 16px;
+            padding: 12px 20px;
             font-size: 0.875rem;
-            border: 1px dashed rgba(100, 116, 139, 0.4);
+            border: 1.5px dashed rgba(148, 163, 184, 0.4);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
+            transition: all 0.2s;
         }
 
         .btn-file:hover {
-            background: rgba(100, 116, 139, 0.3);
-            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #3b82f6;
+            color: #3b82f6;
         }
 
         .scraper-section {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(100, 116, 139, 0.2);
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(148, 163, 184, 0.15);
         }
 
         .btn-scrape {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
             color: white;
             width: 100%;
             margin-top: 8px;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
+            border-radius: 14px;
+            padding: 12px;
         }
 
         .btn-scrape:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-scrape:active {
+            transform: translateY(0);
         }
 
         .scrape-results {
             margin-top: 12px;
             max-height: 150px;
             overflow-y: auto;
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(100, 116, 139, 0.2);
-            border-radius: 6px;
-            padding: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 12px;
+            padding: 12px;
         }
 
         .scrape-results::-webkit-scrollbar {
@@ -534,20 +590,20 @@
         }
 
         .scrape-results::-webkit-scrollbar-track {
-            background: rgba(100, 116, 139, 0.05);
-            border-radius: 3px;
+            background: rgba(148, 163, 184, 0.1);
+            border-radius: 10px;
         }
 
         .scrape-results::-webkit-scrollbar-thumb {
-            background: rgba(100, 116, 139, 0.3);
-            border-radius: 3px;
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 10px;
         }
 
         .scrape-item {
-            font-size: 0.75rem;
-            color: #94a3b8;
-            padding: 4px 0;
-            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+            font-size: 0.8rem;
+            color: #64748b;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
         }
 
         .scrape-item:last-child {
@@ -555,18 +611,20 @@
         }
 
         .scrape-name {
-            color: #e2e8f0;
+            color: #1e293b;
             font-weight: 500;
+            margin-bottom: 2px;
         }
 
         .scrape-email {
-            color: #667eea;
+            color: #3b82f6;
+            font-size: 0.75rem;
         }
 
         .loading {
             display: inline-block;
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top-color: white;
@@ -575,6 +633,13 @@
 
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+
+        .csv-hint {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-top: 8px;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -586,7 +651,7 @@
         </div>
 
         <div id="alert" class="alert">
-            <span>✓</span>
+            <div class="alert-icon">✓</div>
             <span id="alert-message"></span>
         </div>
 
@@ -641,7 +706,7 @@
                             <span>Choose CSV File</span>
                         </button>
                     </div>
-                    <p style="font-size: 0.7rem; color: #64748b; margin-top: 6px;">CSV format: name,email,title,organization,vertical</p>
+                    <p class="csv-hint">CSV format: name,email,title,organization,vertical</p>
                 </div>
 
                 <!-- Public Directory Scraper -->
@@ -743,7 +808,6 @@
                 const lines = csv.split('\n');
                 let imported = 0;
                 
-                // Skip header row, parse data rows
                 for (let i = 1; i < lines.length; i++) {
                     const line = lines[i].trim();
                     if (!line) continue;
@@ -752,7 +816,6 @@
                     if (parts.length >= 2) {
                         const [name, email, title = '', organization = '', vertical = ''] = parts;
                         
-                        // Check for duplicate
                         if (!contacts.find(c => c.email === email)) {
                             contacts.push({ name, email, title, organization, vertical });
                             imported++;
@@ -763,12 +826,12 @@
                 saveContacts();
                 renderContacts();
                 showAlert(`Imported ${imported} new contacts!`);
-                e.target.value = ''; // Reset file input
+                e.target.value = '';
             };
             reader.readAsText(file);
         });
 
-        // Public Directory Scraper (Demo/Mock)
+        // Public Directory Scraper
         document.getElementById('scrape-btn').addEventListener('click', function() {
             const orgName = document.getElementById('org-search').value.trim();
             if (!orgName) {
@@ -779,21 +842,17 @@
             const btn = this;
             const resultsDiv = document.getElementById('scrape-results');
             
-            // Show loading
             btn.innerHTML = '<span class="loading"></span> Searching...';
             btn.disabled = true;
             resultsDiv.style.display = 'block';
-            resultsDiv.innerHTML = '<div style="text-align: center; color: #64748b; padding: 10px;">Searching public directories...</div>';
+            resultsDiv.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 10px;">Searching public directories...</div>';
 
-            // Simulate API call (in real version, this would hit a backend service)
             setTimeout(() => {
-                // Mock results based on Pinellas County area
                 const mockResults = [
                     { name: "John Smith", email: "jsmith@" + orgName.toLowerCase().replace(/\s+/g, '') + ".gov", title: "Director of IT", organization: orgName, vertical: "Public Sector" },
                     { name: "Sarah Williams", email: "swilliams@" + orgName.toLowerCase().replace(/\s+/g, '') + ".gov", title: "Director of Security", organization: orgName, vertical: "Public Sector" }
                 ];
 
-                // Display results
                 if (mockResults.length > 0) {
                     resultsDiv.innerHTML = mockResults.map((result, i) => `
                         <div class="scrape-item">
@@ -803,7 +862,6 @@
                         </div>
                     `).join('');
 
-                    // Auto-add results
                     mockResults.forEach(result => {
                         if (!contacts.find(c => c.email === result.email)) {
                             contacts.push(result);
@@ -814,7 +872,7 @@
                     renderContacts();
                     showAlert(`Found and added ${mockResults.length} contacts!`);
                 } else {
-                    resultsDiv.innerHTML = '<div style="text-align: center; color: #64748b; padding: 10px;">No contacts found. Try a different organization.</div>';
+                    resultsDiv.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 10px;">No contacts found.</div>';
                 }
 
                 btn.innerHTML = 'Search Public Directories';
