@@ -89,7 +89,6 @@ input {
   font-family: monospace;
   font-size: 13px;
 }
-
 </style>
 </head>
 <body>
@@ -137,8 +136,35 @@ input {
 </div>
 
 <script>
-/* ===== Data ===== */
-let contacts = JSON.parse(localStorage.getItem("contacts") || "[]");
+/* ===== Preloaded Contacts (Your 19 contacts) ===== */
+let contacts = [
+  {name:"Sean Jowell", email:"jowells@pcsb.org", title:"Director Safety & Security", organization:"Pinellas County School District"},
+  {name:"Philip Martin", email:"philip.martin@sumter.k12.fl.us", title:"Director of Safety & Security", organization:"Sumter County Public Schools"},
+  {name:"Sarah Johnson", email:"sjohnson@stpete.org", title:"IT Manager", organization:"City of St. Petersburg"},
+  {name:"Michael Nagy", email:"mwilliams@dunedinfl.gov", title:"Director of IT", organization:"City of Dunedin"},
+  {name:"Ronbert Ignacio", email:"ronbert.ignacio@dunedin.gov", title:"IT Specialist", organization:"City of Dunedin"},
+  {name:"David Mather", email:"dmather@mygulfport.us", title:"Director of IT", organization:"City of Gulfport"},
+  {name:"Chris Pagan", email:"cpagan@mytreasureisland.org", title:"Director of IT", organization:"City of Treasure Island"},
+  {name:"Matthew Sabella", email:"msabella@myseminole.com", title:"Director of IT", organization:"City of Seminole"},
+  {name:"Alex Britton-Kant", email:"abrittonkant@mysouthpasadena.com", title:"Director of IT", organization:"City of S. Pasadena"},
+  {name:"Suzanne Linton", email:"slinton@ctsfl.us", title:"Director of IT", organization:"City of Tarpon Springs"},
+  {name:"Jessica Cinney", email:"cinneyj@eckerd.edu", title:"Director of Campus Safety & Security", organization:"Eckerd College"},
+  {name:"Walter Moore", email:"moorewr@eckerd.edu", title:"Director of IT", organization:"Eckerd College"},
+  {name:"Tonya Womack", email:"womacktm@eckerd.edu", title:"Risk Management & Safety", organization:"Eckerd College"},
+  {name:"Emmett Andrews", email:"eandrews@polk.edu", title:"Director of Safety & Security", organization:"Polk State College"},
+  {name:"Martin Gang", email:"mgang@polk.edu", title:"Director of Technology and IT", organization:"Polk State College"},
+  {name:"Jennifer Angelo", email:"jangelo@myindianshores.com", title:"Admin Assistant", organization:"Town of Indian Shores"},
+  {name:"Hansel Roush", email:"hroush@largo.com", title:"Director of IT", organization:"City of Largo"},
+  {name:"Tim Clark", email:"tclark@largo.com", title:"IT Admin", organization:"City of Largo"},
+  {name:"Missy Nevitt", email:"mnevitt@psta.net", title:"Superintendant of Facilities", organization:"PSTA"}
+];
+
+/* LocalStorage Sync */
+if (!localStorage.getItem("contacts")) {
+  localStorage.setItem("contacts", JSON.stringify(contacts));
+}
+contacts = JSON.parse(localStorage.getItem("contacts"));
+
 let selected = new Set();
 
 /* ===== Render ===== */
@@ -182,8 +208,8 @@ document.getElementById("addBtn").onclick = () => {
     name: name.value.trim(),
     email: email.value.trim(),
     title: title.value.trim(),
-    org: org.value.trim(),
-    cat: cat.value.trim()
+    organization: org.value.trim(),
+    category: cat.value.trim()
   };
   if (!c.email) return alert("Email required");
   if (contacts.find(x => x.email === c.email)) return alert("Already exists");
