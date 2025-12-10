@@ -8,18 +8,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
 body{font-family:'Spectral',Georgia,serif;background:#f5f5f7;color:#1d1d1f;height:100vh;overflow:hidden;padding:16px}
-.container{max-w:1600px;margin:0 auto;height:100%;display:flex;flex-direction:column}
+.container{max-width:1600px;margin:0 auto;height:100%;display:flex;flex-direction:column}
 .header{text-align:center;margin-bottom:16px}
-.header h1{font-size:1.75rem;font-weight:400;color:#d97706;margin-bottom:2px;letter-spacing:0.02em}
+.header h1{font-size:1.75rem;font-weight:400;color:#123524;margin-bottom:2px;letter-spacing:0.02em}
 .header p{font-size:0.875rem;color:#86868b;font-weight:300;letter-spacing:0.01em}
 .action-bar{background:#fff;border:2px solid #123524;border-radius:16px;padding:12px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 2px 8px rgba(18,53,36,0.06)}
 .stats{display:flex;gap:28px;align-items:center}
 .stat-item{display:flex;align-items:baseline;gap:8px}
-.stat-value{font-size:1.5rem;font-weight:400;color:#d97706;line-height:1;letter-spacing:0.01em}
+.stat-value{font-size:1.5rem;font-weight:400;color:#123524;line-height:1;letter-spacing:0.01em}
 .stat-label{font-size:0.875rem;color:#86868b;font-weight:300;letter-spacing:0.01em}
 .btn{padding:10px 28px;border:none;border-radius:24px;font-size:0.875rem;font-weight:400;cursor:pointer;transition:all 0.25s ease;font-family:'Spectral',serif;letter-spacing:0.02em}
-.btn-copy{background:#d97706;color:#fff}
-.btn-copy:hover{background:#c2670c;transform:scale(1.01)}
+.btn-copy{background:#123524;color:#fff}
+.btn-copy:hover{background:#1a4d33;transform:scale(1.01)}
 .btn-copy:active{transform:scale(0.99)}
 .btn-copy:disabled{background:#e5e5e7;color:#86868b;cursor:not-allowed;transform:none}
 .content{display:grid;grid-template-columns:320px 1fr 360px;gap:16px;flex:1;min-height:0}
@@ -31,13 +31,17 @@ body{font-family:'Spectral',Georgia,serif;background:#f5f5f7;color:#1d1d1f;heigh
 .form-group input{width:100%;padding:10px 14px;border:1px solid #123524;border-radius:10px;font-size:0.875rem;background:#fff;color:#1d1d1f;font-family:'Spectral',serif;transition:all 0.2s;letter-spacing:0.01em}
 .form-group input:focus{outline:none;border-color:#d97706;box-shadow:0 0 0 2px rgba(217,119,6,0.1)}
 .form-group input::placeholder{color:#86868b}
-.btn-add{background:#d97706;color:#fff;width:100%;margin-top:8px;border-radius:10px;padding:11px}
-.btn-add:hover{background:#c2670c;transform:scale(1.01)}
+.search-box{margin-bottom:14px}
+.search-box input{width:100%;padding:10px 14px 10px 38px;border:1px solid #123524;border-radius:10px;font-size:0.875rem;background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23123524" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>') no-repeat 12px center;color:#1d1d1f;font-family:'Spectral',serif;transition:all 0.2s;letter-spacing:0.01em}
+.search-box input:focus{outline:none;border-color:#d97706;box-shadow:0 0 0 2px rgba(217,119,6,0.1)}
+.search-box input::placeholder{color:#86868b}
+.btn-add{background:#123524;color:#fff;width:100%;margin-top:8px;border-radius:10px;padding:11px}
+.btn-add:hover{background:#1a4d33;transform:scale(1.01)}
 .filter-section{margin-bottom:12px}
 .filter-buttons{display:flex;gap:6px;flex-wrap:wrap}
 .filter-btn{padding:6px 14px;border:1px solid #123524;background:#fff;border-radius:20px;font-size:0.8125rem;cursor:pointer;transition:all 0.2s;color:#1d1d1f;font-weight:300;font-family:'Spectral',serif;letter-spacing:0.01em}
 .filter-btn:hover{background:#f5f5f7}
-.filter-btn.active{background:#d97706;color:#fff;font-weight:400;border-color:#d97706}
+.filter-btn.active{background:#123524;color:#fff;font-weight:400;border-color:#123524}
 .contacts-list{flex:1;overflow-y:auto;min-height:0;padding-right:6px}
 .contacts-list::-webkit-scrollbar{width:6px}
 .contacts-list::-webkit-scrollbar-track{background:transparent}
@@ -63,7 +67,7 @@ body{font-family:'Spectral',Georgia,serif;background:#f5f5f7;color:#1d1d1f;heigh
 .email-preview::-webkit-scrollbar-thumb{background:#123524;border-radius:10px}
 .alert{position:fixed;top:16px;right:16px;background:#fff;border:2px solid #123524;color:#1d1d1f;padding:14px 20px;border-radius:12px;display:none;align-items:center;gap:12px;font-size:0.875rem;font-weight:400;box-shadow:0 4px 16px rgba(18,53,36,0.1);z-index:1000;letter-spacing:0.01em}
 .alert.show{display:flex;animation:slideIn 0.3s ease}
-.alert-icon{width:24px;height:24px;background:#d97706;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:500;font-size:14px}
+.alert-icon{width:24px;height:24px;background:#123524;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:500;font-size:14px}
 @keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
 .action-buttons{display:flex;gap:8px;margin-top:12px}
 .btn-select{background:#fff;border:2px solid #123524;color:#1d1d1f;flex:1;padding:10px 20px;font-size:0.8125rem;border-radius:10px}
@@ -77,8 +81,8 @@ body{font-family:'Spectral',Georgia,serif;background:#f5f5f7;color:#1d1d1f;heigh
 .btn-file{background:#fff;color:#1d1d1f;width:100%;padding:11px 16px;font-size:0.875rem;border:2px dashed #123524;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s}
 .btn-file:hover{background:#f5f5f7;border-color:#d97706;color:#d97706}
 .scraper-section{margin-top:16px;padding-top:16px;border-top:2px solid #123524}
-.btn-scrape{background:#d97706;color:#fff;width:100%;margin-top:8px;border-radius:10px;padding:11px}
-.btn-scrape:hover{background:#c2670c;transform:scale(1.01)}
+.btn-scrape{background:#123524;color:#fff;width:100%;margin-top:8px;border-radius:10px;padding:11px}
+.btn-scrape:hover{background:#1a4d33;transform:scale(1.01)}
 .scrape-results{margin-top:12px;max-height:120px;overflow-y:auto;background:#fff;border:2px solid #123524;border-radius:10px;padding:12px}
 .scrape-results::-webkit-scrollbar{width:4px}
 .scrape-results::-webkit-scrollbar-track{background:transparent}
@@ -134,6 +138,9 @@ body{font-family:'Spectral',Georgia,serif;background:#f5f5f7;color:#1d1d1f;heigh
 </div>
 <div class="card">
 <h2>Contact List</h2>
+<div class="search-box">
+<input type="text" id="search-input" placeholder="Search contacts...">
+</div>
 <div class="filter-section">
 <div class="filter-buttons">
 <button class="filter-btn active" onclick="filterByVertical('All')">All</button>
@@ -159,13 +166,14 @@ body{font-family:'Spectral',Georgia,serif;background:#f5f5f7;color:#1d1d1f;heigh
 </div>
 <script>
 const D=[{name:"Sean Jowell",email:"jowells@pcsb.org",title:"Director Safety & Security",organization:"Pinellas County School District",vertical:"K-12"},{name:"Philip Martin",email:"philip.martin@sumter.k12.fl.us",title:"Director of Safety & Security",organization:"Sumter County Public Schools",vertical:"K-12"},{name:"Sarah Johnson",email:"sjohnson@stpete.org",title:"IT Manager",organization:"City of St. Petersburg",vertical:"Public Sector"},{name:"Michael Nagy",email:"mwilliams@dunedinfl.gov",title:"Director of IT",organization:"City of Dunedin",vertical:"Public Sector"},{name:"Ronbert Ignacio",email:"ronbert.ignacio@dunedin.gov",title:"IT Specialist",organization:"City of Dunedin",vertical:"Public Sector"},{name:"David Mather",email:"dmather@mygulfport.us",title:"Director of IT",organization:"City of Gulfport",vertical:"Public Sector"},{name:"Chris Pagan",email:"cpagan@mytreasureisland.org",title:"Director of IT",organization:"City of Treasure Island",vertical:"Public Sector"},{name:"Matthew Sabella",email:"msabella@myseminole.com",title:"Director of IT",organization:"City of Seminole",vertical:"Public Sector"},{name:"Alex Britton-Kant",email:"abrittonkant@mysouthpasadena.com",title:"Director of IT",organization:"City of S. Pasadena",vertical:"Public Sector"},{name:"Suzanne Linton",email:"slinton@ctsfl.us",title:"Director of IT",organization:"City of Tarpon Springs",vertical:"Public Sector"},{name:"Jessica Cinney",email:"cinneyj@eckerd.edu",title:"Director of Campus Safety & Security",organization:"Eckerd College",vertical:"Higher Education"},{name:"Walter Moore",email:"moorewr@eckerd.edu",title:"Director of IT",organization:"Eckerd College",vertical:"Higher Education"},{name:"Tonya Womack",email:"womacktm@eckerd.edu",title:"Risk Management & Safety",organization:"Eckerd College",vertical:"Higher Education"},{name:"Emmett Andrews",email:"eandrews@polk.edu",title:"Director of Safety & Security",organization:"Polk State College",vertical:"Higher Education"},{name:"Martin Gang",email:"mgang@polk.edu",title:"Director of Technology and IT",organization:"Polk State College",vertical:"Higher Education"},{name:"Jennifer Angelo",email:"jangelo@myindianshores.com",title:"Admin Assistant",organization:"Town of Indian Shores",vertical:"Public Sector"},{name:"Hansel Roush",email:"hroush@largo.com",title:"Director of IT",organization:"City of Largo",vertical:"Public Sector"},{name:"Tim Clark",email:"tclark@largo.com",title:"IT Admin",organization:"City of Largo",vertical:"Public Sector"},{name:"Missy Nevitt",email:"mnevitt@psta.net",title:"Superintendant of Facilities",organization:"PSTA",vertical:"Transit"}];
-let C=[],S=new Set(),F='All';
-const init=()=>{const s=localStorage.getItem('contacts');C=s?JSON.parse(s):[...D];save();render()},save=()=>localStorage.setItem('contacts',JSON.stringify(C)),render=()=>{const c=document.getElementById('contacts-container');let f=C;if(F!=='All')f=C.filter(x=>x.vertical===F);c.innerHTML=f.length?f.map(x=>`<div class="contact-item ${S.has(x.email)?'selected':''}" onclick="toggle('${x.email.replace(/'/g,"\\'")}')"><div class="contact-item-header"><div class="checkbox"><span class="checkmark">✓</span></div><div class="contact-info"><div class="contact-name">${x.name}</div><div class="contact-email">${x.email}</div>${x.organization?`<div class="contact-org">${x.organization}</div>`:''}</div></div></div>`).join(''):'<div class="empty-state"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg><p>No contacts</p></div>';upd()},upd=()=>{document.getElementById('total-contacts').textContent=C.length;document.getElementById('selected-contacts').textContent=S.size;document.getElementById('email-preview').textContent=S.size?Array.from(S).join('; '):'No emails selected';const b=document.getElementById('copy-btn'),s=document.getElementById('select-all-btn');b.disabled=!S.size;let f=C;if(F!=='All')f=C.filter(x=>x.vertical===F);const e=new Set(f.map(x=>x.email)),a=Array.from(e).every(x=>S.has(x));s.textContent=a&&f.length?'Deselect All':'Select All'},toggle=e=>{S.has(e)?S.delete(e):S.add(e);render()},alert=m=>{const a=document.getElementById('alert'),t=document.getElementById('alert-message');t.textContent=m;a.classList.add('show');setTimeout(()=>a.classList.remove('show'),3000)};
+let C=[],S=new Set(),F='All',Q='';
+const init=()=>{const s=localStorage.getItem('contacts');C=s?JSON.parse(s):[...D];save();render()},save=()=>localStorage.setItem('contacts',JSON.stringify(C)),render=()=>{const c=document.getElementById('contacts-container');let f=C;if(F!=='All')f=f.filter(x=>x.vertical===F);if(Q)f=f.filter(x=>x.name.toLowerCase().includes(Q)||x.email.toLowerCase().includes(Q)||x.title.toLowerCase().includes(Q)||x.organization.toLowerCase().includes(Q));c.innerHTML=f.length?f.map(x=>`<div class="contact-item ${S.has(x.email)?'selected':''}" onclick="toggle('${x.email.replace(/'/g,"\\'")}')"><div class="contact-item-header"><div class="checkbox"><span class="checkmark">✓</span></div><div class="contact-info"><div class="contact-name">${x.name}</div><div class="contact-email">${x.email}</div>${x.organization?`<div class="contact-org">${x.organization}</div>`:''}</div></div></div>`).join(''):'<div class="empty-state"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg><p>No contacts found</p></div>';upd()},upd=()=>{document.getElementById('total-contacts').textContent=C.length;document.getElementById('selected-contacts').textContent=S.size;document.getElementById('email-preview').textContent=S.size?Array.from(S).join('; '):'No emails selected';const b=document.getElementById('copy-btn'),s=document.getElementById('select-all-btn');b.disabled=!S.size;let f=C;if(F!=='All')f=C.filter(x=>x.vertical===F);if(Q)f=f.filter(x=>x.name.toLowerCase().includes(Q)||x.email.toLowerCase().includes(Q)||x.title.toLowerCase().includes(Q)||x.organization.toLowerCase().includes(Q));const e=new Set(f.map(x=>x.email)),a=Array.from(e).every(x=>S.has(x));s.textContent=a&&f.length?'Deselect All':'Select All'},toggle=e=>{S.has(e)?S.delete(e):S.add(e);render()},alert=m=>{const a=document.getElementById('alert'),t=document.getElementById('alert-message');t.textContent=m;a.classList.add('show');setTimeout(()=>a.classList.remove('show'),3000)};
 window.filterByVertical=v=>{F=v;document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.remove('active');if(b.textContent===v||(v==='All'&&b.textContent==='All'))b.classList.add('active')});render()};
+document.getElementById('search-input').addEventListener('input',e=>{Q=e.target.value.toLowerCase();render()});
 document.getElementById('contact-form').addEventListener('submit',e=>{e.preventDefault();C.push({name:document.getElementById('name').value,email:document.getElementById('email').value,title:document.getElementById('title').value,organization:document.getElementById('organization').value,vertical:document.getElementById('vertical').value});save();render();e.target.reset();alert('Contact added')});
 document.getElementById('csv-upload').addEventListener('change',function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const l=ev.target.result.split('\n');let i=0;for(let j=1;j<l.length;j++){const ln=l[j].trim();if(!ln)continue;const p=ln.split(',').map(s=>s.trim().replace(/^"|"$/g,''));if(p.length>=2){const[n,em,t='',o='',v='']=p;if(!C.find(c=>c.email===em)){C.push({name:n,email:em,title:t,organization:o,vertical:v});i++}}}save();render();alert(`Imported ${i} contacts`);e.target.value=''};r.readAsText(f)});
 document.getElementById('scrape-btn').addEventListener('click',function(){const o=document.getElementById('org-search').value.trim();if(!o){alert('Enter organization');return}const b=this,r=document.getElementById('scrape-results');b.innerHTML='<span class="loading"></span> Searching...';b.disabled=true;r.style.display='block';r.innerHTML='<div style="text-align:center;color:#86868b;padding:10px">Searching...</div>';setTimeout(()=>{const m=[{name:"John Smith",email:"jsmith@"+o.toLowerCase().replace(/\s+/g,'')+".gov",title:"Director of IT",organization:o,vertical:"Public Sector"},{name:"Sarah Williams",email:"swilliams@"+o.toLowerCase().replace(/\s+/g,'')+".gov",title:"Director of Security",organization:o,vertical:"Public Sector"}];r.innerHTML=m.map(x=>`<div class="scrape-item"><div class="scrape-name">${x.name}</div><div class="scrape-email">${x.email}</div><div style="font-size:0.7rem;color:#86868b;margin-top:2px">${x.title}</div></div>`).join('');m.forEach(x=>{if(!C.find(c=>c.email===x.email))C.push(x)});save();render();alert(`Added ${m.length} contacts`);b.innerHTML='Search Directories';b.disabled=false},2000)});
-document.getElementById('select-all-btn').addEventListener('click',()=>{let f=C;if(F!=='All')f=C.filter(x=>x.vertical===F);const e=new Set(f.map(x=>x.email)),a=Array.from(e).every(x=>S.has(x));a?e.forEach(x=>S.delete(x)):e.forEach(x=>S.add(x));render()});
+document.getElementById('select-all-btn').addEventListener('click',()=>{let f=C;if(F!=='All')f=C.filter(x=>x.vertical===F);if(Q)f=f.filter(x=>x.name.toLowerCase().includes(Q)||x.email.toLowerCase().includes(Q)||x.title.toLowerCase().includes(Q)||x.organization.toLowerCase().includes(Q));const e=new Set(f.map(x=>x.email)),a=Array.from(e).every(x=>S.has(x));a?e.forEach(x=>S.delete(x)):e.forEach(x=>S.add(x));render()});
 document.getElementById('copy-btn').addEventListener('click',()=>{navigator.clipboard.writeText(Array.from(S).join('; ')).then(()=>alert(`Copied ${S.size} email${S.size>1?'s':''}`))});
 document.getElementById('clear-btn').addEventListener('click',()=>{if(confirm('Delete all contacts?')){C=[];S.clear();save();render();alert('Cleared')}});
 init();
