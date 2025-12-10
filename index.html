@@ -2,88 +2,91 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Email Blaster 4000</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;600&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
-body{font-family:'Spectral',Georgia,serif;background:#f5f5f7;color:#1d1d1f;height:100vh;overflow:hidden;padding:16px}
-.container{max-width:1600px;margin:0 auto;height:100%;display:flex;flex-direction:column}
-.header{text-align:center;margin-bottom:16px}
-.header h1{font-size:1.75rem;font-weight:400;color:#123524;margin-bottom:2px;letter-spacing:0.02em}
-.header p{font-size:0.875rem;color:#86868b;font-weight:300;letter-spacing:0.01em}
-.action-bar{background:#fff;border:2px solid #123524;border-radius:16px;padding:12px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 2px 8px rgba(18,53,36,0.06)}
-.stats{display:flex;gap:28px;align-items:center}
-.stat-item{display:flex;align-items:baseline;gap:8px}
-.stat-value{font-size:1.5rem;font-weight:400;color:#123524;line-height:1;letter-spacing:0.01em}
-.stat-label{font-size:0.875rem;color:#86868b;font-weight:300;letter-spacing:0.01em}
-.btn{padding:10px 28px;border:none;border-radius:24px;font-size:0.875rem;font-weight:400;cursor:pointer;transition:all 0.25s ease;font-family:'Spectral',serif;letter-spacing:0.02em}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+body{font-family:'Spectral',Georgia,serif;background:#f5f5f7;color:#1d1d1f;min-height:100vh;overflow-x:hidden;padding:12px}
+.container{max-width:1600px;margin:0 auto;display:flex;flex-direction:column}
+.header{text-align:center;margin-bottom:12px}
+.header h1{font-size:1.5rem;font-weight:400;color:#123524;margin-bottom:2px;letter-spacing:0.02em}
+.header p{font-size:0.75rem;color:#86868b;font-weight:300;letter-spacing:0.01em}
+.action-bar{background:#fff;border:2px solid #123524;border-radius:16px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 2px 8px rgba(18,53,36,0.06);flex-wrap:wrap}
+.stats{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.stat-item{display:flex;align-items:baseline;gap:6px}
+.stat-value{font-size:1.25rem;font-weight:400;color:#123524;line-height:1;letter-spacing:0.01em}
+.stat-label{font-size:0.75rem;color:#86868b;font-weight:300;letter-spacing:0.01em}
+.btn{padding:10px 24px;border:none;border-radius:24px;font-size:0.875rem;font-weight:400;cursor:pointer;transition:all 0.25s ease;font-family:'Spectral',serif;letter-spacing:0.02em;white-space:nowrap}
 .btn-copy{background:#123524;color:#fff}
-.btn-copy:hover{background:#1a4d33;transform:scale(1.01)}
-.btn-copy:active{transform:scale(0.99)}
-.btn-copy:disabled{background:#e5e5e7;color:#86868b;cursor:not-allowed;transform:none}
-.content{display:grid;grid-template-columns:320px 1fr 360px;gap:16px;flex:1;min-height:0}
-@media(max-width:768px){.content{grid-template-columns:1fr;gap:12px}}
-.card{background:#fff;border:2px solid #123524;border-radius:16px;padding:20px;display:flex;flex-direction:column;min-height:0;box-shadow:0 2px 8px rgba(18,53,36,0.06)}
-.card h2{font-size:1.125rem;font-weight:500;color:#1d1d1f;margin-bottom:16px;letter-spacing:0.02em}
-.form-group{margin-bottom:12px}
-.form-group label{display:block;margin-bottom:6px;color:#1d1d1f;font-size:0.8125rem;font-weight:400;letter-spacing:0.01em}
-.form-group input{width:100%;padding:10px 14px;border:1px solid #123524;border-radius:10px;font-size:0.875rem;background:#fff;color:#1d1d1f;font-family:'Spectral',serif;transition:all 0.2s;letter-spacing:0.01em}
+.btn-copy:active{background:#1a4d33;transform:scale(0.95)}
+.btn-copy:disabled{background:#e5e5e7;color:#86868b;cursor:not-allowed}
+.content{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:768px){.content{grid-template-columns:320px 1fr 360px;gap:16px}}
+.card{background:#fff;border:2px solid #123524;border-radius:16px;padding:16px;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(18,53,36,0.06);margin-bottom:12px}
+@media(min-width:768px){.card{margin-bottom:0}}
+.card h2{font-size:1rem;font-weight:500;color:#1d1d1f;margin-bottom:14px;letter-spacing:0.02em}
+.form-group{margin-bottom:10px}
+.form-group label{display:block;margin-bottom:6px;color:#1d1d1f;font-size:0.75rem;font-weight:400;letter-spacing:0.01em}
+.form-group input{width:100%;padding:12px 14px;border:1px solid #123524;border-radius:10px;font-size:0.875rem;background:#fff;color:#1d1d1f;font-family:'Spectral',serif;transition:all 0.2s;letter-spacing:0.01em}
 .form-group input:focus{outline:none;border-color:#d97706;box-shadow:0 0 0 2px rgba(217,119,6,0.1)}
 .form-group input::placeholder{color:#86868b}
-.search-box{margin-bottom:14px}
-.search-box input{width:100%;padding:10px 14px 10px 38px;border:1px solid #123524;border-radius:10px;font-size:0.875rem;background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23123524" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>') no-repeat 12px center;color:#1d1d1f;font-family:'Spectral',serif;transition:all 0.2s;letter-spacing:0.01em}
+.search-box{margin-bottom:12px}
+.search-box input{width:100%;padding:12px 14px 12px 40px;border:1px solid #123524;border-radius:10px;font-size:0.875rem;background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23123524" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>') no-repeat 12px center;color:#1d1d1f;font-family:'Spectral',serif;transition:all 0.2s;letter-spacing:0.01em}
 .search-box input:focus{outline:none;border-color:#d97706;box-shadow:0 0 0 2px rgba(217,119,6,0.1)}
 .search-box input::placeholder{color:#86868b}
-.btn-add{background:#123524;color:#fff;width:100%;margin-top:8px;border-radius:10px;padding:11px}
-.btn-add:hover{background:#1a4d33;transform:scale(1.01)}
+.btn-add{background:#123524;color:#fff;width:100%;margin-top:8px;border-radius:10px;padding:12px;font-size:0.875rem}
+.btn-add:active{background:#1a4d33;transform:scale(0.98)}
 .filter-section{margin-bottom:12px}
 .filter-buttons{display:flex;gap:6px;flex-wrap:wrap}
-.filter-btn{padding:6px 14px;border:1px solid #123524;background:#fff;border-radius:20px;font-size:0.8125rem;cursor:pointer;transition:all 0.2s;color:#1d1d1f;font-weight:300;font-family:'Spectral',serif;letter-spacing:0.01em}
-.filter-btn:hover{background:#f5f5f7}
+.filter-btn{padding:8px 14px;border:1px solid #123524;background:#fff;border-radius:20px;font-size:0.75rem;cursor:pointer;transition:all 0.2s;color:#1d1d1f;font-weight:300;font-family:'Spectral',serif;letter-spacing:0.01em}
+.filter-btn:active{background:#f5f5f7}
 .filter-btn.active{background:#123524;color:#fff;font-weight:400;border-color:#123524}
-.contacts-list{flex:1;overflow-y:auto;min-height:0;padding-right:6px}
+.contacts-list{max-height:400px;overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch}
+@media(min-width:768px){.contacts-list{max-height:none;flex:1}}
 .contacts-list::-webkit-scrollbar{width:6px}
 .contacts-list::-webkit-scrollbar-track{background:transparent}
 .contacts-list::-webkit-scrollbar-thumb{background:#123524;border-radius:10px}
-.contact-item{background:#fff;border:2px solid #123524;border-radius:12px;padding:12px;margin-bottom:8px;cursor:pointer;transition:all 0.2s ease}
-.contact-item:hover{background:#f5f5f7;transform:scale(1.005);box-shadow:0 2px 6px rgba(18,53,36,0.08)}
+.contact-item{background:#fff;border:2px solid #123524;border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all 0.2s ease;-webkit-tap-highlight-color:transparent}
+.contact-item:active{background:#f5f5f7;transform:scale(0.98)}
 .contact-item.selected{background:#fef3c7;border:2px solid #d97706}
 .contact-item-header{display:flex;align-items:center;gap:12px}
-.checkbox{width:20px;height:20px;border:2px solid #123524;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s}
+.checkbox{width:22px;height:22px;border:2px solid #123524;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s}
 .contact-item.selected .checkbox{background:#d97706;border-color:#d97706}
-.checkmark{color:#fff;font-size:12px;display:none;font-weight:500}
+.checkmark{color:#fff;font-size:13px;display:none;font-weight:500}
 .contact-item.selected .checkmark{display:block}
 .contact-info{flex:1;min-width:0}
 .contact-name{font-weight:400;color:#1d1d1f;margin-bottom:3px;font-size:0.875rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0.01em}
 .contact-email{color:#d97706;font-size:0.8125rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0.01em;font-weight:300}
 .contact-org{color:#86868b;font-size:0.75rem;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0.01em;font-weight:300}
-.empty-state{text-align:center;padding:40px 16px;color:#86868b}
-.empty-state svg{width:48px;height:48px;margin-bottom:12px;opacity:0.5;stroke:#123524}
-.empty-state p{font-size:0.875rem;letter-spacing:0.01em;font-weight:300}
-.email-preview{background:#f5f5f7;border:2px solid #123524;border-radius:12px;padding:16px;font-family:ui-monospace,monospace;font-size:0.8125rem;color:#1d1d1f;flex:1;overflow-y:auto;word-break:break-all;line-height:1.6;letter-spacing:0}
+.empty-state{text-align:center;padding:32px 16px;color:#86868b}
+.empty-state svg{width:40px;height:40px;margin-bottom:12px;opacity:0.5;stroke:#123524}
+.empty-state p{font-size:0.8125rem;letter-spacing:0.01em;font-weight:300}
+.email-preview{background:#f5f5f7;border:2px solid #123524;border-radius:12px;padding:14px;font-family:ui-monospace,monospace;font-size:0.75rem;color:#1d1d1f;max-height:300px;overflow-y:auto;word-break:break-all;line-height:1.5;letter-spacing:0;-webkit-overflow-scrolling:touch}
+@media(min-width:768px){.email-preview{flex:1;max-height:none}}
 .email-preview::-webkit-scrollbar{width:6px}
 .email-preview::-webkit-scrollbar-track{background:transparent}
 .email-preview::-webkit-scrollbar-thumb{background:#123524;border-radius:10px}
-.alert{position:fixed;top:16px;right:16px;background:#fff;border:2px solid #123524;color:#1d1d1f;padding:14px 20px;border-radius:12px;display:none;align-items:center;gap:12px;font-size:0.875rem;font-weight:400;box-shadow:0 4px 16px rgba(18,53,36,0.1);z-index:1000;letter-spacing:0.01em}
+.alert{position:fixed;top:12px;left:12px;right:12px;background:#fff;border:2px solid #123524;color:#1d1d1f;padding:14px 16px;border-radius:12px;display:none;align-items:center;gap:12px;font-size:0.875rem;font-weight:400;box-shadow:0 4px 16px rgba(18,53,36,0.1);z-index:1000;letter-spacing:0.01em}
+@media(min-width:768px){.alert{left:auto;right:16px;top:16px}}
 .alert.show{display:flex;animation:slideIn 0.3s ease}
-.alert-icon{width:24px;height:24px;background:#123524;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:500;font-size:14px}
-@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
+.alert-icon{width:24px;height:24px;background:#123524;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:500;font-size:14px;flex-shrink:0}
+@keyframes slideIn{from{transform:translateY(-20px);opacity:0}to{transform:translateY(0);opacity:1}}
 .action-buttons{display:flex;gap:8px;margin-top:12px}
-.btn-select{background:#fff;border:2px solid #123524;color:#1d1d1f;flex:1;padding:10px 20px;font-size:0.8125rem;border-radius:10px}
-.btn-select:hover{background:#f5f5f7}
-.btn-clear{background:#ffebe9;border:2px solid #e14337;color:#e14337;flex:1;padding:10px 20px;font-size:0.8125rem;border-radius:10px}
-.btn-clear:hover{background:#ffd7d4}
-.import-section{margin-top:16px;padding-top:16px;border-top:2px solid #123524}
-.import-label{display:block;color:#1d1d1f;font-size:0.8125rem;font-weight:400;letter-spacing:0.01em;margin-bottom:10px}
+.btn-select{background:#fff;border:2px solid #123524;color:#1d1d1f;flex:1;padding:12px 16px;font-size:0.8125rem;border-radius:10px}
+.btn-select:active{background:#f5f5f7}
+.btn-clear{background:#ffebe9;border:2px solid #e14337;color:#e14337;flex:1;padding:12px 16px;font-size:0.8125rem;border-radius:10px}
+.btn-clear:active{background:#ffd7d4}
+.import-section{margin-top:14px;padding-top:14px;border-top:2px solid #123524}
+.import-label{display:block;color:#1d1d1f;font-size:0.75rem;font-weight:400;letter-spacing:0.01em;margin-bottom:10px}
 .file-input-wrapper{position:relative;overflow:hidden;display:inline-block;width:100%}
 .file-input-wrapper input[type=file]{position:absolute;left:-9999px}
-.btn-file{background:#fff;color:#1d1d1f;width:100%;padding:11px 16px;font-size:0.875rem;border:2px dashed #123524;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s}
-.btn-file:hover{background:#f5f5f7;border-color:#d97706;color:#d97706}
-.scraper-section{margin-top:16px;padding-top:16px;border-top:2px solid #123524}
-.btn-scrape{background:#123524;color:#fff;width:100%;margin-top:8px;border-radius:10px;padding:11px}
-.btn-scrape:hover{background:#1a4d33;transform:scale(1.01)}
-.scrape-results{margin-top:12px;max-height:120px;overflow-y:auto;background:#fff;border:2px solid #123524;border-radius:10px;padding:12px}
+.btn-file{background:#fff;color:#1d1d1f;width:100%;padding:12px 16px;font-size:0.875rem;border:2px dashed #123524;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s}
+.btn-file:active{background:#f5f5f7;border-color:#d97706;color:#d97706}
+.scraper-section{margin-top:14px;padding-top:14px;border-top:2px solid #123524}
+.btn-scrape{background:#123524;color:#fff;width:100%;margin-top:8px;border-radius:10px;padding:12px;font-size:0.875rem}
+.btn-scrape:active{background:#1a4d33;transform:scale(0.98)}
+.scrape-results{margin-top:12px;max-height:120px;overflow-y:auto;background:#fff;border:2px solid #123524;border-radius:10px;padding:12px;-webkit-overflow-scrolling:touch}
 .scrape-results::-webkit-scrollbar{width:4px}
 .scrape-results::-webkit-scrollbar-track{background:transparent}
 .scrape-results::-webkit-scrollbar-thumb{background:#123524;border-radius:10px}
@@ -94,6 +97,8 @@ body{font-family:'Spectral',Georgia,serif;background:#f5f5f7;color:#1d1d1f;heigh
 .loading{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-radius:50%;border-top-color:#fff;animation:spin 0.6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .csv-hint{font-size:0.7rem;color:#86868b;margin-top:8px;line-height:1.4;letter-spacing:0.01em;font-weight:300}
+.mobile-section{margin-bottom:16px}
+@media(min-width:768px){.mobile-section{margin-bottom:0}}
 </style>
 </head>
 <body>
@@ -108,10 +113,10 @@ body{font-family:'Spectral',Georgia,serif;background:#f5f5f7;color:#1d1d1f;heigh
 <div class="stat-item"><span class="stat-value" id="total-contacts">0</span><span class="stat-label">Contacts</span></div>
 <div class="stat-item"><span class="stat-value" id="selected-contacts">0</span><span class="stat-label">Selected</span></div>
 </div>
-<button id="copy-btn" class="btn btn-copy" disabled>Copy Selected Emails</button>
+<button id="copy-btn" class="btn btn-copy" disabled>Copy Emails</button>
 </div>
 <div class="content">
-<div class="card">
+<div class="card mobile-section">
 <h2>Add Contact</h2>
 <form id="contact-form">
 <div class="form-group"><label for="name">Name</label><input type="text" id="name" required placeholder="John Doe"></div>
@@ -136,7 +141,7 @@ body{font-family:'Spectral',Georgia,serif;background:#f5f5f7;color:#1d1d1f;heigh
 <div id="scrape-results" style="display:none" class="scrape-results"></div>
 </div>
 </div>
-<div class="card">
+<div class="card mobile-section">
 <h2>Contact List</h2>
 <div class="search-box">
 <input type="text" id="search-input" placeholder="Search contacts...">
@@ -158,7 +163,7 @@ body{font-family:'Spectral',Georgia,serif;background:#f5f5f7;color:#1d1d1f;heigh
 <button id="clear-btn" class="btn btn-clear">Clear All</button>
 </div>
 </div>
-<div class="card">
+<div class="card mobile-section">
 <h2>Email Preview</h2>
 <div id="email-preview" class="email-preview">No emails selected</div>
 </div>
