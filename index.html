@@ -6,33 +6,38 @@
 <title>Email Blaster 4000</title>
 
 <style>
-/* GLOBAL iPHONE STYLE */
+/* GLOBAL iPHONE LOOK */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   background: #f2f2f7;
   height: 100vh;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* LOGIN SCREEN */
 #loginScreen {
+  position: absolute;
+  inset: 0;
+  background: white;
   display: flex;
   flex-direction: column;
-  background: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginBox {
+  background: #fff;
   padding: 32px;
   width: 320px;
   border-radius: 24px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
-#loginScreen h1 {
-  font-weight: 700;
+.loginBox h1 {
   margin-bottom: 20px;
+  font-weight: 700;
 }
 
 #passwordInput {
@@ -40,6 +45,7 @@ body {
   border-radius: 12px;
   border: 1px solid #ccc;
   margin-bottom: 16px;
+  width: 100%;
   font-size: 16px;
 }
 
@@ -49,76 +55,53 @@ body {
   border: none;
   padding: 12px;
   border-radius: 12px;
+  width: 100%;
   font-size: 16px;
   cursor: pointer;
 }
 
-/* MAIN HOME SCREEN */
-#homeScreen {
+/* MAIN APP SHELL */
+#app {
   display: none;
-  width: 100%;
   height: 100%;
-  padding: 20px;
-  flex-direction: column;
-}
-
-.homeTitle {
-  text-align: center;
-  margin-bottom: 20px;
-  font-weight: 700;
-  font-size: 24px;
-}
-
-/* APP GRID */
-.appGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  padding: 20px;
-}
-
-.appIcon {
-  background: white;
-  border-radius: 22px;
-  height: 90px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  cursor: pointer;
-  transition: transform 0.15s;
 }
 
-.appIcon:hover { transform: scale(1.06); }
-
-.appIcon img {
-  width: 34px;
-  margin-bottom: 6px;
-}
-
-.appLabel {
-  font-size: 13px;
-  text-align: center;
-}
-
-/* CONTACT LIST SCREEN (inside an app) */
-#contactScreen {
-  display: none;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  background: #f2f2f7;
-}
-
-.backBtn {
-  font-size: 18px;
-  background: none;
-  border: none;
+/* TOP BAR */
+.topBar {
+  background: white;
+  padding: 14px 20px;
+  font-size: 22px;
+  font-weight: 700;
   color: #123524;
-  margin-bottom: 10px;
-  cursor: pointer;
+  letter-spacing: -0.5px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+
+/* MAIN CONTENT GRID */
+.mainContent {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  height: calc(100vh - 60px);
+}
+
+/* LEFT SIDE: CONTACT MANAGER */
+.contactPanel {
+  background: #f2f2f7;
+  padding: 18px;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
+}
+
+.searchBox {
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 15px;
+  margin-bottom: 12px;
 }
 
 .contactCard {
@@ -126,147 +109,265 @@ body {
   border-radius: 16px;
   padding: 14px;
   margin-bottom: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.contactCard.selected {
+  border: 2px solid #123524;
+  background: #e8f4ee;
 }
 
 .contactCard strong {
   color: #123524;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .contactCard p {
-  margin: 4px 0 0 0;
+  margin: 4px 0;
   font-size: 13px;
-  color: #333;
+}
+
+/* RIGHT SIDE: TOOLBOX */
+.toolbox {
+  padding: 16px;
+  background: #ffffff;
+  overflow-y: auto;
+}
+
+/* SECTION BOXES */
+.section {
+  background: #f8f8fa;
+  padding: 14px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+
+.section h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #123524;
+  font-size: 18px;
+}
+
+/* BUTTONS */
+.btn {
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-green { background: #123524; color: white; }
+.btn-gray { background: #dfdfdf; color: #333; }
+
+/* NOTES */
+#notes {
+  width: 100%;
+  height: 100px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* TODO LIST */
+.todoItem {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* TEMPLATE BOX */
+#emailTemplates {
+  width: 100%;
+  height: 80px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* FOCUS MODE */
+#focusOverlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: #123524dd;
+  color: white;
+  font-size: 32px;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN PAGE -->
+<!-- LOGIN SCREEN -->
 <div id="loginScreen">
-  <h1>🔐 Email Blaster 4000</h1>
-  <input id="passwordInput" type="password" placeholder="Enter Password">
-  <button id="loginBtn">Login</button>
-  <p style="font-size:13px;color:#888;margin-top:6px;">Hint: sales</p>
-</div>
-
-<!-- HOME SCREEN -->
-<div id="homeScreen">
-  <div class="homeTitle">Email Blaster 4000</div>
-
-  <div class="appGrid">
-    <div class="appIcon" onclick="openCategory('All')">
-      <img src="https://img.icons8.com/ios-filled/50/inbox.png">
-      <div class="appLabel">All Contacts</div>
-    </div>
-
-    <div class="appIcon" onclick="openCategory('K12')">
-      <img src="https://img.icons8.com/ios-filled/50/school.png">
-      <div class="appLabel">K-12</div>
-    </div>
-
-    <div class="appIcon" onclick="openCategory('Public')">
-      <img src="https://img.icons8.com/ios-filled/50/city-buildings.png">
-      <div class="appLabel">Public Sector</div>
-    </div>
-
-    <div class="appIcon" onclick="openCategory('HigherEd')">
-      <img src="https://img.icons8.com/ios-filled/50/graduation-cap.png">
-      <div class="appLabel">Higher Ed</div>
-    </div>
-
-    <div class="appIcon" onclick="openCategory('Transit')">
-      <img src="https://img.icons8.com/ios-filled/50/bus.png">
-      <div class="appLabel">Transit</div>
-    </div>
-
-    <div class="appIcon" onclick="alert('Future Feature!')">
-      <img src="https://img.icons8.com/ios-filled/50/settings.png">
-      <div class="appLabel">Settings</div>
-    </div>
+  <div class="loginBox">
+    <h1>Email Blaster 4000</h1>
+    <input id="passwordInput" type="password" placeholder="Enter Password">
+    <button id="loginBtn">Login</button>
+    <p style="font-size:12px;color:#777;margin-top:8px;">Hint: sales</p>
   </div>
 </div>
 
-<!-- CONTACT LIST VIEW -->
-<div id="contactScreen">
-  <button class="backBtn" onclick="goHome()">← Back</button>
-  <h2 id="contactTitle"></h2>
-  <div id="contactList"></div>
+<!-- FULLSCREEN FOCUS MODE -->
+<div id="focusOverlay">FOCUS MODE</div>
+
+<!-- MAIN APP -->
+<div id="app">
+
+  <div class="topBar">Email Blaster 4000</div>
+
+  <div class="mainContent">
+
+    <!-- LEFT: CONTACTS -->
+    <div class="contactPanel">
+      <input id="search" class="searchBox" placeholder="Search contacts...">
+
+      <div id="contactList"></div>
+    </div>
+
+    <!-- RIGHT: TOOLS -->
+    <div class="toolbox">
+
+      <!-- QUICK ACTIONS -->
+      <div class="section">
+        <h3>Quick Actions</h3>
+        <button id="copyBtn" class="btn btn-green">Copy Selected Emails</button>
+        <button id="exportBtn" class="btn btn-gray" style="margin-left:8px;">Export List</button>
+        <button id="focusBtn" class="btn btn-gray" style="margin-top:8px;width:100%;">Enter Focus Mode</button>
+      </div>
+
+      <!-- NOTES -->
+      <div class="section">
+        <h3>Quick Notes</h3>
+        <textarea id="notes" placeholder="Write notes here..."></textarea>
+      </div>
+
+      <!-- TODO -->
+      <div class="section">
+        <h3>To-Do List</h3>
+        <input id="todoInput" placeholder="New task..." style="padding:8px;border-radius:8px;border:1px solid #ccc;width:100%;margin-bottom:8px;">
+        <button id="addTodo" class="btn btn-green" style="width:100%;">Add Task</button>
+        <div id="todoList"></div>
+      </div>
+
+      <!-- EMAIL TEMPLATES -->
+      <div class="section">
+        <h3>Email Templates</h3>
+        <textarea id="emailTemplates" placeholder="Save templates here..."></textarea>
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
 <script>
 /* LOGIN */
-document.getElementById("loginBtn").onclick = () => {
-  if (document.getElementById("passwordInput").value === "sales") {
+loginBtn.onclick = () => {
+  if (passwordInput.value === "sales") {
     loginScreen.style.display = "none";
-    homeScreen.style.display = "flex";
-  } else {
-    alert("Incorrect password.");
-  }
+    app.style.display = "flex";
+  } else alert("Incorrect password.");
 };
 
 /* CONTACTS */
 let contacts = [
-  {name:"Sean Jowell", email:"jowells@pcsb.org", cat:"K12"},
-  {name:"Philip Martin", email:"philip.martin@sumter.k12.fl.us", cat:"K12"},
-  {name:"Sarah Johnson", email:"sjohnson@stpete.org", cat:"Public"},
-  {name:"Michael Nagy", email:"mwilliams@dunedinfl.gov", cat:"Public"},
-  {name:"Ronbert Ignacio", email:"ronbert.ignacio@dunedin.gov", cat:"Public"},
-  {name:"David Mather", email:"dmather@mygulfport.us", cat:"Public"},
-  {name:"Chris Pagan", email:"cpagan@mytreasureisland.org", cat:"Public"},
-  {name:"Matthew Sabella", email:"msabella@myseminole.com", cat:"Public"},
-  {name:"Alex Britton-Kant", email:"abrittonkant@mysouthpasadena.com", cat:"Public"},
-  {name:"Suzanne Linton", email:"slinton@ctsfl.us", cat:"Public"},
-  {name:"Jessica Cinney", email:"cinneyj@eckerd.edu", cat:"HigherEd"},
-  {name:"Walter Moore", email:"moorewr@eckerd.edu", cat:"HigherEd"},
-  {name:"Tonya Womack", email:"womacktm@eckerd.edu", cat:"HigherEd"},
-  {name:"Emmett Andrews", email:"eandrews@polk.edu", cat:"HigherEd"},
-  {name:"Martin Gang", email:"mgang@polk.edu", cat:"HigherEd"},
-  {name:"Jennifer Angelo", email:"jangelo@myindianshores.com", cat:"Public"},
-  {name:"Hansel Roush", email:"hroush@largo.com", cat:"Public"},
-  {name:"Tim Clark", email:"tclark@largo.com", cat:"Public"},
-  {name:"Missy Nevitt", email:"mnevitt@psta.net", cat:"Transit"}
+  {name:"Sean Jowell", email:"jowells@pcsb.org"},
+  {name:"Philip Martin", email:"philip.martin@sumter.k12.fl.us"},
+  {name:"Sarah Johnson", email:"sjohnson@stpete.org"},
+  {name:"Michael Nagy", email:"mwilliams@dunedinfl.gov"},
+  {name:"Ronbert Ignacio", email:"ronbert.ignacio@dunedin.gov"},
+  {name:"David Mather", email:"dmather@mygulfport.us"},
+  {name:"Chris Pagan", email:"cpagan@mytreasureisland.org"},
+  {name:"Matthew Sabella", email:"msabella@myseminole.com"},
+  {name:"Alex Britton-Kant", email:"abrittonkant@mysouthpasadena.com"},
+  {name:"Suzanne Linton", email:"slinton@ctsfl.us"},
+  {name:"Jessica Cinney", email:"cinneyj@eckerd.edu"},
+  {name:"Walter Moore", email:"moorewr@eckerd.edu"},
+  {name:"Tonya Womack", email:"womacktm@eckerd.edu"},
+  {name:"Emmett Andrews", email:"eandrews@polk.edu"},
+  {name:"Martin Gang", email:"mgang@polk.edu"},
+  {name:"Jennifer Angelo", email:"jangelo@myindianshores.com"},
+  {name:"Hansel Roush", email:"hroush@largo.com"},
+  {name:"Tim Clark", email:"tclark@largo.com"},
+  {name:"Missy Nevitt", email:"mnevitt@psta.net"}
 ];
 
-/* OPEN CATEGORY */
-function openCategory(cat) {
-  homeScreen.style.display = "none";
-  contactScreen.style.display = "flex";
+let selected = new Set();
 
-  contactTitle.innerText =
-    cat === "All" ? "All Contacts" :
-    cat === "K12" ? "K-12 Contacts" :
-    cat === "Public" ? "Public Sector" :
-    cat === "HigherEd" ? "Higher Ed" :
-    cat === "Transit" ? "Transit" : "Contacts";
-
-  renderContacts(cat);
-}
-
-/* RENDER CONTACTS */
-function renderContacts(cat) {
+/* RENDER CONTACT LIST */
+function renderContacts() {
   contactList.innerHTML = "";
+
+  const s = search.value.toLowerCase();
   contacts
-    .filter(c => cat === "All" || c.cat === cat)
+    .filter(c => c.name.toLowerCase().includes(s) || c.email.toLowerCase().includes(s))
     .forEach(c => {
-      const card = document.createElement("div");
-      card.className = "contactCard";
-      card.innerHTML = `
-        <strong>${c.name}</strong>
-        <p>${c.email}</p>
-      `;
-      contactList.appendChild(card);
+      let div = document.createElement("div");
+      div.className = "contactCard" + (selected.has(c.email) ? " selected" : "");
+      div.innerHTML = `<strong>${c.name}</strong><p>${c.email}</p>`;
+      div.onclick = () => toggle(c.email);
+      contactList.appendChild(div);
     });
 }
 
-/* BACK HOME */
-function goHome() {
-  contactScreen.style.display = "none";
-  homeScreen.style.display = "flex";
+function toggle(email) {
+  selected.has(email) ? selected.delete(email) : selected.add(email);
+  renderContacts();
 }
-</script>
 
+/* COPY */
+copyBtn.onclick = () => {
+  navigator.clipboard.writeText(Array.from(selected).join("; "));
+  alert("Copied!");
+};
+
+/* EXPORT */
+exportBtn.onclick = () => {
+  let csv = "name,email\n" + contacts.map(c => `${c.name},${c.email}`).join("\n");
+  let blob = new Blob([csv], {type: "text/csv"});
+  let url = URL.createObjectURL(blob);
+
+  let a = document.createElement("a");
+  a.href = url;
+  a.download = "contacts.csv";
+  a.click();
+};
+
+/* TO-DO LIST */
+addTodo.onclick = () => {
+  let task = todoInput.value.trim();
+  if (!task) return;
+  let div = document.createElement("div");
+  div.className = "todoItem";
+  div.innerHTML = `${task} <span style="cursor:pointer;color:red;" onclick="this.parentElement.remove()">✕</span>`;
+  todoList.appendChild(div);
+  todoInput.value = "";
+};
+
+/* FOCUS MODE */
+focusBtn.onclick = () => {
+  focusOverlay.style.display = "flex";
+  setTimeout(() => focusOverlay.style.display = "none", 2000);
+};
+
+/* LIVE SEARCH */
+search.oninput = renderContacts;
+
+/* INIT */
+renderContacts();
+</script>
 </body>
 </html>
-
