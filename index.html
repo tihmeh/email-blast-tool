@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Collector - Tim's Contacts</title>
+    <title>Email Blaster 4000</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -12,169 +14,282 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0e27;
+            color: #e2e8f0;
+            height: 100vh;
+            overflow: hidden;
             padding: 20px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1800px;
             margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .header {
             text-align: center;
-            color: white;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
         }
 
         .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        .action-bar {
+            background: rgba(100, 116, 139, 0.05);
+            border: 1px solid rgba(100, 116, 139, 0.1);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #667eea;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.2px;
+        }
+
+        .btn-copy {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-copy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-copy:disabled {
+            background: rgba(100, 116, 139, 0.2);
+            color: #64748b;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         .content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .content {
-                grid-template-columns: 1fr;
-            }
+            grid-template-columns: 320px 1fr 380px;
+            gap: 20px;
+            flex: 1;
+            min-height: 0;
         }
 
         .card {
-            background: white;
+            background: rgba(100, 116, 139, 0.05);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
         }
 
         .card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #333;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 15px;
+            letter-spacing: -0.3px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            color: #555;
+            margin-bottom: 4px;
+            color: #94a3b8;
+            font-size: 0.75rem;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
+            padding: 8px 12px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            background: rgba(15, 23, 42, 0.5);
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
         }
 
         .form-group input:focus {
             outline: none;
             border-color: #667eea;
+            background: rgba(15, 23, 42, 0.8);
         }
 
-        .btn {
+        .form-group input::placeholder {
+            color: #475569;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             width: 100%;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .filter-section {
+            margin-bottom: 12px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 6px 12px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 6px;
+            font-size: 0.75rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
+            color: #94a3b8;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
         }
 
-        .btn-primary {
-            background: #667eea;
+        .filter-btn:hover {
+            border-color: #667eea;
+            color: #e2e8f0;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            border-color: transparent;
         }
 
-        .btn-primary:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        .contacts-list {
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0;
+            padding-right: 8px;
         }
 
-        .btn-success {
-            background: #48bb78;
-            color: white;
-            margin-bottom: 15px;
+        .contacts-list::-webkit-scrollbar {
+            width: 6px;
         }
 
-        .btn-success:hover {
-            background: #38a169;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+        .contacts-list::-webkit-scrollbar-track {
+            background: rgba(100, 116, 139, 0.05);
+            border-radius: 3px;
         }
 
-        .btn-danger {
-            background: #f56565;
-            color: white;
+        .contacts-list::-webkit-scrollbar-thumb {
+            background: rgba(100, 116, 139, 0.3);
+            border-radius: 3px;
         }
 
-        .btn-danger:hover {
-            background: #e53e3e;
-        }
-
-        .btn:disabled {
-            background: #cbd5e0;
-            cursor: not-allowed;
-            transform: none;
+        .contacts-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(100, 116, 139, 0.5);
         }
 
         .contact-item {
-            background: #f7fafc;
-            border: 2px solid #e2e8f0;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(100, 116, 139, 0.2);
             border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 10px;
+            padding: 10px;
+            margin-bottom: 8px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
         }
 
         .contact-item:hover {
             border-color: #667eea;
-            transform: translateX(5px);
+            transform: translateX(4px);
         }
 
         .contact-item.selected {
-            background: #edf2f7;
+            background: rgba(102, 126, 234, 0.1);
             border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .contact-item-header {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .checkbox {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #cbd5e0;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(100, 116, 139, 0.4);
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            transition: all 0.2s;
         }
 
         .contact-item.selected .checkbox {
@@ -184,8 +299,9 @@
 
         .checkmark {
             color: white;
-            font-size: 14px;
+            font-size: 11px;
             display: none;
+            font-weight: 700;
         }
 
         .contact-item.selected .checkmark {
@@ -194,164 +310,170 @@
 
         .contact-info {
             flex: 1;
+            min-width: 0;
         }
 
         .contact-name {
             font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 4px;
+            color: #e2e8f0;
+            margin-bottom: 2px;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .contact-email {
             color: #667eea;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .contact-org {
-            color: #718096;
-            font-size: 0.85rem;
-            margin-top: 4px;
-        }
-
-        .contact-title {
-            color: #4a5568;
-            font-size: 0.85rem;
-            font-style: italic;
-        }
-
-        .contacts-list {
-            max-height: 500px;
-            overflow-y: auto;
-            margin-bottom: 20px;
-        }
-
-        .contacts-list::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .contacts-list::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 4px;
-        }
-
-        .contacts-list::-webkit-scrollbar-thumb {
-            background: #cbd5e0;
-            border-radius: 4px;
-        }
-
-        .contacts-list::-webkit-scrollbar-thumb:hover {
-            background: #a0aec0;
-        }
-
-        .stats {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-box {
-            flex: 1;
-            background: #f7fafc;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #667eea;
-        }
-
-        .stat-label {
-            color: #718096;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .email-preview {
-            background: #f7fafc;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 15px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            color: #2d3748;
-            max-height: 200px;
-            overflow-y: auto;
-            word-break: break-all;
-            margin-bottom: 20px;
+            color: #64748b;
+            font-size: 0.7rem;
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .empty-state {
             text-align: center;
             padding: 40px 20px;
-            color: #718096;
+            color: #64748b;
         }
 
         .empty-state svg {
-            width: 64px;
-            height: 64px;
-            margin-bottom: 15px;
-            opacity: 0.5;
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
+        .empty-state p {
+            font-size: 0.875rem;
+        }
+
+        .email-preview {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            flex: 1;
+            overflow-y: auto;
+            word-break: break-all;
+            line-height: 1.6;
+        }
+
+        .email-preview::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .email-preview::-webkit-scrollbar-track {
+            background: rgba(100, 116, 139, 0.05);
+            border-radius: 3px;
+        }
+
+        .email-preview::-webkit-scrollbar-thumb {
+            background: rgba(100, 116, 139, 0.3);
+            border-radius: 3px;
         }
 
         .alert {
-            background: #48bb78;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             padding: 12px 20px;
             border-radius: 8px;
-            margin-bottom: 20px;
             display: none;
             align-items: center;
             gap: 10px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            z-index: 1000;
         }
 
         .alert.show {
             display: flex;
+            animation: slideIn 0.3s ease;
         }
 
-        .filter-section {
-            margin-bottom: 20px;
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
-        .filter-buttons {
+        .action-buttons {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
         }
 
-        .filter-btn {
+        .btn-select {
+            background: rgba(100, 116, 139, 0.2);
+            color: #e2e8f0;
+            flex: 1;
             padding: 8px 16px;
-            border: 2px solid #e2e8f0;
-            background: white;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s;
+            font-size: 0.75rem;
         }
 
-        .filter-btn:hover {
-            border-color: #667eea;
+        .btn-select:hover {
+            background: rgba(100, 116, 139, 0.3);
         }
 
-        .filter-btn.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
+        .btn-clear {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            flex: 1;
+            padding: 8px 16px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-clear:hover {
+            background: rgba(239, 68, 68, 0.2);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>📧 Email Collector</h1>
-            <p>Tim's Prospecting Contacts</p>
+            <h1>⚡ Email Blaster 4000</h1>
+            <p>Professional Contact Management</p>
         </div>
 
         <div id="alert" class="alert">
             <span>✓</span>
             <span id="alert-message"></span>
+        </div>
+
+        <div class="action-bar">
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="total-contacts">0</span>
+                    <span class="stat-label">Contacts</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="selected-contacts">0</span>
+                    <span class="stat-label">Selected</span>
+                </div>
+            </div>
+            <button id="copy-btn" class="btn btn-copy" disabled>📋 Copy Selected Emails</button>
         </div>
 
         <div class="content">
@@ -360,11 +482,11 @@
                 <h2>Add Contact</h2>
                 <form id="contact-form">
                     <div class="form-group">
-                        <label for="name">Name *</label>
+                        <label for="name">Name</label>
                         <input type="text" id="name" required placeholder="John Doe">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email *</label>
+                        <label for="email">Email</label>
                         <input type="email" id="email" required placeholder="john@example.com">
                     </div>
                     <div class="form-group">
@@ -376,36 +498,25 @@
                         <input type="text" id="organization" placeholder="Acme Corp">
                     </div>
                     <div class="form-group">
-                        <label for="vertical">Vertical</label>
-                        <input type="text" id="vertical" placeholder="K-12, Public Sector, etc.">
+                        <label for="vertical">Category</label>
+                        <input type="text" id="vertical" placeholder="K-12, Public Sector">
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Contact</button>
+                    <button type="submit" class="btn btn-add">+ Add Contact</button>
                 </form>
             </div>
 
             <!-- Contacts List -->
             <div class="card">
-                <h2>Contacts</h2>
-                <div class="stats">
-                    <div class="stat-box">
-                        <div class="stat-value" id="total-contacts">0</div>
-                        <div class="stat-label">Total</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value" id="selected-contacts">0</div>
-                        <div class="stat-label">Selected</div>
-                    </div>
-                </div>
-
+                <h2>Contact List</h2>
                 <div class="filter-section">
                     <div class="filter-buttons">
                         <button class="filter-btn active" onclick="filterByVertical('All')">All</button>
                         <button class="filter-btn" onclick="filterByVertical('K-12')">K-12</button>
-                        <button class="filter-btn" onclick="filterByVertical('Public Sector')">Public Sector</button>
+                        <button class="filter-btn" onclick="filterByVertical('Public Sector')">Public</button>
                         <button class="filter-btn" onclick="filterByVertical('Higher Education')">Higher Ed</button>
+                        <button class="filter-btn" onclick="filterByVertical('Transit')">Transit</button>
                     </div>
                 </div>
-
                 <div id="contacts-container" class="contacts-list">
                     <div class="empty-state">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -414,27 +525,25 @@
                         <p>Loading contacts...</p>
                     </div>
                 </div>
-                <button id="select-all-btn" class="btn btn-primary" style="margin-bottom: 15px;">Select All</button>
-                <button id="copy-btn" class="btn btn-success" disabled>Copy Selected Emails</button>
-                <button id="clear-btn" class="btn btn-danger">Clear All Contacts</button>
+                <div class="action-buttons">
+                    <button id="select-all-btn" class="btn btn-select">Select All</button>
+                    <button id="clear-btn" class="btn btn-clear">Clear All</button>
+                </div>
             </div>
-        </div>
 
-        <!-- Email Preview -->
-        <div class="card">
-            <h2>Email Preview</h2>
-            <div id="email-preview" class="email-preview">No emails selected</div>
+            <!-- Email Preview -->
+            <div class="card">
+                <h2>Email Preview</h2>
+                <div id="email-preview" class="email-preview">No emails selected</div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Pre-loaded contacts from Tim's prospecting dashboard
+        // Pre-loaded contacts
         const defaultContacts = [
-            // K-12
             { name: "Sean Jowell", email: "jowells@pcsb.org", title: "Director Safety & Security", organization: "Pinellas County School District", vertical: "K-12" },
             { name: "Philip Martin", email: "philip.martin@sumter.k12.fl.us", title: "Director of Safety & Security", organization: "Sumter County Public Schools", vertical: "K-12" },
-            
-            // Public Sector - Cities
             { name: "Sarah Johnson", email: "sjohnson@stpete.org", title: "IT Manager", organization: "City of St. Petersburg", vertical: "Public Sector" },
             { name: "Michael Nagy", email: "mwilliams@dunedinfl.gov", title: "Director of IT", organization: "City of Dunedin", vertical: "Public Sector" },
             { name: "Ronbert Ignacio", email: "ronbert.ignacio@dunedin.gov", title: "IT Specialist", organization: "City of Dunedin", vertical: "Public Sector" },
@@ -443,44 +552,36 @@
             { name: "Matthew Sabella", email: "msabella@myseminole.com", title: "Director of IT", organization: "City of Seminole", vertical: "Public Sector" },
             { name: "Alex Britton-Kant", email: "abrittonkant@mysouthpasadena.com", title: "Director of IT", organization: "City of S. Pasadena", vertical: "Public Sector" },
             { name: "Suzanne Linton", email: "slinton@ctsfl.us", title: "Director of IT", organization: "City of Tarpon Springs", vertical: "Public Sector" },
-            
-            // Higher Education
             { name: "Jessica Cinney", email: "cinneyj@eckerd.edu", title: "Director of Campus Safety & Security", organization: "Eckerd College", vertical: "Higher Education" },
             { name: "Walter Moore", email: "moorewr@eckerd.edu", title: "Director of IT", organization: "Eckerd College", vertical: "Higher Education" },
             { name: "Tonya Womack", email: "womacktm@eckerd.edu", title: "Risk Management & Safety", organization: "Eckerd College", vertical: "Higher Education" },
             { name: "Emmett Andrews", email: "eandrews@polk.edu", title: "Director of Safety & Security", organization: "Polk State College", vertical: "Higher Education" },
             { name: "Martin Gang", email: "mgang@polk.edu", title: "Director of Technology and IT", organization: "Polk State College", vertical: "Higher Education" },
-            
-            // Customers
             { name: "Jennifer Angelo", email: "jangelo@myindianshores.com", title: "Admin Assistant", organization: "Town of Indian Shores", vertical: "Public Sector" },
             { name: "Hansel Roush", email: "hroush@largo.com", title: "Director of IT", organization: "City of Largo", vertical: "Public Sector" },
             { name: "Tim Clark", email: "tclark@largo.com", title: "IT Admin", organization: "City of Largo", vertical: "Public Sector" },
-            { name: "Missy Nevitt", email: "mnevitt@psta.net", title: "Superintendant of Facilities", organization: "PSTA - Pinellas Suncoast Transit Authority", vertical: "Transit" }
+            { name: "Missy Nevitt", email: "mnevitt@psta.net", title: "Superintendant of Facilities", organization: "PSTA", vertical: "Transit" }
         ];
 
         let contacts = [];
         let selectedEmails = new Set();
         let currentFilter = 'All';
 
-        // Initialize contacts
         function initializeContacts() {
             const saved = localStorage.getItem('contacts');
             if (saved) {
                 contacts = JSON.parse(saved);
             } else {
-                // First time loading - use default contacts
                 contacts = [...defaultContacts];
                 saveContacts();
             }
             renderContacts();
         }
 
-        // Save contacts to localStorage
         function saveContacts() {
             localStorage.setItem('contacts', JSON.stringify(contacts));
         }
 
-        // Add contact
         document.getElementById('contact-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('name').value;
@@ -492,39 +593,28 @@
             contacts.push({ name, email, title, organization, vertical });
             saveContacts();
             renderContacts();
-            
-            // Reset form
             e.target.reset();
-            
-            // Show alert
             showAlert('Contact added successfully!');
         });
 
-        // Filter by vertical
         function filterByVertical(vertical) {
             currentFilter = vertical;
-            
-            // Update active button
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.textContent === vertical || (vertical === 'All' && btn.textContent === 'All')) {
                     btn.classList.add('active');
                 }
             });
-            
             renderContacts();
         }
 
-        // Render contacts
         function renderContacts() {
             const container = document.getElementById('contacts-container');
-            
-            // Filter contacts
             let filteredContacts = contacts;
             if (currentFilter !== 'All') {
                 filteredContacts = contacts.filter(c => c.vertical === currentFilter);
             }
-            
+
             if (filteredContacts.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
@@ -535,7 +625,7 @@
                     </div>
                 `;
             } else {
-                container.innerHTML = filteredContacts.map((contact, index) => `
+                container.innerHTML = filteredContacts.map((contact) => `
                     <div class="contact-item ${selectedEmails.has(contact.email) ? 'selected' : ''}" onclick="toggleContact('${contact.email.replace(/'/g, "\\'")}')">
                         <div class="contact-item-header">
                             <div class="checkbox">
@@ -543,9 +633,8 @@
                             </div>
                             <div class="contact-info">
                                 <div class="contact-name">${contact.name}</div>
-                                ${contact.title ? `<div class="contact-title">${contact.title}</div>` : ''}
                                 <div class="contact-email">${contact.email}</div>
-                                ${contact.organization ? `<div class="contact-org">${contact.organization} ${contact.vertical ? '• ' + contact.vertical : ''}</div>` : ''}
+                                ${contact.organization ? `<div class="contact-org">${contact.organization}</div>` : ''}
                             </div>
                         </div>
                     </div>
@@ -557,7 +646,6 @@
             updateButtons();
         }
 
-        // Toggle contact selection
         function toggleContact(email) {
             if (selectedEmails.has(email)) {
                 selectedEmails.delete(email);
@@ -567,29 +655,22 @@
             renderContacts();
         }
 
-        // Select all
         document.getElementById('select-all-btn').addEventListener('click', () => {
-            // Filter contacts based on current filter
             let filteredContacts = contacts;
             if (currentFilter !== 'All') {
                 filteredContacts = contacts.filter(c => c.vertical === currentFilter);
             }
-            
             const filteredEmails = new Set(filteredContacts.map(c => c.email));
             const allFilteredSelected = Array.from(filteredEmails).every(email => selectedEmails.has(email));
-            
+
             if (allFilteredSelected) {
-                // Deselect all filtered
                 filteredEmails.forEach(email => selectedEmails.delete(email));
             } else {
-                // Select all filtered
                 filteredEmails.forEach(email => selectedEmails.add(email));
             }
-            
             renderContacts();
         });
 
-        // Copy emails
         document.getElementById('copy-btn').addEventListener('click', () => {
             const emailList = Array.from(selectedEmails).join('; ');
             navigator.clipboard.writeText(emailList).then(() => {
@@ -597,9 +678,8 @@
             });
         });
 
-        // Clear all
         document.getElementById('clear-btn').addEventListener('click', () => {
-            if (confirm('Are you sure you want to delete all contacts? This will remove all contacts including the pre-loaded ones. This cannot be undone.')) {
+            if (confirm('Delete all contacts? This cannot be undone.')) {
                 contacts = [];
                 selectedEmails.clear();
                 saveContacts();
@@ -608,13 +688,11 @@
             }
         });
 
-        // Update stats
         function updateStats() {
             document.getElementById('total-contacts').textContent = contacts.length;
             document.getElementById('selected-contacts').textContent = selectedEmails.size;
         }
 
-        // Update preview
         function updatePreview() {
             const preview = document.getElementById('email-preview');
             if (selectedEmails.size === 0) {
@@ -624,22 +702,20 @@
             }
         }
 
-        // Update buttons
         function updateButtons() {
             const copyBtn = document.getElementById('copy-btn');
             const selectAllBtn = document.getElementById('select-all-btn');
-            
+
             copyBtn.disabled = selectedEmails.size === 0;
-            
-            // Check if all filtered contacts are selected
+
             let filteredContacts = contacts;
             if (currentFilter !== 'All') {
                 filteredContacts = contacts.filter(c => c.vertical === currentFilter);
             }
-            
+
             const filteredEmails = new Set(filteredContacts.map(c => c.email));
             const allFilteredSelected = Array.from(filteredEmails).every(email => selectedEmails.has(email));
-            
+
             if (allFilteredSelected && filteredContacts.length > 0) {
                 selectAllBtn.textContent = 'Deselect All';
             } else {
@@ -647,7 +723,6 @@
             }
         }
 
-        // Show alert
         function showAlert(message) {
             const alert = document.getElementById('alert');
             const alertMessage = document.getElementById('alert-message');
@@ -658,39 +733,7 @@
             }, 3000);
         }
 
-        // Initialize
         initializeContacts();
     </script>
 </body>
 </html>
-```
-
----
-
-## 🚀 Steps to Deploy:
-
-### 1. Create New GitHub Repository
-1. Go to **github.com**
-2. Click **"+" icon** → **"New repository"**
-3. Name: **`email-collector`**
-4. Make it **Public**
-5. Check **"Add a README file"**
-6. Click **"Create repository"**
-
-### 2. Add the HTML File
-1. Click **"Add file"** → **"Create new file"**
-2. Name it: **`index.html`**
-3. **Copy and paste ALL the code above**
-4. Click **"Commit new file"**
-
-### 3. Enable GitHub Pages
-1. Go to **Settings** (in your repo)
-2. Click **"Pages"** (left sidebar)
-3. Under **"Source"**, select **"main"** branch
-4. Click **"Save"**
-5. Wait 1-2 minutes
-
-### 4. Access Your Site
-Your site will be live at:
-```
-https://YOUR-USERNAME.github.io/email-collector/
