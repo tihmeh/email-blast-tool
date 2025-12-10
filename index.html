@@ -1,373 +1,1408 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Email Blaster 4000</title>
 
 <style>
-/* GLOBAL iPHONE LOOK */
+/* =========================================================
+   DESIGN SYSTEM
+   ========================================================= */
+:root {
+  --color-bg: #f2f2f7;
+  --color-bg-elevated: #ffffff;
+  --color-bg-subtle: #f8f8fb;
+  --color-border-subtle: #e2e2ea;
+  --color-primary: #123524;
+  --color-primary-soft: rgba(18, 53, 36, 0.12);
+  --color-primary-strong: rgba(18, 53, 36, 0.2);
+  --color-text: #111827;
+  --color-text-soft: #6b7280;
+  --color-danger: #b91c1c;
+  --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --transition-fast: 0.18s ease-out;
+  --transition-med: 0.25s ease;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  --z-focus: 50;
+}
+
+/* Dark mode */
+body.theme-dark {
+  --color-bg: #050814;
+  --color-bg-elevated: #0b1120;
+  --color-bg-subtle: #020617;
+  --color-border-subtle: #1e293b;
+  --color-text: #e5e7eb;
+  --color-text-soft: #9ca3af;
+  --shadow-soft: 0 16px 40px rgba(15, 23, 42, 0.9);
+}
+
+/* =========================================================
+   GLOBAL BASE
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #f2f2f7;
+  font-family: var(--font-sans);
+  background: radial-gradient(circle at top, #d1fae5 0, var(--color-bg) 40%);
+  color: var(--color-text);
   height: 100vh;
+  overflow: hidden;
+  transition: background var(--transition-med), color var(--transition-med);
+}
+
+.app-shell {
+  height: 100%;
+}
+
+/* =========================================================
+   LOGIN SCREEN
+   ========================================================= */
+.login-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at top, rgba(18, 53, 36, 0.25), transparent 55%),
+    var(--color-bg);
+  z-index: 20;
+}
+
+.login-card {
+  background: var(--color-bg-elevated);
+  padding: 32px 26px 24px;
+  width: 340px;
+  border-radius: 26px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--color-border-subtle);
+  text-align: center;
+  position: relative;
   overflow: hidden;
 }
 
-/* LOGIN SCREEN */
-#loginScreen {
+.login-card::before {
+  content: "";
   position: absolute;
-  inset: 0;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  top: -60px;
+  right: -60px;
+  width: 140px;
+  height: 140px;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--color-primary-soft), transparent 60%);
 }
 
-.loginBox {
-  background: #fff;
-  padding: 32px;
-  width: 320px;
-  border-radius: 24px;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
-  text-align: center;
-}
-
-.loginBox h1 {
-  margin-bottom: 20px;
-  font-weight: 700;
-}
-
-#passwordInput {
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  margin-bottom: 16px;
-  width: 100%;
-  font-size: 16px;
-}
-
-#loginBtn {
-  background: #123524;
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 12px;
-  width: 100%;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* MAIN APP SHELL */
-#app {
-  display: none;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* TOP BAR */
-.topBar {
-  background: white;
-  padding: 14px 20px;
+.login-title {
   font-size: 22px;
   font-weight: 700;
-  color: #123524;
-  letter-spacing: -0.5px;
-  text-align: center;
-  border-bottom: 1px solid #ccc;
+  margin-bottom: 4px;
 }
 
-/* MAIN CONTENT GRID */
-.mainContent {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  height: calc(100vh - 60px);
-}
-
-/* LEFT SIDE: CONTACT MANAGER */
-.contactPanel {
-  background: #f2f2f7;
-  padding: 18px;
-  overflow-y: auto;
-  border-right: 1px solid #ccc;
-}
-
-.searchBox {
-  padding: 12px;
-  border-radius: 14px;
-  border: 1px solid #ccc;
-  width: 100%;
-  font-size: 15px;
-  margin-bottom: 12px;
-}
-
-.contactCard {
-  background: white;
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-}
-
-.contactCard.selected {
-  border: 2px solid #123524;
-  background: #e8f4ee;
-}
-
-.contactCard strong {
-  color: #123524;
-  font-size: 16px;
-}
-
-.contactCard p {
-  margin: 4px 0;
+.login-subtitle {
   font-size: 13px;
-}
-
-/* RIGHT SIDE: TOOLBOX */
-.toolbox {
-  padding: 16px;
-  background: #ffffff;
-  overflow-y: auto;
-}
-
-/* SECTION BOXES */
-.section {
-  background: #f8f8fa;
-  padding: 14px;
-  border-radius: 16px;
+  color: var(--color-text-soft);
   margin-bottom: 16px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
 }
 
-.section h3 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  color: #123524;
+.login-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 20px;
+  margin: 0 auto 16px;
+  background: radial-gradient(circle at 30% 20%, #bbf7d0, #16a34a);
+  box-shadow: 0 10px 30px rgba(22, 163, 74, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #022c22;
+  font-weight: 900;
   font-size: 18px;
 }
 
-/* BUTTONS */
+.login-input {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-subtle);
+  font-size: 14px;
+  margin-bottom: 10px;
+  outline: none;
+  color: var(--color-text);
+  transition: border var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.login-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-soft);
+  background: var(--color-bg-elevated);
+}
+
 .btn {
-  padding: 10px 16px;
-  border-radius: 12px;
+  appearance: none;
   border: none;
+  border-radius: 999px;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 14px;
-}
-
-.btn-green { background: #123524; color: white; }
-.btn-gray { background: #dfdfdf; color: #333; }
-
-/* NOTES */
-#notes {
-  width: 100%;
-  height: 100px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  font-size: 14px;
-}
-
-/* TODO LIST */
-.todoItem {
-  display: flex;
-  justify-content: space-between;
-  background: white;
-  padding: 8px 10px;
-  border-radius: 10px;
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
-/* TEMPLATE BOX */
-#emailTemplates {
-  width: 100%;
-  height: 80px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  font-size: 14px;
-}
-
-/* FOCUS MODE */
-#focusOverlay {
-  display: none;
-  position: absolute;
-  inset: 0;
-  background: #123524dd;
-  color: white;
-  font-size: 32px;
-  justify-content: center;
+  display: inline-flex;
   align-items: center;
-  z-index: 999;
+  justify-content: center;
+  gap: 6px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), color var(--transition-fast), opacity var(--transition-fast);
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #ecfdf3;
+  box-shadow: 0 10px 30px var(--color-primary-strong);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 36px rgba(6, 95, 70, 0.55);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px rgba(6, 95, 70, 0.5);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-soft);
+}
+
+.login-hint {
+  font-size: 11px;
+  color: var(--color-text-soft);
+  margin-top: 8px;
+}
+
+/* =========================================================
+   MAIN APP LAYOUT
+   ========================================================= */
+.app-shell {
+  display: none;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 14px;
+  height: 100%;
+}
+
+/* top nav */
+.app-topbar {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--radius-lg);
+  padding: 0 16px;
+  background: linear-gradient(120deg, var(--color-bg-elevated), var(--color-bg-subtle));
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--color-border-subtle);
+  margin-bottom: 12px;
+}
+
+.app-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-logo-small {
+  width: 28px;
+  height: 28px;
+  border-radius: 12px;
+  background: radial-gradient(circle at 40% 20%, #bbf7d0, #22c55e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: #022c22;
+}
+
+.app-title-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-title-main {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.app-title-sub {
+  font-size: 11px;
+  color: var(--color-text-soft);
+}
+
+.app-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-elevated);
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border var(--transition-fast);
+  font-size: 14px;
+}
+
+.icon-btn:hover {
+  background: var(--color-primary-soft);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
+  border-color: rgba(18, 53, 36, 0.4);
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #22c55e, #166534);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f9fafb;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* main layout: sidebar + content + right panel */
+.app-main {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1.8fr) minmax(0, 1.1fr);
+  gap: 12px;
+  height: calc(100% - 56px - 12px);
+}
+
+/* =========================================================
+   SIDEBAR NAV
+   ========================================================= */
+.app-sidebar {
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--color-border-subtle);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-soft);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px 6px;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+}
+
+.nav-item {
+  margin-bottom: 4px;
+}
+
+.nav-link {
+  border: none;
+  border-radius: 999px;
+  width: 100%;
+  text-align: left;
+  padding: 7px 10px;
+  font-size: 13px;
+  color: var(--color-text-soft);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.nav-link:hover {
+  background: var(--color-primary-soft);
+  color: var(--color-text);
+  transform: translateY(-0.5px);
+}
+
+.nav-link.active {
+  background: var(--color-primary);
+  color: #ecfdf3;
+  transform: translateY(-1px);
+}
+
+.nav-link span {
+  font-size: 16px;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 8px 10px 4px;
+  border-top: 1px dashed var(--color-border-subtle);
+  font-size: 11px;
+  color: var(--color-text-soft);
+}
+
+/* =========================================================
+   CONTACTS PANEL (CENTER)
+   ========================================================= */
+.panel {
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--color-border-subtle);
+  padding: 10px 12px 8px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.panel-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.panel-sub {
+  font-size: 11px;
+  color: var(--color-text-soft);
+}
+
+.panel-header-spacer {
+  flex: 1;
+}
+
+.chip {
+  font-size: 11px;
+  border-radius: 999px;
+  padding: 3px 8px;
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-soft);
+}
+
+.search-input {
+  width: 100%;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-subtle);
+  padding: 8px 10px 8px 28px;
+  font-size: 13px;
+  outline: none;
+  color: var(--color-text);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' stroke='%236b7280' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m21 21-4.35-4.35M5 11a6 6 0 1112 0 6 6 0 01-12 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+  background-position: 8px center;
+  transition: border var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.search-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-soft);
+  background: var(--color-bg-elevated);
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 6px 0 10px;
+  flex-wrap: wrap;
+}
+
+.filter-pill {
+  border-radius: 999px;
+  padding: 3px 8px;
+  border: 1px solid var(--color-border-subtle);
+  background: transparent;
+  font-size: 11px;
+  color: var(--color-text-soft);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: background var(--transition-fast), border var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.filter-pill:hover {
+  background: var(--color-primary-soft);
+  transform: translateY(-0.5px);
+}
+
+.filter-pill.active {
+  background: var(--color-primary);
+  color: #ecfdf3;
+  border-color: var(--color-primary);
+}
+
+/* contact list */
+.contact-list {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-bottom: 6px;
+}
+
+.contact-row {
+  display: grid;
+  grid-template-columns: auto 1.4fr 1.4fr;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border var(--transition-fast);
+  font-size: 13px;
+}
+
+.contact-row:hover {
+  background: var(--color-bg-subtle);
+  transform: translateY(-0.5px);
+}
+
+.contact-row.selected {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+  box-shadow: 0 3px 14px rgba(15, 23, 42, 0.16);
+}
+
+.contact-checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--color-primary);
+  background: var(--color-bg-elevated);
+}
+
+.contact-name {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-meta {
+  font-size: 11px;
+  color: var(--color-text-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 2px 6px;
+  font-size: 10px;
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border-subtle);
+}
+
+/* bulk bar */
+.bulk-bar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: var(--color-primary-soft);
+  font-size: 11px;
+  margin-bottom: 2px;
+}
+
+.bulk-bar-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* email preview drawer */
+.preview-drawer {
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-subtle);
+  border: 1px dashed var(--color-border-subtle);
+  padding: 8px 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 11px;
+  max-height: 60px;
+  overflow-y: auto;
+  color: var(--color-text-soft);
+}
+
+/* =========================================================
+   RIGHT PANEL (TOOLS)
+   ========================================================= */
+.tools-panel {
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--color-border-subtle);
+  padding: 10px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tool-section {
+  margin-bottom: 10px;
+  border-radius: 14px;
+  padding: 10px 9px;
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.tool-section h3 {
+  margin: 0 0 5px;
+  font-size: 13px;
+}
+
+.tool-section small {
+  color: var(--color-text-soft);
+  font-size: 11px;
+}
+
+.textarea-note,
+.textarea-template {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--color-border-subtle);
+  padding: 8px;
+  font-size: 12px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 70px;
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+}
+
+.textarea-note:focus,
+.textarea-template:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-soft);
+}
+
+/* todo list */
+.todo-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-bg-elevated);
+  border-radius: 10px;
+  padding: 6px 8px;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.todo-row span {
+  flex: 1;
+}
+
+.todo-row button {
+  border: none;
+  background: transparent;
+  color: var(--color-danger);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* integrations */
+.integration-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 12px;
+}
+
+.integration-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.integration-name span:first-child {
+  font-weight: 500;
+}
+
+.integration-name span:last-child {
+  font-size: 11px;
+  color: var(--color-text-soft);
+}
+
+/* toggle switch */
+.switch {
+  position: relative;
+  width: 34px;
+  height: 18px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #d1d5db;
+  border-radius: 999px;
+  transition: background var(--transition-fast);
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  top: 2px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.35);
+}
+
+.switch input:checked + .slider {
+  background-color: #22c55e;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(16px);
+}
+
+/* focus overlay */
+.focus-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.96));
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-focus);
+  color: #ecfdf3;
+  flex-direction: column;
+  text-align: center;
+}
+
+.focus-overlay h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.focus-overlay p {
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+/* responsive */
+@media (max-width: 1040px) {
+  .app-main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    height: auto;
+  }
+  .app-shell {
+    height: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    padding: 8px;
+  }
+  .app-main {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
 <body>
-
-<!-- LOGIN SCREEN -->
-<div id="loginScreen">
-  <div class="loginBox">
-    <h1>Email Blaster 4000</h1>
-    <input id="passwordInput" type="password" placeholder="Enter Password">
-    <button id="loginBtn">Login</button>
-    <p style="font-size:12px;color:#777;margin-top:8px;">Hint: sales</p>
+<!-- =======================================================
+     LOGIN SCREEN
+     ======================================================= -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">EB</div>
+    <div class="login-title">Email Blaster 4000</div>
+    <div class="login-subtitle">Your personal outbound command center.</div>
+    <input
+      id="passwordInput"
+      type="password"
+      class="login-input"
+      placeholder="Enter access password"
+    />
+    <button id="loginBtn" class="btn btn-primary" style="width:100%; margin-top:4px;">
+      <span>Unlock dashboard</span> <span>🔓</span>
+    </button>
+    <div class="login-hint">Hint: <code>sales</code></div>
+    <button id="loginDarkToggle" class="btn btn-ghost" style="margin-top:8px;font-size:11px;">
+      Toggle light / dark
+    </button>
   </div>
 </div>
 
-<!-- FULLSCREEN FOCUS MODE -->
-<div id="focusOverlay">FOCUS MODE</div>
+<!-- =======================================================
+     FOCUS MODE OVERLAY
+     ======================================================= -->
+<div class="focus-overlay" id="focusOverlay" aria-hidden="true">
+  <h1>Focus Mode</h1>
+  <p>Press <strong>Esc</strong> or click anywhere to exit.</p>
+</div>
 
-<!-- MAIN APP -->
-<div id="app">
-
-  <div class="topBar">Email Blaster 4000</div>
-
-  <div class="mainContent">
-
-    <!-- LEFT: CONTACTS -->
-    <div class="contactPanel">
-      <input id="search" class="searchBox" placeholder="Search contacts...">
-
-      <div id="contactList"></div>
+<!-- =======================================================
+     MAIN APP SHELL
+     ======================================================= -->
+<div class="app-shell" id="appShell">
+  <!-- Top bar -->
+  <header class="app-topbar">
+    <div class="app-topbar-left">
+      <div class="app-logo-small">EB</div>
+      <div class="app-title-text">
+        <span class="app-title-main">Email Blaster 4000</span>
+        <span class="app-title-sub">Prospects • Pipelines • Productivity</span>
+      </div>
     </div>
+    <div class="app-topbar-right">
+      <button class="icon-btn" id="themeToggleBtn" title="Toggle theme">🌓</button>
+      <button class="icon-btn" id="shortcutHintBtn" title="Keyboard shortcuts">⌨️</button>
+      <div class="avatar">TC</div>
+    </div>
+  </header>
 
-    <!-- RIGHT: TOOLS -->
-    <div class="toolbox">
+  <!-- Body grid -->
+  <div class="app-main">
+    <!-- Sidebar -->
+    <aside class="app-sidebar">
+      <div class="sidebar-section-title">Views</div>
+      <ul class="nav-list" id="navList">
+        <li class="nav-item">
+          <button class="nav-link active" data-view="contacts">
+            <span>👥</span> Contacts
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-view="notes">
+            <span>📝</span> Notes
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-view="tasks">
+            <span>✅</span> Tasks
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-view="templates">
+            <span>✉️</span> Templates
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-view="integrations">
+            <span>🔌</span> Integrations
+          </button>
+        </li>
+      </ul>
 
-      <!-- QUICK ACTIONS -->
-      <div class="section">
-        <h3>Quick Actions</h3>
-        <button id="copyBtn" class="btn btn-green">Copy Selected Emails</button>
-        <button id="exportBtn" class="btn btn-gray" style="margin-left:8px;">Export List</button>
-        <button id="focusBtn" class="btn btn-gray" style="margin-top:8px;width:100%;">Enter Focus Mode</button>
+      <div class="sidebar-footer">
+        Pro tip: press <strong>/</strong> to jump to contact search.<br />
+        <span style="opacity:0.8;">Cmd/Ctrl+A selects all contacts.</span>
+      </div>
+    </aside>
+
+    <!-- Center panel: Contacts main view -->
+    <main class="panel" id="contactsPanel">
+      <header class="panel-header">
+        <div>
+          <div class="panel-title">Contacts</div>
+          <div class="panel-sub">Your curated outreach list</div>
+        </div>
+        <div class="panel-header-spacer"></div>
+        <div class="chip">
+          <span id="contactCountLabel">0</span> total
+        </div>
+      </header>
+
+      <input id="searchInput" class="search-input" placeholder="Search by name, email, or organization…" />
+
+      <div class="filter-row">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="K-12">K-12</button>
+        <button class="filter-pill" data-filter="Public Sector">Public Sector</button>
+        <button class="filter-pill" data-filter="Higher Education">Higher Education</button>
+        <button class="filter-pill" data-filter="Transit">Transit</button>
       </div>
 
-      <!-- NOTES -->
-      <div class="section">
+      <div class="bulk-bar" id="bulkBar">
+        <div>
+          <strong id="bulkCount">0</strong> selected
+        </div>
+        <div class="bulk-bar-actions">
+          <button class="btn" id="bulkCopyBtn" style="font-size:11px;padding:4px 8px;">Copy emails</button>
+          <button class="btn" id="bulkClearBtn" style="font-size:11px;padding:4px 8px;">Clear</button>
+        </div>
+      </div>
+
+      <section class="contact-list" id="contactList"></section>
+
+      <footer class="preview-drawer" id="previewDrawer">No contacts selected.</footer>
+    </main>
+
+    <!-- Right: Tools panel -->
+    <aside class="tools-panel" id="toolsPanel">
+      <section class="tool-section" id="notesSection">
         <h3>Quick Notes</h3>
-        <textarea id="notes" placeholder="Write notes here..."></textarea>
-      </div>
+        <small>Draft call notes, follow-up angles, objections, ideas.</small>
+        <textarea id="notesArea" class="textarea-note" placeholder="Type anything you don't want to lose…"></textarea>
+      </section>
 
-      <!-- TODO -->
-      <div class="section">
-        <h3>To-Do List</h3>
-        <input id="todoInput" placeholder="New task..." style="padding:8px;border-radius:8px;border:1px solid #ccc;width:100%;margin-bottom:8px;">
-        <button id="addTodo" class="btn btn-green" style="width:100%;">Add Task</button>
+      <section class="tool-section" id="tasksSection">
+        <h3>To-Do</h3>
+        <small>Keep your next actions visible.</small>
+        <div style="display:flex; gap:6px; margin-top:6px;">
+          <input
+            id="todoInput"
+            placeholder="Add a new task…"
+            style="flex:1; padding:7px 9px; border-radius:10px; border:1px solid var(--color-border-subtle); font-size:12px;"
+          />
+          <button id="todoAddBtn" class="btn btn-primary" style="font-size:12px;padding-inline:10px;">+</button>
+        </div>
         <div id="todoList"></div>
-      </div>
+      </section>
 
-      <!-- EMAIL TEMPLATES -->
-      <div class="section">
+      <section class="tool-section" id="templatesSection">
         <h3>Email Templates</h3>
-        <textarea id="emailTemplates" placeholder="Save templates here..."></textarea>
-      </div>
-    </div>
+        <small>Keep your best cold openers close.</small>
+        <textarea
+          id="templatesArea"
+          class="textarea-template"
+          placeholder="Example: First-line hook, value bullets, CTA…"
+        ></textarea>
+      </section>
 
+      <section class="tool-section" id="integrationsSection">
+        <h3>Integrations</h3>
+        <small>These are visual toggles only, but state is saved locally.</small>
+        <div class="integration-row">
+          <div class="integration-name">
+            <span>Gmail</span>
+            <span>Copy emails into Gmail compose</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-integration="gmail" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="integration-row">
+          <div class="integration-name">
+            <span>Outlook</span>
+            <span>Use with desktop Outlook campaigns</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-integration="outlook" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="integration-row">
+          <div class="integration-name">
+            <span>HubSpot</span>
+            <span>Paste into HubSpot lists</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-integration="hubspot" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </section>
+
+      <section class="tool-section">
+        <h3>Session Tips</h3>
+        <small>Shortcuts & micro-habits.</small>
+        <ul style="padding-left:16px; margin:6px 0 0; font-size:11px; color:var(--color-text-soft);">
+          <li>Press <strong>/</strong> to jump to search.</li>
+          <li>Double-click a contact to copy their email.</li>
+          <li>Use Focus Mode before a deep call block.</li>
+        </ul>
+        <button id="focusBtn" class="btn btn-ghost" style="margin-top:8px;font-size:11px;">Enter Focus Mode</button>
+      </section>
+    </aside>
   </div>
-
 </div>
 
 <script>
-/* LOGIN */
-loginBtn.onclick = () => {
-  if (passwordInput.value === "sales") {
-    loginScreen.style.display = "none";
-    app.style.display = "flex";
-  } else alert("Incorrect password.");
-};
-
-/* CONTACTS */
-let contacts = [
-  {name:"Sean Jowell", email:"jowells@pcsb.org"},
-  {name:"Philip Martin", email:"philip.martin@sumter.k12.fl.us"},
-  {name:"Sarah Johnson", email:"sjohnson@stpete.org"},
-  {name:"Michael Nagy", email:"mwilliams@dunedinfl.gov"},
-  {name:"Ronbert Ignacio", email:"ronbert.ignacio@dunedin.gov"},
-  {name:"David Mather", email:"dmather@mygulfport.us"},
-  {name:"Chris Pagan", email:"cpagan@mytreasureisland.org"},
-  {name:"Matthew Sabella", email:"msabella@myseminole.com"},
-  {name:"Alex Britton-Kant", email:"abrittonkant@mysouthpasadena.com"},
-  {name:"Suzanne Linton", email:"slinton@ctsfl.us"},
-  {name:"Jessica Cinney", email:"cinneyj@eckerd.edu"},
-  {name:"Walter Moore", email:"moorewr@eckerd.edu"},
-  {name:"Tonya Womack", email:"womacktm@eckerd.edu"},
-  {name:"Emmett Andrews", email:"eandrews@polk.edu"},
-  {name:"Martin Gang", email:"mgang@polk.edu"},
-  {name:"Jennifer Angelo", email:"jangelo@myindianshores.com"},
-  {name:"Hansel Roush", email:"hroush@largo.com"},
-  {name:"Tim Clark", email:"tclark@largo.com"},
-  {name:"Missy Nevitt", email:"mnevitt@psta.net"}
+/* =========================================================
+   DATA
+   ========================================================= */
+const CONTACTS = [
+  { name: "Sean Jowell",    email: "jowells@pcsb.org",                 title: "Director Safety & Security",                   org: "Pinellas County School District",   vertical: "K-12" },
+  { name: "Philip Martin",  email: "philip.martin@sumter.k12.fl.us",   title: "Director of Safety & Security",               org: "Sumter County Public Schools",     vertical: "K-12" },
+  { name: "Sarah Johnson",  email: "sjohnson@stpete.org",             title: "IT Manager",                                  org: "City of St. Petersburg",           vertical: "Public Sector" },
+  { name: "Michael Nagy",   email: "mwilliams@dunedinfl.gov",         title: "Director of IT",                              org: "City of Dunedin",                  vertical: "Public Sector" },
+  { name: "Ronbert Ignacio",email: "ronbert.ignacio@dunedin.gov",     title: "IT Specialist",                               org: "City of Dunedin",                  vertical: "Public Sector" },
+  { name: "David Mather",   email: "dmather@mygulfport.us",           title: "Director of IT",                              org: "City of Gulfport",                 vertical: "Public Sector" },
+  { name: "Chris Pagan",    email: "cpagan@mytreasureisland.org",     title: "Director of IT",                              org: "City of Treasure Island",          vertical: "Public Sector" },
+  { name: "Matthew Sabella",email: "msabella@myseminole.com",         title: "Director of IT",                              org: "City of Seminole",                 vertical: "Public Sector" },
+  { name: "Alex Britton-Kant",email:"abrittonkant@mysouthpasadena.com",title:"Director of IT",                             org: "City of S. Pasadena",              vertical: "Public Sector" },
+  { name: "Suzanne Linton", email: "slinton@ctsfl.us",                title: "Director of IT",                              org: "City of Tarpon Springs",           vertical: "Public Sector" },
+  { name: "Jessica Cinney", email: "cinneyj@eckerd.edu",              title: "Director of Campus Safety & Security",        org: "Eckerd College",                  vertical: "Higher Education" },
+  { name: "Walter Moore",   email: "moorewr@eckerd.edu",              title: "Director of IT",                              org: "Eckerd College",                  vertical: "Higher Education" },
+  { name: "Tonya Womack",   email: "womacktm@eckerd.edu",             title: "Risk Management & Safety",                    org: "Eckerd College",                  vertical: "Higher Education" },
+  { name: "Emmett Andrews", email: "eandrews@polk.edu",               title: "Director of Safety & Security",               org: "Polk State College",              vertical: "Higher Education" },
+  { name: "Martin Gang",    email: "mgang@polk.edu",                  title: "Director of Technology and IT",               org: "Polk State College",              vertical: "Higher Education" },
+  { name: "Jennifer Angelo",email: "jangelo@myindianshores.com",      title: "Admin Assistant",                             org: "Town of Indian Shores",           vertical: "Public Sector" },
+  { name: "Hansel Roush",   email: "hroush@largo.com",                title: "Director of IT",                              org: "City of Largo",                   vertical: "Public Sector" },
+  { name: "Tim Clark",      email: "tclark@largo.com",                title: "IT Admin",                                    org: "City of Largo",                   vertical: "Public Sector" },
+  { name: "Missy Nevitt",   email: "mnevitt@psta.net",                title: "Superintendant of Facilities",                org: "PSTA",                            vertical: "Transit" }
 ];
 
-let selected = new Set();
+let selectedEmails = new Set();
+let activeFilter = "all";
 
-/* RENDER CONTACT LIST */
-function renderContacts() {
-  contactList.innerHTML = "";
+/* =========================================================
+   UTILITIES: LOCALSTORAGE WRAPPERS
+   ========================================================= */
+const storage = {
+  get(key, fallback) {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : fallback;
+    } catch {
+      return fallback;
+    }
+  },
+  set(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      // ignore quota errors silently
+    }
+  }
+};
 
-  const s = search.value.toLowerCase();
-  contacts
-    .filter(c => c.name.toLowerCase().includes(s) || c.email.toLowerCase().includes(s))
-    .forEach(c => {
-      let div = document.createElement("div");
-      div.className = "contactCard" + (selected.has(c.email) ? " selected" : "");
-      div.innerHTML = `<strong>${c.name}</strong><p>${c.email}</p>`;
-      div.onclick = () => toggle(c.email);
-      contactList.appendChild(div);
-    });
+/* =========================================================
+   LOGIN + THEME
+   ========================================================= */
+const loginScreen = document.getElementById("loginScreen");
+const passwordInput = document.getElementById("passwordInput");
+const loginBtn = document.getElementById("loginBtn");
+const loginDarkToggle = document.getElementById("loginDarkToggle");
+const appShell = document.getElementById("appShell");
+const themeToggleBtn = document.getElementById("themeToggleBtn");
+
+function applyTheme(theme) {
+  if (theme === "dark") {
+    document.body.classList.add("theme-dark");
+  } else {
+    document.body.classList.remove("theme-dark");
+  }
+  storage.set("eb4000-theme", theme);
 }
 
-function toggle(email) {
-  selected.has(email) ? selected.delete(email) : selected.add(email);
+function toggleTheme() {
+  const current = document.body.classList.contains("theme-dark") ? "dark" : "light";
+  applyTheme(current === "dark" ? "light" : "dark");
+}
+
+themeToggleBtn.addEventListener("click", toggleTheme);
+loginDarkToggle.addEventListener("click", toggleTheme);
+
+const savedTheme = storage.get("eb4000-theme", "light");
+applyTheme(savedTheme);
+
+function attemptLogin() {
+  if (passwordInput.value === "sales") {
+    loginScreen.style.display = "none";
+    appShell.style.display = "block";
+  } else {
+    alert("Incorrect password.");
+    passwordInput.focus();
+  }
+}
+
+loginBtn.addEventListener("click", attemptLogin);
+passwordInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") attemptLogin();
+});
+
+/* =========================================================
+   CONTACTS RENDERING
+   ========================================================= */
+const contactListEl = document.getElementById("contactList");
+const contactCountLabel = document.getElementById("contactCountLabel");
+const searchInput = document.getElementById("searchInput");
+const filterButtons = document.querySelectorAll(".filter-pill");
+const bulkBar = document.getElementById("bulkBar");
+const bulkCount = document.getElementById("bulkCount");
+const bulkCopyBtn = document.getElementById("bulkCopyBtn");
+const bulkClearBtn = document.getElementById("bulkClearBtn");
+const previewDrawer = document.getElementById("previewDrawer");
+
+function getFilteredContacts() {
+  const query = searchInput.value.toLowerCase().trim();
+  return CONTACTS.filter(c => {
+    const matchesFilter =
+      activeFilter === "all" ? true : c.vertical === activeFilter;
+    if (!matchesFilter) return false;
+    if (!query) return true;
+    const composite = `${c.name} ${c.email} ${c.org} ${c.title}`.toLowerCase();
+    return composite.includes(query);
+  });
+}
+
+function renderContacts() {
+  const contacts = getFilteredContacts();
+  contactListEl.innerHTML = "";
+  contactCountLabel.textContent = CONTACTS.length.toString();
+
+  contacts.forEach((c, index) => {
+    const row = document.createElement("div");
+    row.className = "contact-row";
+    if (selectedEmails.has(c.email)) row.classList.add("selected");
+
+    row.dataset.email = c.email;
+    row.title = `${c.name} • ${c.org} • ${c.title}`;
+
+    row.innerHTML = `
+      <div class="contact-checkbox">${selectedEmails.has(c.email) ? "✓" : ""}</div>
+      <div>
+        <div class="contact-name">${c.name}</div>
+        <div class="contact-meta">${c.org}</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="contact-meta">${c.email}</div>
+        <div style="margin-top:3px;">
+          <span class="badge">${c.vertical}</span>
+        </div>
+      </div>
+    `;
+
+    row.addEventListener("click", () => toggleSelect(c.email));
+    row.addEventListener("dblclick", () => copySingleEmail(c.email));
+
+    contactListEl.appendChild(row);
+  });
+
+  updateBulkBar();
+  updatePreviewDrawer();
+}
+
+function toggleSelect(email) {
+  if (selectedEmails.has(email)) selectedEmails.delete(email);
+  else selectedEmails.add(email);
   renderContacts();
 }
 
-/* COPY */
-copyBtn.onclick = () => {
-  navigator.clipboard.writeText(Array.from(selected).join("; "));
-  alert("Copied!");
-};
+function copySingleEmail(email) {
+  navigator.clipboard.writeText(email).then(() => {
+    alert(`Copied: ${email}`);
+  });
+}
 
-/* EXPORT */
-exportBtn.onclick = () => {
-  let csv = "name,email\n" + contacts.map(c => `${c.name},${c.email}`).join("\n");
-  let blob = new Blob([csv], {type: "text/csv"});
-  let url = URL.createObjectURL(blob);
+function updateBulkBar() {
+  const count = selectedEmails.size;
+  if (count > 0) {
+    bulkBar.style.display = "flex";
+    bulkCount.textContent = count.toString();
+  } else {
+    bulkBar.style.display = "none";
+  }
+}
 
-  let a = document.createElement("a");
-  a.href = url;
-  a.download = "contacts.csv";
-  a.click();
-};
+function updatePreviewDrawer() {
+  if (selectedEmails.size === 0) {
+    previewDrawer.textContent = "No contacts selected.";
+    return;
+  }
+  previewDrawer.textContent = Array.from(selectedEmails).join("; ");
+}
 
-/* TO-DO LIST */
-addTodo.onclick = () => {
-  let task = todoInput.value.trim();
-  if (!task) return;
-  let div = document.createElement("div");
-  div.className = "todoItem";
-  div.innerHTML = `${task} <span style="cursor:pointer;color:red;" onclick="this.parentElement.remove()">✕</span>`;
-  todoList.appendChild(div);
+/* Filter buttons */
+filterButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    filterButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeFilter = btn.dataset.filter === "all" ? "all" : btn.dataset.filter;
+    renderContacts();
+  });
+});
+
+/* Search */
+searchInput.addEventListener("input", () => {
+  renderContacts();
+});
+
+/* Bulk actions */
+bulkCopyBtn.addEventListener("click", () => {
+  if (!selectedEmails.size) return;
+  navigator.clipboard.writeText(Array.from(selectedEmails).join("; ")).then(() => {
+    alert(`Copied ${selectedEmails.size} emails.`);
+  });
+});
+
+bulkClearBtn.addEventListener("click", () => {
+  selectedEmails.clear();
+  renderContacts();
+});
+
+/* =========================================================
+   TOOLS: NOTES, TODO, TEMPLATES, INTEGRATIONS
+   ========================================================= */
+const notesArea = document.getElementById("notesArea");
+const todoInput = document.getElementById("todoInput");
+const todoAddBtn = document.getElementById("todoAddBtn");
+const todoList = document.getElementById("todoList");
+const templatesArea = document.getElementById("templatesArea");
+const integrationSwitches = document.querySelectorAll("input[data-integration]");
+
+/* Notes */
+function loadNotes() {
+  const saved = storage.get("eb4000-notes", "");
+  notesArea.value = saved;
+}
+function saveNotes() {
+  storage.set("eb4000-notes", notesArea.value);
+}
+notesArea.addEventListener("input", () => {
+  saveNotes();
+});
+
+/* To-do */
+let todos = [];
+
+function renderTodos() {
+  todoList.innerHTML = "";
+  todos.forEach((t, idx) => {
+    const row = document.createElement("div");
+    row.className = "todo-row";
+    row.innerHTML = `
+      <span>${t}</span>
+      <button title="Remove task">✕</button>
+    `;
+    row.querySelector("button").addEventListener("click", () => {
+      todos.splice(idx, 1);
+      saveTodos();
+      renderTodos();
+    });
+    todoList.appendChild(row);
+  });
+}
+
+function loadTodos() {
+  todos = storage.get("eb4000-todos", []);
+  renderTodos();
+}
+
+function saveTodos() {
+  storage.set("eb4000-todos", todos);
+}
+
+todoAddBtn.addEventListener("click", () => {
+  const val = todoInput.value.trim();
+  if (!val) return;
+  todos.push(val);
   todoInput.value = "";
-};
+  saveTodos();
+  renderTodos();
+});
 
-/* FOCUS MODE */
-focusBtn.onclick = () => {
+todoInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    todoAddBtn.click();
+  }
+});
+
+/* Templates */
+function loadTemplates() {
+  const saved = storage.get("eb4000-templates", "");
+  templatesArea.value = saved;
+}
+function saveTemplates() {
+  storage.set("eb4000-templates", templatesArea.value);
+}
+templatesArea.addEventListener("input", saveTemplates);
+
+/* Integrations */
+function loadIntegrations() {
+  const saved = storage.get("eb4000-integrations", {});
+  integrationSwitches.forEach(sw => {
+    const key = sw.dataset.integration;
+    sw.checked = !!saved[key];
+    sw.addEventListener("change", () => {
+      const current = storage.get("eb4000-integrations", {});
+      current[key] = sw.checked;
+      storage.set("eb4000-integrations", current);
+    });
+  });
+}
+
+/* =========================================================
+   FOCUS MODE
+   ========================================================= */
+const focusOverlay = document.getElementById("focusOverlay");
+const focusBtn = document.getElementById("focusBtn");
+
+function enterFocusMode() {
   focusOverlay.style.display = "flex";
-  setTimeout(() => focusOverlay.style.display = "none", 2000);
-};
+  focusOverlay.setAttribute("aria-hidden", "false");
+}
 
-/* LIVE SEARCH */
-search.oninput = renderContacts;
+function exitFocusMode() {
+  focusOverlay.style.display = "none";
+  focusOverlay.setAttribute("aria-hidden", "true");
+}
 
-/* INIT */
-renderContacts();
+focusBtn.addEventListener("click", enterFocusMode);
+focusOverlay.addEventListener("click", exitFocusMode);
+
+/* =========================================================
+   NAVIGATION VIEWS (LEFT NAV)
+   ========================================================= */
+const navList = document.getElementById("navList");
+const contactsPanel = document.getElementById("contactsPanel");
+const toolsPanel = document.getElementById("toolsPanel");
+const notesSection = document.getElementById("notesSection");
+const tasksSection = document.getElementById("tasksSection");
+const templatesSection = document.getElementById("templatesSection");
+const integrationsSection = document.getElementById("integrationsSection");
+
+function switchView(view) {
+  // All views still visible but we can scroll to or highlight relevant sections.
+  // For now, we'll just gently highlight the corresponding section on the right.
+  [notesSection, tasksSection, templatesSection, integrationsSection].forEach(section =>
+    section.style.outline = "none"
+  );
+
+  if (view === "notes") {
+    notesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    notesSection.style.outline = "2px solid var(--color-primary-soft)";
+  } else if (view === "tasks") {
+    tasksSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    tasksSection.style.outline = "2px solid var(--color-primary-soft)";
+  } else if (view === "templates") {
+    templatesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    templatesSection.style.outline = "2px solid var(--color-primary-soft)";
+  } else if (view === "integrations") {
+    integrationsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    integrationsSection.style.outline = "2px solid var(--color-primary-soft)";
+  } else {
+    contactsPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+navList.addEventListener("click", e => {
+  const btn = e.target.closest(".nav-link");
+  if (!btn) return;
+  navList.querySelectorAll(".nav-link").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  switchView(btn.dataset.view);
+});
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+   ========================================================= */
+const shortcutHintBtn = document.getElementById("shortcutHintBtn");
+
+function showShortcutHelp() {
+  alert(
+    [
+      "Keyboard Shortcuts:",
+      "  /          → Focus contact search",
+      "  Esc        → Clear selection or exit Focus Mode",
+      "  Ctrl/Cmd+A → Select all contacts in current filter",
+      "  Enter      → Login (on password field)",
+      "  Double-click contact → Copy that contact's email"
+    ].join("\n")
+  );
+}
+
+shortcutHintBtn.addEventListener("click", showShortcutHelp);
+
+document.addEventListener("keydown", e => {
+  if (document.activeElement === passwordInput) return; // don't steal from login
+  if (focusOverlay.style.display === "flex" && e.key === "Escape") {
+    e.preventDefault();
+    exitFocusMode();
+    return;
+  }
+
+  if (e.key === "/") {
+    e.preventDefault();
+    searchInput.focus();
+    searchInput.select();
+  }
+
+  if (e.key === "Escape") {
+    if (selectedEmails.size > 0) {
+      selectedEmails.clear();
+      renderContacts();
+    }
+  }
+
+  // Ctrl/Cmd + A → select all visible
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "a") {
+    e.preventDefault();
+    const filtered = getFilteredContacts();
+    if (selectedEmails.size === filtered.length) {
+      selectedEmails.clear();
+    } else {
+      filtered.forEach(c => selectedEmails.add(c.email));
+    }
+    renderContacts();
+  }
+});
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+function init() {
+  renderContacts();
+  loadNotes();
+  loadTodos();
+  loadTemplates();
+  loadIntegrations();
+}
+
+init();
 </script>
 </body>
 </html>
