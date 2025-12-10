@@ -6,9 +6,6 @@
 <title>Email Blaster 4000</title>
 
 <style>
-/* =========================================================
-   DESIGN SYSTEM
-   ========================================================= */
 :root {
   --color-bg: #050816;
   --color-bg-elevated: #020617;
@@ -22,14 +19,12 @@
   --color-danger: #b91c1c;
   --shadow-soft: 0 16px 40px rgba(15, 23, 42, 0.9);
   --radius-lg: 18px;
-  --radius-xl: 24px;
   --transition-fast: 0.18s ease-out;
   --transition-med: 0.25s ease;
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   --z-focus: 50;
+  --gold: #facc15;
 }
-
-/* Light mode override */
 body.theme-light {
   --color-bg: #f2f2f7;
   --color-bg-elevated: #ffffff;
@@ -39,16 +34,9 @@ body.theme-light {
   --color-text-soft: #6b7280;
   --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
 }
-
-/* =========================================================
-   GLOBAL BASE
-   ========================================================= */
 *,
 *::before,
-*::after {
-  box-sizing: border-box;
-}
-
+*::after { box-sizing: border-box; }
 body {
   margin: 0;
   font-family: var(--font-sans);
@@ -61,14 +49,9 @@ body {
   overflow: hidden;
   transition: background var(--transition-med), color var(--transition-med);
 }
+.app-shell { height: 100%; }
 
-.app-shell {
-  height: 100%;
-}
-
-/* =========================================================
-   ULTRA-SECURE LOGIN SCREEN
-   ========================================================= */
+/* LOGIN */
 .login-screen {
   position: fixed;
   inset: 0;
@@ -81,8 +64,6 @@ body {
   z-index: 20;
   overflow: hidden;
 }
-
-/* animated safe rings */
 .login-screen::before,
 .login-screen::after {
   content: "";
@@ -98,12 +79,10 @@ body {
   animation-direction: reverse;
   opacity: 0.4;
 }
-
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
-
 .login-card {
   position: relative;
   background: radial-gradient(circle at top, #0b1220, #020617);
@@ -116,84 +95,91 @@ body {
   text-align: center;
   overflow: hidden;
 }
-
 .login-inner-glow {
   position: absolute;
   inset: -40%;
   background:
     radial-gradient(circle at top, rgba(34,197,94,0.15), transparent 55%),
-    radial-gradient(circle at bottom, rgba(59,130,246,0.15), transparent 60%);
+    radial-gradient(circle at bottom, rgba(234,179,8,0.22), transparent 60%);
   opacity: 0.9;
   pointer-events: none;
 }
+.login-content { position: relative; z-index: 1; }
 
-.login-content {
-  position: relative;
-  z-index: 1;
-}
-
-/* lock / emblem */
+/* emblem = mail icon now */
 .login-emblem {
   width: 70px;
   height: 70px;
   border-radius: 24px;
   margin: 0 auto 14px;
-  background:
-    conic-gradient(from 180deg, #22c55e, #16a34a, #22c55e);
+  background: radial-gradient(circle at 30% 20%, #fef9c3, #facc15);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow:
     0 0 0 3px #020617,
-    0 18px 40px rgba(22,163,74,0.65);
+    0 18px 40px rgba(250,204,21,0.7);
   position: relative;
 }
-
-.login-emblem-lock {
+.login-emblem-mail {
   width: 40px;
-  height: 40px;
-  border-radius: 14px;
-  background: radial-gradient(circle at top, #f9fafb, #e5e7eb);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #111827;
-  font-size: 22px;
-  font-weight: 800;
+  height: 28px;
+  border-radius: 6px;
+  background: #020617;
+  border: 2px solid #facc15;
+  position: relative;
+  box-shadow: 0 0 18px rgba(250,204,21,0.7);
 }
-
+.login-emblem-mail::before,
+.login-emblem-mail::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  height: 2px;
+  background: linear-gradient(90deg,#facc15,#f97316,#facc15);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.login-emblem-mail::after {
+  height: 1px;
+  top: auto;
+  bottom: 4px;
+}
 .login-emblem-ring {
   position: absolute;
   inset: -8px;
   border-radius: 999px;
-  border: 1px solid rgba(148,163,184,0.5);
-  box-shadow: 0 0 16px rgba(34,197,94,0.5);
-  opacity: 0.8;
+  border: 1px solid rgba(250,204,21,0.7);
+  box-shadow: 0 0 20px rgba(250,204,21,0.7);
+  opacity: 0.9;
 }
 
-/* headings */
-.login-title {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 4px;
-  letter-spacing: 0.02em;
-}
-
+/* title / gold text */
 .login-model {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: #a5b4fc;
-  margin-bottom: 10px;
+  color: var(--gold);
+  margin-bottom: 8px;
 }
-
+.login-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: 0.04em;
+  color: #fefce8;
+}
+.login-title span {
+  color: var(--gold);
+}
 .login-subtitle {
   font-size: 12px;
   color: var(--color-text-soft);
   margin-bottom: 16px;
 }
 
-/* "encryption" bar */
+/* encryption bar */
 .login-meta-bar {
   display: flex;
   justify-content: space-between;
@@ -205,9 +191,8 @@ body {
   margin-bottom: 14px;
   background: linear-gradient(120deg, rgba(15,23,42,0.8), rgba(15,23,42,0.9));
 }
-
 .login-meta-bar span strong {
-  color: #22c55e;
+  color: var(--gold);
 }
 
 /* inputs / buttons */
@@ -223,14 +208,10 @@ body {
   color: var(--color-text);
   transition: border var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
 }
-
-.login-input::placeholder {
-  color: #6b7280;
-}
-
+.login-input::placeholder { color: #6b7280; }
 .login-input:focus {
-  border-color: #22c55e;
-  box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(250,204,21,0.3);
   background: #020617;
   transform: translateY(-0.5px);
 }
@@ -250,23 +231,19 @@ body {
   transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), color var(--transition-fast), opacity var(--transition-fast);
   font-family: inherit;
 }
-
 .btn-primary {
   background: linear-gradient(135deg, #22c55e, #16a34a);
   color: #ecfdf3;
   box-shadow: 0 10px 32px rgba(22,163,74,0.7);
 }
-
 .btn-primary:hover {
   transform: translateY(-1px);
   box-shadow: 0 14px 40px rgba(22,163,74,0.9);
 }
-
 .btn-primary:active {
   transform: translateY(0);
   box-shadow: 0 8px 24px rgba(22,163,74,0.8);
 }
-
 .btn-ghost {
   background: transparent;
   color: var(--color-text-soft);
@@ -277,17 +254,13 @@ body {
   color: var(--color-text-soft);
   margin-top: 8px;
 }
-
-/* theme toggle hint */
 .login-toggle {
   margin-top: 8px;
   font-size: 11px;
   color: var(--color-text-soft);
 }
 
-/* =========================================================
-   MAIN APP LAYOUT
-   ========================================================= */
+/* APP LAYOUT */
 .app-shell {
   display: none;
   max-width: 1360px;
@@ -295,8 +268,6 @@ body {
   padding: 14px;
   height: 100%;
 }
-
-/* top nav */
 .app-topbar {
   height: 56px;
   display: flex;
@@ -309,13 +280,11 @@ body {
   border: 1px solid var(--color-border-subtle);
   margin-bottom: 12px;
 }
-
 .app-topbar-left {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-
 .app-logo-small {
   width: 28px;
   height: 28px;
@@ -328,28 +297,14 @@ body {
   font-weight: 800;
   color: #022c22;
 }
-
-.app-title-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.app-title-main {
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.app-title-sub {
-  font-size: 11px;
-  color: var(--color-text-soft);
-}
-
+.app-title-text { display: flex; flex-direction: column; }
+.app-title-main { font-size: 15px; font-weight: 600; }
+.app-title-sub { font-size: 11px; color: var(--color-text-soft); }
 .app-topbar-right {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-
 .icon-btn {
   width: 30px;
   height: 30px;
@@ -363,14 +318,12 @@ body {
   transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border var(--transition-fast);
   font-size: 14px;
 }
-
 .icon-btn:hover {
   background: var(--color-primary-soft);
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
   border-color: rgba(18, 53, 36, 0.4);
 }
-
 .avatar {
   width: 30px;
   height: 30px;
@@ -383,8 +336,6 @@ body {
   font-size: 14px;
   font-weight: 600;
 }
-
-/* main layout: sidebar + content + right panel */
 .app-main {
   display: grid;
   grid-template-columns: 220px minmax(0, 1.8fr) minmax(0, 1.1fr);
@@ -392,9 +343,7 @@ body {
   height: calc(100% - 56px - 12px);
 }
 
-/* =========================================================
-   SIDEBAR NAV
-   ========================================================= */
+/* SIDEBAR */
 .app-sidebar {
   background: var(--color-bg-elevated);
   border-radius: var(--radius-lg);
@@ -404,7 +353,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 .sidebar-section-title {
   font-size: 11px;
   font-weight: 600;
@@ -413,17 +361,12 @@ body {
   text-transform: uppercase;
   padding: 4px 10px 6px;
 }
-
 .nav-list {
   list-style: none;
   padding: 0;
   margin: 0 0 8px;
 }
-
-.nav-item {
-  margin-bottom: 4px;
-}
-
+.nav-item { margin-bottom: 4px; }
 .nav-link {
   border: none;
   border-radius: 999px;
@@ -439,23 +382,17 @@ body {
   gap: 8px;
   transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
-
 .nav-link:hover {
   background: rgba(148,163,184,0.2);
   color: var(--color-text);
   transform: translateY(-0.5px);
 }
-
 .nav-link.active {
   background: #22c55e;
   color: #022c22;
   transform: translateY(-1px);
 }
-
-.nav-link span {
-  font-size: 16px;
-}
-
+.nav-link span { font-size: 16px; }
 .sidebar-footer {
   margin-top: auto;
   padding: 8px 10px 4px;
@@ -464,9 +401,7 @@ body {
   color: var(--color-text-soft);
 }
 
-/* =========================================================
-   CONTACTS PANEL (CENTER)
-   ========================================================= */
+/* CENTER PANEL */
 .panel {
   background: var(--color-bg-elevated);
   border-radius: var(--radius-lg);
@@ -477,28 +412,15 @@ body {
   flex-direction: column;
   min-width: 0;
 }
-
 .panel-header {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
 }
-
-.panel-title {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.panel-sub {
-  font-size: 11px;
-  color: var(--color-text-soft);
-}
-
-.panel-header-spacer {
-  flex: 1;
-}
-
+.panel-title { font-size: 14px; font-weight: 600; }
+.panel-sub { font-size: 11px; color: var(--color-text-soft); }
+.panel-header-spacer { flex: 1; }
 .chip {
   font-size: 11px;
   border-radius: 999px;
@@ -507,7 +429,6 @@ body {
   background: var(--color-bg-subtle);
   color: var(--color-text-soft);
 }
-
 .search-input {
   width: 100%;
   border-radius: 999px;
@@ -523,13 +444,11 @@ body {
   background-position: 8px center;
   transition: border var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
 }
-
 .search-input:focus {
   border-color: #22c55e;
   box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
   background: var(--color-bg-elevated);
 }
-
 .filter-row {
   display: flex;
   align-items: center;
@@ -537,7 +456,6 @@ body {
   margin: 6px 0 10px;
   flex-wrap: wrap;
 }
-
 .filter-pill {
   border-radius: 999px;
   padding: 3px 8px;
@@ -551,26 +469,21 @@ body {
   gap: 4px;
   transition: background var(--transition-fast), border var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
-
 .filter-pill:hover {
   background: rgba(148,163,184,0.25);
   transform: translateY(-0.5px);
 }
-
 .filter-pill.active {
   background: #22c55e;
   color: #022c22;
   border-color: #22c55e;
 }
-
-/* contact list */
 .contact-list {
   flex: 1;
   overflow-y: auto;
   padding-right: 4px;
   margin-bottom: 6px;
 }
-
 .contact-row {
   display: grid;
   grid-template-columns: auto 1.4fr 1.4fr;
@@ -583,22 +496,18 @@ body {
   transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border var(--transition-fast);
   font-size: 13px;
 }
-
 .contact-row:hover {
   background: rgba(15,23,42,0.85);
   transform: translateY(-0.5px);
 }
-
 body.theme-light .contact-row:hover {
   background: var(--color-bg-subtle);
 }
-
 .contact-row.selected {
   background: rgba(34,197,94,0.18);
   border-color: #22c55e;
   box-shadow: 0 3px 14px rgba(22,163,74,0.4);
 }
-
 .contact-checkbox {
   width: 16px;
   height: 16px;
@@ -611,14 +520,12 @@ body.theme-light .contact-row:hover {
   color: #22c55e;
   background: var(--color-bg-elevated);
 }
-
 .contact-name {
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .contact-meta {
   font-size: 11px;
   color: var(--color-text-soft);
@@ -626,7 +533,6 @@ body.theme-light .contact-row:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .badge {
   display: inline-flex;
   align-items: center;
@@ -636,8 +542,6 @@ body.theme-light .contact-row:hover {
   background: var(--color-bg-subtle);
   border: 1px solid var(--color-border-subtle);
 }
-
-/* bulk bar */
 .bulk-bar {
   display: none;
   align-items: center;
@@ -648,12 +552,10 @@ body.theme-light .contact-row:hover {
   font-size: 11px;
   margin-bottom: 2px;
 }
-
 .bulk-bar-actions {
   display: flex;
   gap: 6px;
 }
-
 .preview-drawer {
   border-radius: var(--radius-lg);
   background: var(--color-bg-subtle);
@@ -666,9 +568,7 @@ body.theme-light .contact-row:hover {
   color: var(--color-text-soft);
 }
 
-/* =========================================================
-   RIGHT PANEL (TOOLS)
-   ========================================================= */
+/* RIGHT PANEL */
 .tools-panel {
   background: var(--color-bg-elevated);
   border-radius: var(--radius-lg);
@@ -679,7 +579,6 @@ body.theme-light .contact-row:hover {
   flex-direction: column;
   min-width: 0;
 }
-
 .tool-section {
   margin-bottom: 10px;
   border-radius: 14px;
@@ -687,18 +586,9 @@ body.theme-light .contact-row:hover {
   background: var(--color-bg-subtle);
   border: 1px solid var(--color-border-subtle);
 }
+.tool-section h3 { margin: 0 0 5px; font-size: 13px; }
+.tool-section small { color: var(--color-text-soft); font-size: 11px; }
 
-.tool-section h3 {
-  margin: 0 0 5px;
-  font-size: 13px;
-}
-
-.tool-section small {
-  color: var(--color-text-soft);
-  font-size: 11px;
-}
-
-/* textareas */
 .textarea-note,
 .textarea-template {
   width: 100%;
@@ -712,7 +602,6 @@ body.theme-light .contact-row:hover {
   background: var(--color-bg-elevated);
   color: var(--color-text);
 }
-
 .textarea-note:focus,
 .textarea-template:focus {
   outline: none;
@@ -720,7 +609,6 @@ body.theme-light .contact-row:hover {
   box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
 }
 
-/* todo list */
 .todo-row {
   display: flex;
   align-items: center;
@@ -731,11 +619,7 @@ body.theme-light .contact-row:hover {
   margin-top: 4px;
   font-size: 12px;
 }
-
-.todo-row span {
-  flex: 1;
-}
-
+.todo-row span { flex: 1; }
 .todo-row button {
   border: none;
   background: transparent;
@@ -743,8 +627,6 @@ body.theme-light .contact-row:hover {
   cursor: pointer;
   font-size: 13px;
 }
-
-/* integrations */
 .integration-row {
   display: flex;
   align-items: center;
@@ -752,34 +634,11 @@ body.theme-light .contact-row:hover {
   padding: 4px 0;
   font-size: 12px;
 }
-
-.integration-name {
-  display: flex;
-  flex-direction: column;
-}
-
-.integration-name span:first-child {
-  font-weight: 500;
-}
-
-.integration-name span:last-child {
-  font-size: 11px;
-  color: var(--color-text-soft);
-}
-
-/* toggle switch */
-.switch {
-  position: relative;
-  width: 34px;
-  height: 18px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
+.integration-name { display: flex; flex-direction: column; }
+.integration-name span:first-child { font-weight: 500; }
+.integration-name span:last-child { font-size: 11px; color: var(--color-text-soft); }
+.switch { position: relative; width: 34px; height: 18px; }
+.switch input { opacity: 0; width: 0; height: 0; }
 .slider {
   position: absolute;
   cursor: pointer;
@@ -788,7 +647,6 @@ body.theme-light .contact-row:hover {
   border-radius: 999px;
   transition: background var(--transition-fast);
 }
-
 .slider::before {
   content: "";
   position: absolute;
@@ -801,16 +659,10 @@ body.theme-light .contact-row:hover {
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.35);
 }
+.switch input:checked + .slider { background-color: #22c55e; }
+.switch input:checked + .slider::before { transform: translateX(16px); }
 
-.switch input:checked + .slider {
-  background-color: #22c55e;
-}
-
-.switch input:checked + .slider::before {
-  transform: translateX(16px);
-}
-
-/* focus overlay */
+/* FOCUS OVERLAY */
 .focus-overlay {
   position: fixed;
   inset: 0;
@@ -823,53 +675,32 @@ body.theme-light .contact-row:hover {
   flex-direction: column;
   text-align: center;
 }
+.focus-overlay h1 { font-size: 32px; margin-bottom: 8px; }
+.focus-overlay p { font-size: 13px; color: #cbd5f5; }
 
-.focus-overlay h1 {
-  font-size: 32px;
-  margin-bottom: 8px;
-}
-
-.focus-overlay p {
-  font-size: 13px;
-  color: #cbd5f5;
-}
-
-/* responsive */
+/* RESPONSIVE */
 @media (max-width: 1040px) {
-  .app-main {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
-    height: auto;
-  }
-  .app-shell {
-    height: auto;
-  }
+  .app-main { grid-template-columns: 1fr; height: auto; }
+  .app-shell { height: auto; }
 }
-
 @media (max-width: 720px) {
-  .app-shell {
-    padding: 8px;
-  }
-  .app-main {
-    grid-template-columns: 1fr;
-  }
+  .app-shell { padding: 8px; }
+  .app-main { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body class="theme-dark">
-<!-- =======================================================
-     LOGIN SCREEN
-     ======================================================= -->
+<!-- LOGIN -->
 <div class="login-screen" id="loginScreen">
   <div class="login-card">
     <div class="login-inner-glow"></div>
     <div class="login-content">
       <div class="login-emblem">
         <div class="login-emblem-ring"></div>
-        <div class="login-emblem-lock">🔒</div>
+        <div class="login-emblem-mail"></div>
       </div>
       <div class="login-model">EB4000-EB4K • ENCRYPTED ACCESS</div>
-      <div class="login-title">Email Blaster 4000</div>
+      <div class="login-title"><span>Email</span> Blaster 4000</div>
       <div class="login-subtitle">Secure outbound console for high-value prospects.</div>
 
       <div class="login-meta-bar">
@@ -899,19 +730,14 @@ body.theme-light .contact-row:hover {
   </div>
 </div>
 
-<!-- =======================================================
-     FOCUS MODE OVERLAY
-     ======================================================= -->
+<!-- FOCUS MODE -->
 <div class="focus-overlay" id="focusOverlay" aria-hidden="true">
   <h1>Focus Mode</h1>
   <p>Press <strong>Esc</strong> or click anywhere to exit.</p>
 </div>
 
-<!-- =======================================================
-     MAIN APP SHELL
-     ======================================================= -->
+<!-- APP -->
 <div class="app-shell" id="appShell">
-  <!-- Top bar -->
   <header class="app-topbar">
     <div class="app-topbar-left">
       <div class="app-logo-small">EB</div>
@@ -927,46 +753,24 @@ body.theme-light .contact-row:hover {
     </div>
   </header>
 
-  <!-- Body grid -->
   <div class="app-main">
-    <!-- Sidebar -->
+    <!-- SIDEBAR -->
     <aside class="app-sidebar">
       <div class="sidebar-section-title">Views</div>
       <ul class="nav-list" id="navList">
-        <li class="nav-item">
-          <button class="nav-link active" data-view="contacts">
-            <span>👥</span> Contacts
-          </button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" data-view="notes">
-            <span>📝</span> Notes
-          </button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" data-view="tasks">
-            <span>✅</span> Tasks
-          </button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" data-view="templates">
-            <span>✉️</span> Templates
-          </button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" data-view="integrations">
-            <span>🔌</span> Integrations
-          </button>
-        </li>
+        <li class="nav-item"><button class="nav-link active" data-view="contacts"><span>👥</span> Contacts</button></li>
+        <li class="nav-item"><button class="nav-link" data-view="notes"><span>📝</span> Notes</button></li>
+        <li class="nav-item"><button class="nav-link" data-view="tasks"><span>✅</span> Tasks</button></li>
+        <li class="nav-item"><button class="nav-link" data-view="templates"><span>✉️</span> Templates</button></li>
+        <li class="nav-item"><button class="nav-link" data-view="integrations"><span>🔌</span> Integrations</button></li>
       </ul>
-
       <div class="sidebar-footer">
         Pro tip: press <strong>/</strong> to jump to contact search.<br />
         <span style="opacity:0.8;">Cmd/Ctrl+A selects all contacts.</span>
       </div>
     </aside>
 
-    <!-- Center panel: Contacts main view -->
+    <!-- CONTACTS -->
     <main class="panel" id="contactsPanel">
       <header class="panel-header">
         <div>
@@ -974,9 +778,7 @@ body.theme-light .contact-row:hover {
           <div class="panel-sub">Your curated outreach list</div>
         </div>
         <div class="panel-header-spacer"></div>
-        <div class="chip">
-          <span id="contactCountLabel">0</span> total
-        </div>
+        <div class="chip"><span id="contactCountLabel">0</span> total</div>
       </header>
 
       <input id="searchInput" class="search-input" placeholder="Search by name, email, or organization…" />
@@ -990,9 +792,7 @@ body.theme-light .contact-row:hover {
       </div>
 
       <div class="bulk-bar" id="bulkBar">
-        <div>
-          <strong id="bulkCount">0</strong> selected
-        </div>
+        <div><strong id="bulkCount">0</strong> selected</div>
         <div class="bulk-bar-actions">
           <button class="btn" id="bulkCopyBtn" style="font-size:11px;padding:4px 8px;">Copy emails</button>
           <button class="btn" id="bulkClearBtn" style="font-size:11px;padding:4px 8px;">Clear</button>
@@ -1000,11 +800,10 @@ body.theme-light .contact-row:hover {
       </div>
 
       <section class="contact-list" id="contactList"></section>
-
       <footer class="preview-drawer" id="previewDrawer">No contacts selected.</footer>
     </main>
 
-    <!-- Right: Tools panel -->
+    <!-- TOOLS -->
     <aside class="tools-panel" id="toolsPanel">
       <section class="tool-section" id="notesSection">
         <h3>Quick Notes</h3>
@@ -1016,11 +815,7 @@ body.theme-light .contact-row:hover {
         <h3>To-Do</h3>
         <small>Keep your next actions visible.</small>
         <div style="display:flex; gap:6px; margin-top:6px;">
-          <input
-            id="todoInput"
-            placeholder="Add a new task…"
-            style="flex:1; padding:7px 9px; border-radius:10px; border:1px solid var(--color-border-subtle); font-size:12px;"
-          />
+          <input id="todoInput" placeholder="Add a new task…" style="flex:1; padding:7px 9px; border-radius:10px; border:1px solid var(--color-border-subtle); font-size:12px;">
           <button id="todoAddBtn" class="btn btn-primary" style="font-size:12px;padding-inline:10px;">+</button>
         </div>
         <div id="todoList"></div>
@@ -1029,45 +824,29 @@ body.theme-light .contact-row:hover {
       <section class="tool-section" id="templatesSection">
         <h3>Email Templates</h3>
         <small>Keep your best cold openers close.</small>
-        <textarea
-          id="templatesArea"
-          class="textarea-template"
-          placeholder="Example: First-line hook, value bullets, CTA…"
-        ></textarea>
+        <textarea id="templatesArea" class="textarea-template" placeholder="Example: First-line hook, value bullets, CTA…"></textarea>
       </section>
 
       <section class="tool-section" id="integrationsSection">
         <h3>Integrations</h3>
-        <small>These are visual toggles only, but state is saved locally.</small>
+        <small>Visual toggles, state saved locally.</small>
         <div class="integration-row">
           <div class="integration-name">
-            <span>Gmail</span>
-            <span>Copy emails into Gmail compose</span>
+            <span>Gmail</span><span>Copy emails into Gmail compose</span>
           </div>
-          <label class="switch">
-            <input type="checkbox" data-integration="gmail" />
-            <span class="slider"></span>
-          </label>
+          <label class="switch"><input type="checkbox" data-integration="gmail"><span class="slider"></span></label>
         </div>
         <div class="integration-row">
           <div class="integration-name">
-            <span>Outlook</span>
-            <span>Use with desktop Outlook campaigns</span>
+            <span>Outlook</span><span>Use with desktop Outlook campaigns</span>
           </div>
-          <label class="switch">
-            <input type="checkbox" data-integration="outlook" />
-            <span class="slider"></span>
-          </label>
+          <label class="switch"><input type="checkbox" data-integration="outlook"><span class="slider"></span></label>
         </div>
         <div class="integration-row">
           <div class="integration-name">
-            <span>HubSpot</span>
-            <span>Paste into HubSpot lists</span>
+            <span>HubSpot</span><span>Paste into HubSpot lists</span>
           </div>
-          <label class="switch">
-            <input type="checkbox" data-integration="hubspot" />
-            <span class="slider"></span>
-          </label>
+          <label class="switch"><input type="checkbox" data-integration="hubspot"><span class="slider"></span></label>
         </div>
       </section>
 
@@ -1086,58 +865,43 @@ body.theme-light .contact-row:hover {
 </div>
 
 <script>
-/* =========================================================
-   DATA
-   ========================================================= */
 const CONTACTS = [
-  { name: "Sean Jowell",    email: "jowells@pcsb.org",                 title: "Director Safety & Security",                   org: "Pinellas County School District",   vertical: "K-12" },
-  { name: "Philip Martin",  email: "philip.martin@sumter.k12.fl.us",   title: "Director of Safety & Security",               org: "Sumter County Public Schools",     vertical: "K-12" },
-  { name: "Sarah Johnson",  email: "sjohnson@stpete.org",             title: "IT Manager",                                  org: "City of St. Petersburg",           vertical: "Public Sector" },
-  { name: "Michael Nagy",   email: "mwilliams@dunedinfl.gov",         title: "Director of IT",                              org: "City of Dunedin",                  vertical: "Public Sector" },
-  { name: "Ronbert Ignacio",email: "ronbert.ignacio@dunedin.gov",     title: "IT Specialist",                               org: "City of Dunedin",                  vertical: "Public Sector" },
-  { name: "David Mather",   email: "dmather@mygulfport.us",           title: "Director of IT",                              org: "City of Gulfport",                 vertical: "Public Sector" },
-  { name: "Chris Pagan",    email: "cpagan@mytreasureisland.org",     title: "Director of IT",                              org: "City of Treasure Island",          vertical: "Public Sector" },
-  { name: "Matthew Sabella",email: "msabella@myseminole.com",         title: "Director of IT",                              org: "City of Seminole",                 vertical: "Public Sector" },
-  { name: "Alex Britton-Kant",email:"abrittonkant@mysouthpasadena.com",title:"Director of IT",                             org: "City of S. Pasadena",              vertical: "Public Sector" },
-  { name: "Suzanne Linton", email: "slinton@ctsfl.us",                title: "Director of IT",                              org: "City of Tarpon Springs",           vertical: "Public Sector" },
-  { name: "Jessica Cinney", email: "cinneyj@eckerd.edu",              title: "Director of Campus Safety & Security",        org: "Eckerd College",                  vertical: "Higher Education" },
-  { name: "Walter Moore",   email: "moorewr@eckerd.edu",              title: "Director of IT",                              org: "Eckerd College",                  vertical: "Higher Education" },
-  { name: "Tonya Womack",   email: "womacktm@eckerd.edu",             title: "Risk Management & Safety",                    org: "Eckerd College",                  vertical: "Higher Education" },
-  { name: "Emmett Andrews", email: "eandrews@polk.edu",               title: "Director of Safety & Security",               org: "Polk State College",              vertical: "Higher Education" },
-  { name: "Martin Gang",    email: "mgang@polk.edu",                  title: "Director of Technology and IT",               org: "Polk State College",              vertical: "Higher Education" },
-  { name: "Jennifer Angelo",email: "jangelo@myindianshores.com",      title: "Admin Assistant",                             org: "Town of Indian Shores",           vertical: "Public Sector" },
-  { name: "Hansel Roush",   email: "hroush@largo.com",                title: "Director of IT",                              org: "City of Largo",                   vertical: "Public Sector" },
-  { name: "Tim Clark",      email: "tclark@largo.com",                title: "IT Admin",                                    org: "City of Largo",                   vertical: "Public Sector" },
-  { name: "Missy Nevitt",   email: "mnevitt@psta.net",                title: "Superintendant of Facilities",                org: "PSTA",                            vertical: "Transit" }
+  { name: "Sean Jowell", email: "jowells@pcsb.org",               title: "Director Safety & Security",           org: "Pinellas County School District", vertical: "K-12" },
+  { name: "Philip Martin", email: "philip.martin@sumter.k12.fl.us", title: "Director of Safety & Security",       org: "Sumter County Public Schools",     vertical: "K-12" },
+  { name: "Sarah Johnson", email: "sjohnson@stpete.org",          title: "IT Manager",                            org: "City of St. Petersburg",           vertical: "Public Sector" },
+  { name: "Michael Nagy", email: "mwilliams@dunedinfl.gov",       title: "Director of IT",                        org: "City of Dunedin",                  vertical: "Public Sector" },
+  { name: "Ronbert Ignacio", email: "ronbert.ignacio@dunedin.gov",title: "IT Specialist",                         org: "City of Dunedin",                  vertical: "Public Sector" },
+  { name: "David Mather", email: "dmather@mygulfport.us",         title: "Director of IT",                        org: "City of Gulfport",                 vertical: "Public Sector" },
+  { name: "Chris Pagan", email: "cpagan@mytreasureisland.org",    title: "Director of IT",                        org: "City of Treasure Island",          vertical: "Public Sector" },
+  { name: "Matthew Sabella", email: "msabella@myseminole.com",    title: "Director of IT",                        org: "City of Seminole",                 vertical: "Public Sector" },
+  { name: "Alex Britton-Kant", email:"abrittonkant@mysouthpasadena.com",title:"Director of IT",                  org: "City of S. Pasadena",              vertical: "Public Sector" },
+  { name: "Suzanne Linton", email: "slinton@ctsfl.us",            title: "Director of IT",                        org: "City of Tarpon Springs",           vertical: "Public Sector" },
+  { name: "Jessica Cinney", email: "cinneyj@eckerd.edu",          title: "Director of Campus Safety & Security",  org: "Eckerd College",                   vertical: "Higher Education" },
+  { name: "Walter Moore", email: "moorewr@eckerd.edu",            title: "Director of IT",                        org: "Eckerd College",                   vertical: "Higher Education" },
+  { name: "Tonya Womack", email: "womacktm@eckerd.edu",           title: "Risk Management & Safety",              org: "Eckerd College",                   vertical: "Higher Education" },
+  { name: "Emmett Andrews", email: "eandrews@polk.edu",           title: "Director of Safety & Security",         org: "Polk State College",               vertical: "Higher Education" },
+  { name: "Martin Gang", email: "mgang@polk.edu",                 title: "Director of Technology and IT",         org: "Polk State College",               vertical: "Higher Education" },
+  { name: "Jennifer Angelo", email: "jangelo@myindianshores.com", title: "Admin Assistant",                       org: "Town of Indian Shores",            vertical: "Public Sector" },
+  { name: "Hansel Roush", email: "hroush@largo.com",              title: "Director of IT",                        org: "City of Largo",                    vertical: "Public Sector" },
+  { name: "Tim Clark", email: "tclark@largo.com",                 title: "IT Admin",                              org: "City of Largo",                    vertical: "Public Sector" },
+  { name: "Missy Nevitt", email: "mnevitt@psta.net",              title: "Superintendant of Facilities",          org: "PSTA",                             vertical: "Transit" }
 ];
 
 let selectedEmails = new Set();
 let activeFilter = "all";
 
-/* =========================================================
-   UTILITIES: LOCALSTORAGE WRAPPERS
-   ========================================================= */
 const storage = {
   get(key, fallback) {
     try {
       const raw = localStorage.getItem(key);
       return raw ? JSON.parse(raw) : fallback;
-    } catch {
-      return fallback;
-    }
+    } catch { return fallback; }
   },
   set(key, value) {
-    try {
-      localStorage.setItem(key, JSON.stringify(value));
-    } catch {
-      // ignore
-    }
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
   }
 };
 
-/* =========================================================
-   LOGIN + THEME
-   ========================================================= */
 const loginScreen = document.getElementById("loginScreen");
 const passwordInput = document.getElementById("passwordInput");
 const loginBtn = document.getElementById("loginBtn");
@@ -1155,17 +919,13 @@ function applyTheme(theme) {
   }
   storage.set("eb4000-theme", theme);
 }
-
 function toggleTheme() {
   const isDark = document.body.classList.contains("theme-dark");
   applyTheme(isDark ? "light" : "dark");
 }
-
 themeToggleBtn.addEventListener("click", toggleTheme);
 loginDarkToggle.addEventListener("click", toggleTheme);
-
-const savedTheme = storage.get("eb4000-theme", "dark");
-applyTheme(savedTheme);
+applyTheme(storage.get("eb4000-theme", "dark"));
 
 function attemptLogin() {
   if (passwordInput.value === "sales") {
@@ -1176,10 +936,7 @@ function attemptLogin() {
     passwordInput.focus();
   }
 }
-
 loginBtn.addEventListener("click", attemptLogin);
-
-/* Enter key on password OR anywhere on login screen */
 passwordInput.addEventListener("keydown", e => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -1188,7 +945,6 @@ passwordInput.addEventListener("keydown", e => {
 });
 document.addEventListener("keydown", e => {
   if (loginScreen.style.display !== "none" && e.key === "Enter") {
-    // Only trigger if we're still on login
     if (document.activeElement !== passwordInput) {
       e.preventDefault();
       passwordInput.focus();
@@ -1199,9 +955,6 @@ document.addEventListener("keydown", e => {
   }
 });
 
-/* =========================================================
-   CONTACTS RENDERING
-   ========================================================= */
 const contactListEl = document.getElementById("contactList");
 const contactCountLabel = document.getElementById("contactCountLabel");
 const searchInput = document.getElementById("searchInput");
@@ -1215,26 +968,21 @@ const previewDrawer = document.getElementById("previewDrawer");
 function getFilteredContacts() {
   const query = searchInput.value.toLowerCase().trim();
   return CONTACTS.filter(c => {
-    const matchesFilter = activeFilter === "all" ? true : c.vertical === activeFilter;
-    if (!matchesFilter) return false;
+    const matchFilter = activeFilter === "all" || c.vertical === activeFilter;
+    if (!matchFilter) return false;
     if (!query) return true;
-    const composite = `${c.name} ${c.email} ${c.org} ${c.title}`.toLowerCase();
-    return composite.includes(query);
+    return `${c.name} ${c.email} ${c.org} ${c.title}`.toLowerCase().includes(query);
   });
 }
-
 function renderContacts() {
   const contacts = getFilteredContacts();
   contactListEl.innerHTML = "";
   contactCountLabel.textContent = CONTACTS.length.toString();
-
   contacts.forEach(c => {
     const row = document.createElement("div");
-    row.className = "contact-row";
-    if (selectedEmails.has(c.email)) row.classList.add("selected");
+    row.className = "contact-row" + (selectedEmails.has(c.email) ? " selected" : "");
     row.dataset.email = c.email;
     row.title = `${c.name} • ${c.org} • ${c.title}`;
-
     row.innerHTML = `
       <div class="contact-checkbox">${selectedEmails.has(c.email) ? "✓" : ""}</div>
       <div>
@@ -1243,52 +991,30 @@ function renderContacts() {
       </div>
       <div style="text-align:right;">
         <div class="contact-meta">${c.email}</div>
-        <div style="margin-top:3px;">
-          <span class="badge">${c.vertical}</span>
-        </div>
-      </div>
-    `;
-
+        <div style="margin-top:3px;"><span class="badge">${c.vertical}</span></div>
+      </div>`;
     row.addEventListener("click", () => toggleSelect(c.email));
     row.addEventListener("dblclick", () => copySingleEmail(c.email));
     contactListEl.appendChild(row);
   });
-
   updateBulkBar();
   updatePreviewDrawer();
 }
-
 function toggleSelect(email) {
-  if (selectedEmails.has(email)) selectedEmails.delete(email);
-  else selectedEmails.add(email);
+  selectedEmails.has(email) ? selectedEmails.delete(email) : selectedEmails.add(email);
   renderContacts();
 }
-
 function copySingleEmail(email) {
-  navigator.clipboard.writeText(email).then(() => {
-    alert(`Copied: ${email}`);
-  });
+  navigator.clipboard.writeText(email).then(() => alert(`Copied: ${email}`));
 }
-
 function updateBulkBar() {
   const count = selectedEmails.size;
-  if (count > 0) {
-    bulkBar.style.display = "flex";
-    bulkCount.textContent = count.toString();
-  } else {
-    bulkBar.style.display = "none";
-  }
+  bulkBar.style.display = count ? "flex" : "none";
+  bulkCount.textContent = count.toString();
 }
-
 function updatePreviewDrawer() {
-  if (selectedEmails.size === 0) {
-    previewDrawer.textContent = "No contacts selected.";
-    return;
-  }
-  previewDrawer.textContent = Array.from(selectedEmails).join("; ");
+  previewDrawer.textContent = selectedEmails.size ? Array.from(selectedEmails).join("; ") : "No contacts selected.";
 }
-
-/* Filter buttons */
 filterButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     filterButtons.forEach(b => b.classList.remove("active"));
@@ -1297,28 +1023,19 @@ filterButtons.forEach(btn => {
     renderContacts();
   });
 });
-
-/* Search */
-searchInput.addEventListener("input", () => {
-  renderContacts();
-});
-
-/* Bulk actions */
+searchInput.addEventListener("input", renderContacts);
 bulkCopyBtn.addEventListener("click", () => {
   if (!selectedEmails.size) return;
-  navigator.clipboard.writeText(Array.from(selectedEmails).join("; ")).then(() => {
-    alert(`Copied ${selectedEmails.size} emails.`);
-  });
+  navigator.clipboard.writeText(Array.from(selectedEmails).join("; ")).then(() =>
+    alert(`Copied ${selectedEmails.size} emails.`)
+  );
 });
-
 bulkClearBtn.addEventListener("click", () => {
   selectedEmails.clear();
   renderContacts();
 });
 
-/* =========================================================
-   TOOLS: NOTES, TODO, TEMPLATES, INTEGRATIONS
-   ========================================================= */
+/* TOOLS */
 const notesArea = document.getElementById("notesArea");
 const todoInput = document.getElementById("todoInput");
 const todoAddBtn = document.getElementById("todoAddBtn");
@@ -1326,28 +1043,17 @@ const todoList = document.getElementById("todoList");
 const templatesArea = document.getElementById("templatesArea");
 const integrationSwitches = document.querySelectorAll("input[data-integration]");
 
-/* Notes */
-function loadNotes() {
-  const saved = storage.get("eb4000-notes", "");
-  notesArea.value = saved;
-}
-function saveNotes() {
-  storage.set("eb4000-notes", notesArea.value);
-}
+function loadNotes() { notesArea.value = storage.get("eb4000-notes", ""); }
+function saveNotes() { storage.set("eb4000-notes", notesArea.value); }
 notesArea.addEventListener("input", saveNotes);
 
-/* To-do */
 let todos = [];
-
 function renderTodos() {
   todoList.innerHTML = "";
   todos.forEach((t, idx) => {
     const row = document.createElement("div");
     row.className = "todo-row";
-    row.innerHTML = `
-      <span>${t}</span>
-      <button title="Remove task">✕</button>
-    `;
+    row.innerHTML = `<span>${t}</span><button title="Remove task">✕</button>`;
     row.querySelector("button").addEventListener("click", () => {
       todos.splice(idx, 1);
       saveTodos();
@@ -1356,16 +1062,11 @@ function renderTodos() {
     todoList.appendChild(row);
   });
 }
-
 function loadTodos() {
   todos = storage.get("eb4000-todos", []);
   renderTodos();
 }
-
-function saveTodos() {
-  storage.set("eb4000-todos", todos);
-}
-
+function saveTodos() { storage.set("eb4000-todos", todos); }
 todoAddBtn.addEventListener("click", () => {
   const val = todoInput.value.trim();
   if (!val) return;
@@ -1374,7 +1075,6 @@ todoAddBtn.addEventListener("click", () => {
   saveTodos();
   renderTodos();
 });
-
 todoInput.addEventListener("keydown", e => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -1382,17 +1082,10 @@ todoInput.addEventListener("keydown", e => {
   }
 });
 
-/* Templates */
-function loadTemplates() {
-  const saved = storage.get("eb4000-templates", "");
-  templatesArea.value = saved;
-}
-function saveTemplates() {
-  storage.set("eb4000-templates", templatesArea.value);
-}
+function loadTemplates() { templatesArea.value = storage.get("eb4000-templates", ""); }
+function saveTemplates() { storage.set("eb4000-templates", templatesArea.value); }
 templatesArea.addEventListener("input", saveTemplates);
 
-/* Integrations */
 function loadIntegrations() {
   const saved = storage.get("eb4000-integrations", {});
   integrationSwitches.forEach(sw => {
@@ -1406,58 +1099,43 @@ function loadIntegrations() {
   });
 }
 
-/* =========================================================
-   FOCUS MODE
-   ========================================================= */
+/* FOCUS MODE */
 const focusOverlay = document.getElementById("focusOverlay");
 const focusBtn = document.getElementById("focusBtn");
-
 function enterFocusMode() {
   focusOverlay.style.display = "flex";
   focusOverlay.setAttribute("aria-hidden", "false");
 }
-
 function exitFocusMode() {
   focusOverlay.style.display = "none";
   focusOverlay.setAttribute("aria-hidden", "true");
 }
-
 focusBtn.addEventListener("click", enterFocusMode);
 focusOverlay.addEventListener("click", exitFocusMode);
 
-/* =========================================================
-   NAVIGATION VIEWS (LEFT NAV)
-   ========================================================= */
+/* NAVIGATION */
 const navList = document.getElementById("navList");
 const contactsPanel = document.getElementById("contactsPanel");
-const toolsPanel = document.getElementById("toolsPanel");
 const notesSection = document.getElementById("notesSection");
 const tasksSection = document.getElementById("tasksSection");
 const templatesSection = document.getElementById("templatesSection");
 const integrationsSection = document.getElementById("integrationsSection");
-
-function switchView(view) {
-  [notesSection, tasksSection, templatesSection, integrationsSection].forEach(section =>
-    section.style.outline = "none"
-  );
-
-  if (view === "notes") {
-    notesSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    notesSection.style.outline = "2px solid rgba(34,197,94,0.25)";
-  } else if (view === "tasks") {
-    tasksSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    tasksSection.style.outline = "2px solid rgba(34,197,94,0.25)";
-  } else if (view === "templates") {
-    templatesSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    templatesSection.style.outline = "2px solid rgba(34,197,94,0.25)";
-  } else if (view === "integrations") {
-    integrationsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    integrationsSection.style.outline = "2px solid rgba(34,197,94,0.25)";
+function highlightSection(section) {
+  [notesSection, tasksSection, templatesSection, integrationsSection].forEach(s => s.style.outline = "none");
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    section.style.outline = "2px solid rgba(34,197,94,0.25)";
   } else {
     contactsPanel.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 }
-
+function switchView(view) {
+  if (view === "notes") highlightSection(notesSection);
+  else if (view === "tasks") highlightSection(tasksSection);
+  else if (view === "templates") highlightSection(templatesSection);
+  else if (view === "integrations") highlightSection(integrationsSection);
+  else highlightSection(null);
+}
 navList.addEventListener("click", e => {
   const btn = e.target.closest(".nav-link");
   if (!btn) return;
@@ -1466,72 +1144,53 @@ navList.addEventListener("click", e => {
   switchView(btn.dataset.view);
 });
 
-/* =========================================================
-   KEYBOARD SHORTCUTS
-   ========================================================= */
+/* SHORTCUTS */
 const shortcutHintBtn = document.getElementById("shortcutHintBtn");
-
 function showShortcutHelp() {
-  alert(
-    [
-      "Keyboard Shortcuts:",
-      "  /          → Focus contact search",
-      "  Esc        → Clear selection or exit Focus Mode",
-      "  Ctrl/Cmd+A → Select all contacts in current filter",
-      "  Enter      → Login (on login screen)",
-      "  Double-click contact → Copy that contact's email"
-    ].join("\n")
-  );
+  alert([
+    "Keyboard Shortcuts:",
+    "  /          → Focus contact search",
+    "  Esc        → Clear selection or exit Focus Mode",
+    "  Ctrl/Cmd+A → Select all contacts in current filter",
+    "  Enter      → Login (on login screen)",
+    "  Double-click contact → Copy that contact's email"
+  ].join("\n"));
 }
-
 shortcutHintBtn.addEventListener("click", showShortcutHelp);
 
 document.addEventListener("keydown", e => {
-  if (loginScreen.style.display !== "none") return; // after login only
-
+  if (loginScreen.style.display !== "none") return;
   if (focusOverlay.style.display === "flex" && e.key === "Escape") {
     e.preventDefault();
     exitFocusMode();
     return;
   }
-
   if (e.key === "/") {
     e.preventDefault();
     searchInput.focus();
     searchInput.select();
   }
-
-  if (e.key === "Escape") {
-    if (selectedEmails.size > 0) {
-      selectedEmails.clear();
-      renderContacts();
-    }
+  if (e.key === "Escape" && selectedEmails.size > 0) {
+    selectedEmails.clear();
+    renderContacts();
   }
-
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "a") {
     e.preventDefault();
     const filtered = getFilteredContacts();
-    if (selectedEmails.size === filtered.length) {
-      selectedEmails.clear();
-    } else {
-      filtered.forEach(c => selectedEmails.add(c.email));
-    }
+    if (selectedEmails.size === filtered.length) selectedEmails.clear();
+    else filtered.forEach(c => selectedEmails.add(c.email));
     renderContacts();
   }
 });
 
-/* =========================================================
-   INITIALIZATION
-   ========================================================= */
-function init() {
+/* INIT */
+(function init() {
   renderContacts();
   loadNotes();
   loadTodos();
   loadTemplates();
   loadIntegrations();
-}
-
-init();
+})();
 </script>
 </body>
 </html>
