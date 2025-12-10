@@ -5,22 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Blaster 4000</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #fef3c7 100%);
-            color: #1e293b;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
             height: 100vh;
             overflow: hidden;
-            padding: 20px;
-            -webkit-font-smoothing: antialiased;
+            padding: 24px;
         }
 
         .container {
@@ -33,156 +32,146 @@
 
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .header h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 600;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 5px;
-            letter-spacing: -0.5px;
+            color: #d97706;
+            margin-bottom: 4px;
+            letter-spacing: -0.03em;
         }
 
         .header p {
-            font-size: 0.875rem;
-            color: #64748b;
+            font-size: 1rem;
+            color: #86868b;
             font-weight: 400;
+            letter-spacing: -0.01em;
         }
 
         .action-bar {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 20px;
-            padding: 16px 24px;
+            background: white;
+            border-radius: 18px;
+            padding: 20px 28px;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 20px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            gap: 24px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
         }
 
         .stats {
             display: flex;
-            gap: 30px;
+            gap: 36px;
             align-items: center;
         }
 
         .stat-item {
             display: flex;
             align-items: baseline;
-            gap: 8px;
+            gap: 10px;
         }
 
         .stat-value {
-            font-size: 1.75rem;
+            font-size: 2rem;
             font-weight: 600;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #d97706;
             line-height: 1;
+            letter-spacing: -0.02em;
         }
 
         .stat-label {
-            font-size: 0.875rem;
-            color: #64748b;
-            font-weight: 500;
+            font-size: 1rem;
+            color: #86868b;
+            font-weight: 400;
+            letter-spacing: -0.01em;
         }
 
         .btn {
-            padding: 12px 28px;
+            padding: 12px 32px;
             border: none;
-            border-radius: 14px;
-            font-size: 0.875rem;
-            font-weight: 600;
+            border-radius: 980px;
+            font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-            letter-spacing: -0.2px;
+            transition: all 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+            letter-spacing: -0.01em;
         }
 
         .btn-copy {
-            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            background: #d97706;
             color: white;
-            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
         }
 
         .btn-copy:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+            background: #c2670c;
+            transform: scale(1.02);
         }
 
         .btn-copy:active {
-            transform: translateY(0);
+            transform: scale(0.98);
         }
 
         .btn-copy:disabled {
-            background: linear-gradient(135deg, #cbd5e1 0%, #e2e8f0 100%);
-            color: #94a3b8;
+            background: #e5e5e7;
+            color: #86868b;
             cursor: not-allowed;
             transform: none;
-            box-shadow: none;
         }
 
         .content {
             display: grid;
-            grid-template-columns: 360px 1fr 400px;
+            grid-template-columns: 380px 1fr 420px;
             gap: 20px;
             flex: 1;
             min-height: 0;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 24px;
-            padding: 24px;
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
             min-height: 0;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
         }
 
         .card h2 {
-            font-size: 1.125rem;
+            font-size: 1.375rem;
             font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 18px;
-            letter-spacing: -0.3px;
+            color: #1d1d1f;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
         }
 
         .form-group {
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 6px;
-            color: #475569;
-            font-size: 0.8rem;
+            margin-bottom: 8px;
+            color: #1d1d1f;
+            font-size: 0.875rem;
             font-weight: 500;
-            letter-spacing: -0.1px;
+            letter-spacing: -0.01em;
         }
 
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 12px 16px;
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            padding: 14px 16px;
+            border: 1px solid #d2d2d7;
             border-radius: 12px;
-            font-size: 0.9rem;
-            background: rgba(255, 255, 255, 0.9);
-            color: #1e293b;
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            font-size: 1rem;
+            background: white;
+            color: #1d1d1f;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
             transition: all 0.2s;
+            letter-spacing: -0.01em;
         }
 
         .form-group textarea {
@@ -192,36 +181,33 @@
 
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
-            border-color: #3b82f6;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            border-color: #d97706;
         }
 
         .form-group input::placeholder, .form-group textarea::placeholder {
-            color: #94a3b8;
+            color: #86868b;
         }
 
         .btn-add {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            background: #d97706;
             color: white;
             width: 100%;
-            margin-top: 8px;
-            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
-            border-radius: 14px;
-            padding: 12px;
+            margin-top: 10px;
+            border-radius: 12px;
+            padding: 14px;
         }
 
         .btn-add:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+            background: #c2670c;
+            transform: scale(1.01);
         }
 
         .btn-add:active {
-            transform: translateY(0);
+            transform: scale(0.99);
         }
 
         .filter-section {
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .filter-buttons {
@@ -231,29 +217,27 @@
         }
 
         .filter-btn {
-            padding: 8px 16px;
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 8px 18px;
+            border: none;
+            background: #f5f5f7;
+            border-radius: 980px;
+            font-size: 0.875rem;
             cursor: pointer;
             transition: all 0.2s;
-            color: #475569;
-            font-weight: 500;
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            color: #1d1d1f;
+            font-weight: 400;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+            letter-spacing: -0.01em;
         }
 
         .filter-btn:hover {
-            background: rgba(255, 255, 255, 0.9);
-            border-color: #3b82f6;
-            color: #3b82f6;
+            background: #e8e8ed;
         }
 
         .filter-btn.active {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            background: #d97706;
             color: white;
-            border-color: transparent;
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+            font-weight: 500;
         }
 
         .contacts-list {
@@ -268,52 +252,52 @@
         }
 
         .contacts-list::-webkit-scrollbar-track {
-            background: rgba(148, 163, 184, 0.1);
-            border-radius: 10px;
+            background: transparent;
         }
 
         .contacts-list::-webkit-scrollbar-thumb {
-            background: rgba(148, 163, 184, 0.3);
+            background: #d2d2d7;
             border-radius: 10px;
         }
 
         .contacts-list::-webkit-scrollbar-thumb:hover {
-            background: rgba(148, 163, 184, 0.5);
+            background: #b3b3b8;
         }
 
         .contact-item {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(148, 163, 184, 0.15);
-            border-radius: 16px;
-            padding: 14px;
+            background: #f5f5f7;
+            border-radius: 14px;
+            padding: 16px;
             margin-bottom: 10px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s ease;
         }
 
         .contact-item:hover {
-            background: rgba(255, 255, 255, 0.95);
-            border-color: rgba(59, 130, 246, 0.3);
-            transform: translateX(4px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            background: #e8e8ed;
+            transform: scale(1.01);
+        }
+
+        .contact-item:active {
+            transform: scale(0.99);
         }
 
         .contact-item.selected {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-            border-color: #3b82f6;
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+            background: #fef3c7;
+            border: 2px solid #d97706;
+            padding: 14px;
         }
 
         .contact-item-header {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
 
         .checkbox {
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(148, 163, 184, 0.4);
+            width: 24px;
+            height: 24px;
+            border: 2px solid #d2d2d7;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -323,15 +307,15 @@
         }
 
         .contact-item.selected .checkbox {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            border-color: transparent;
+            background: #d97706;
+            border-color: #d97706;
         }
 
         .checkmark {
             color: white;
-            font-size: 12px;
+            font-size: 14px;
             display: none;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .contact-item.selected .checkmark {
@@ -345,61 +329,65 @@
 
         .contact-name {
             font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 3px;
-            font-size: 0.9rem;
+            color: #1d1d1f;
+            margin-bottom: 4px;
+            font-size: 1rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            letter-spacing: -0.01em;
         }
 
         .contact-email {
-            color: #3b82f6;
-            font-size: 0.8rem;
+            color: #d97706;
+            font-size: 0.875rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            letter-spacing: -0.01em;
         }
 
         .contact-org {
-            color: #64748b;
-            font-size: 0.75rem;
-            margin-top: 3px;
+            color: #86868b;
+            font-size: 0.8125rem;
+            margin-top: 4px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            letter-spacing: -0.01em;
         }
 
         .empty-state {
             text-align: center;
-            padding: 40px 20px;
-            color: #94a3b8;
+            padding: 60px 20px;
+            color: #86868b;
         }
 
         .empty-state svg {
-            width: 56px;
-            height: 56px;
-            margin-bottom: 12px;
-            opacity: 0.4;
-            stroke: #3b82f6;
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+            stroke: #d97706;
         }
 
         .empty-state p {
-            font-size: 0.9rem;
+            font-size: 1rem;
+            letter-spacing: -0.01em;
         }
 
         .email-preview {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(148, 163, 184, 0.15);
-            border-radius: 16px;
-            padding: 18px;
-            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
-            font-size: 0.8rem;
-            color: #475569;
+            background: #f5f5f7;
+            border-radius: 14px;
+            padding: 20px;
+            font-family: "SF Mono", "Monaco", "Menlo", monospace;
+            font-size: 0.875rem;
+            color: #1d1d1f;
             flex: 1;
             overflow-y: auto;
             word-break: break-all;
-            line-height: 1.7;
+            line-height: 1.8;
+            letter-spacing: -0.01em;
         }
 
         .email-preview::-webkit-scrollbar {
@@ -407,51 +395,48 @@
         }
 
         .email-preview::-webkit-scrollbar-track {
-            background: rgba(148, 163, 184, 0.1);
-            border-radius: 10px;
+            background: transparent;
         }
 
         .email-preview::-webkit-scrollbar-thumb {
-            background: rgba(148, 163, 184, 0.3);
+            background: #d2d2d7;
             border-radius: 10px;
         }
 
         .alert {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            color: #1e293b;
-            padding: 16px 24px;
-            border-radius: 16px;
+            top: 24px;
+            right: 24px;
+            background: white;
+            color: #1d1d1f;
+            padding: 18px 24px;
+            border-radius: 14px;
             display: none;
             align-items: center;
-            gap: 12px;
-            font-size: 0.875rem;
+            gap: 14px;
+            font-size: 1rem;
             font-weight: 500;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
             z-index: 1000;
+            letter-spacing: -0.01em;
         }
 
         .alert.show {
             display: flex;
-            animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideIn 0.4s ease;
         }
 
         .alert-icon {
-            width: 24px;
-            height: 24px;
-            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            width: 28px;
+            height: 28px;
+            background: #d97706;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: 700;
-            font-size: 14px;
+            font-weight: 600;
+            font-size: 16px;
         }
 
         @keyframes slideIn {
@@ -468,53 +453,48 @@
         .action-buttons {
             display: flex;
             gap: 10px;
-            margin-top: 14px;
+            margin-top: 16px;
         }
 
         .btn-select {
-            background: rgba(255, 255, 255, 0.7);
-            color: #475569;
+            background: #f5f5f7;
+            color: #1d1d1f;
             flex: 1;
-            padding: 10px 20px;
-            font-size: 0.8rem;
-            border-radius: 14px;
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            padding: 12px 24px;
+            font-size: 0.9375rem;
+            border-radius: 12px;
         }
 
         .btn-select:hover {
-            background: rgba(255, 255, 255, 0.95);
-            border-color: #3b82f6;
-            color: #3b82f6;
+            background: #e8e8ed;
         }
 
         .btn-clear {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
+            background: #ffebe9;
+            color: #e14337;
             flex: 1;
-            padding: 10px 20px;
-            font-size: 0.8rem;
-            border-radius: 14px;
-            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 12px 24px;
+            font-size: 0.9375rem;
+            border-radius: 12px;
         }
 
         .btn-clear:hover {
-            background: rgba(239, 68, 68, 0.15);
-            border-color: #ef4444;
+            background: #ffd7d4;
         }
 
         .import-section {
-            margin-top: 18px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(148, 163, 184, 0.15);
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #d2d2d7;
         }
 
         .import-label {
             display: block;
-            color: #475569;
-            font-size: 0.8rem;
+            color: #1d1d1f;
+            font-size: 0.875rem;
             font-weight: 500;
-            letter-spacing: -0.1px;
-            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+            margin-bottom: 12px;
         }
 
         .file-input-wrapper {
@@ -530,12 +510,12 @@
         }
 
         .btn-file {
-            background: rgba(255, 255, 255, 0.7);
-            color: #475569;
+            background: #f5f5f7;
+            color: #1d1d1f;
             width: 100%;
-            padding: 12px 20px;
-            font-size: 0.875rem;
-            border: 1.5px dashed rgba(148, 163, 184, 0.4);
+            padding: 14px 20px;
+            font-size: 1rem;
+            border: 2px dashed #d2d2d7;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -545,44 +525,42 @@
         }
 
         .btn-file:hover {
-            background: rgba(255, 255, 255, 0.95);
-            border-color: #3b82f6;
-            color: #3b82f6;
+            background: #e8e8ed;
+            border-color: #d97706;
+            color: #d97706;
         }
 
         .scraper-section {
-            margin-top: 18px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(148, 163, 184, 0.15);
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #d2d2d7;
         }
 
         .btn-scrape {
-            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            background: #d97706;
             color: white;
             width: 100%;
-            margin-top: 8px;
-            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
-            border-radius: 14px;
-            padding: 12px;
+            margin-top: 10px;
+            border-radius: 12px;
+            padding: 14px;
         }
 
         .btn-scrape:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+            background: #c2670c;
+            transform: scale(1.01);
         }
 
         .btn-scrape:active {
-            transform: translateY(0);
+            transform: scale(0.99);
         }
 
         .scrape-results {
-            margin-top: 12px;
+            margin-top: 14px;
             max-height: 150px;
             overflow-y: auto;
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(148, 163, 184, 0.15);
+            background: #f5f5f7;
             border-radius: 12px;
-            padding: 12px;
+            padding: 14px;
         }
 
         .scrape-results::-webkit-scrollbar {
@@ -590,20 +568,19 @@
         }
 
         .scrape-results::-webkit-scrollbar-track {
-            background: rgba(148, 163, 184, 0.1);
-            border-radius: 10px;
+            background: transparent;
         }
 
         .scrape-results::-webkit-scrollbar-thumb {
-            background: rgba(148, 163, 184, 0.3);
+            background: #d2d2d7;
             border-radius: 10px;
         }
 
         .scrape-item {
-            font-size: 0.8rem;
-            color: #64748b;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            font-size: 0.875rem;
+            color: #86868b;
+            padding: 10px 0;
+            border-bottom: 1px solid #d2d2d7;
         }
 
         .scrape-item:last-child {
@@ -611,20 +588,22 @@
         }
 
         .scrape-name {
-            color: #1e293b;
+            color: #1d1d1f;
             font-weight: 500;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
+            letter-spacing: -0.01em;
         }
 
         .scrape-email {
-            color: #3b82f6;
-            font-size: 0.75rem;
+            color: #d97706;
+            font-size: 0.8125rem;
+            letter-spacing: -0.01em;
         }
 
         .loading {
             display: inline-block;
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top-color: white;
@@ -636,17 +615,18 @@
         }
 
         .csv-hint {
-            font-size: 0.7rem;
-            color: #94a3b8;
-            margin-top: 8px;
-            line-height: 1.4;
+            font-size: 0.75rem;
+            color: #86868b;
+            margin-top: 10px;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>⚡ Email Blaster 4000</h1>
+            <h1>Email Blaster 4000</h1>
             <p>Professional Contact Management</p>
         </div>
 
@@ -666,7 +646,7 @@
                     <span class="stat-label">Selected</span>
                 </div>
             </div>
-            <button id="copy-btn" class="btn btn-copy" disabled>📋 Copy Selected Emails</button>
+            <button id="copy-btn" class="btn btn-copy" disabled>Copy Selected Emails</button>
         </div>
 
         <div class="content">
@@ -694,28 +674,28 @@
                         <label for="vertical">Category</label>
                         <input type="text" id="vertical" placeholder="K-12, Public Sector">
                     </div>
-                    <button type="submit" class="btn btn-add">+ Add Contact</button>
+                    <button type="submit" class="btn btn-add">Add Contact</button>
                 </form>
 
                 <!-- CSV Import -->
                 <div class="import-section">
-                    <label class="import-label">📥 Import from CSV</label>
+                    <label class="import-label">Import from CSV</label>
                     <div class="file-input-wrapper">
                         <input type="file" id="csv-upload" accept=".csv" />
                         <button class="btn btn-file" onclick="document.getElementById('csv-upload').click()">
-                            <span>Choose CSV File</span>
+                            <span>Choose File</span>
                         </button>
                     </div>
-                    <p class="csv-hint">CSV format: name,email,title,organization,vertical</p>
+                    <p class="csv-hint">CSV format: name, email, title, organization, vertical</p>
                 </div>
 
                 <!-- Public Directory Scraper -->
                 <div class="scraper-section">
-                    <label class="import-label">🔍 Find Contacts</label>
+                    <label class="import-label">Find Contacts</label>
                     <div class="form-group">
-                        <input type="text" id="org-search" placeholder="e.g., City of Clearwater">
+                        <input type="text" id="org-search" placeholder="City of Clearwater">
                     </div>
-                    <button id="scrape-btn" class="btn btn-scrape">Search Public Directories</button>
+                    <button id="scrape-btn" class="btn btn-scrape">Search Directories</button>
                     <div id="scrape-results" style="display: none;" class="scrape-results"></div>
                 </div>
             </div>
@@ -825,7 +805,7 @@
                 
                 saveContacts();
                 renderContacts();
-                showAlert(`Imported ${imported} new contacts!`);
+                showAlert(`Imported ${imported} new contacts`);
                 e.target.value = '';
             };
             reader.readAsText(file);
@@ -845,7 +825,7 @@
             btn.innerHTML = '<span class="loading"></span> Searching...';
             btn.disabled = true;
             resultsDiv.style.display = 'block';
-            resultsDiv.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 10px;">Searching public directories...</div>';
+            resultsDiv.innerHTML = '<div style="text-align: center; color: #86868b; padding: 10px;">Searching public directories...</div>';
 
             setTimeout(() => {
                 const mockResults = [
@@ -858,7 +838,7 @@
                         <div class="scrape-item">
                             <div class="scrape-name">${result.name}</div>
                             <div class="scrape-email">${result.email}</div>
-                            <div style="font-size: 0.7rem; color: #64748b;">${result.title}</div>
+                            <div style="font-size: 0.75rem; color: #86868b; margin-top: 2px;">${result.title}</div>
                         </div>
                     `).join('');
 
@@ -870,12 +850,12 @@
                     
                     saveContacts();
                     renderContacts();
-                    showAlert(`Found and added ${mockResults.length} contacts!`);
+                    showAlert(`Found and added ${mockResults.length} contacts`);
                 } else {
-                    resultsDiv.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 10px;">No contacts found.</div>';
+                    resultsDiv.innerHTML = '<div style="text-align: center; color: #86868b; padding: 10px;">No contacts found</div>';
                 }
 
-                btn.innerHTML = 'Search Public Directories';
+                btn.innerHTML = 'Search Directories';
                 btn.disabled = false;
             }, 2000);
         });
@@ -892,7 +872,7 @@
             saveContacts();
             renderContacts();
             e.target.reset();
-            showAlert('Contact added successfully!');
+            showAlert('Contact added successfully');
         });
 
         function filterByVertical(vertical) {
@@ -919,7 +899,7 @@
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
-                        <p>No contacts in this category.</p>
+                        <p>No contacts in this category</p>
                     </div>
                 `;
             } else {
@@ -972,7 +952,7 @@
         document.getElementById('copy-btn').addEventListener('click', () => {
             const emailList = Array.from(selectedEmails).join('; ');
             navigator.clipboard.writeText(emailList).then(() => {
-                showAlert(`Copied ${selectedEmails.size} email(s) to clipboard!`);
+                showAlert(`Copied ${selectedEmails.size} email${selectedEmails.size > 1 ? 's' : ''}`);
             });
         });
 
@@ -982,7 +962,7 @@
                 selectedEmails.clear();
                 saveContacts();
                 renderContacts();
-                showAlert('All contacts cleared!');
+                showAlert('All contacts cleared');
             }
         });
 
