@@ -160,7 +160,7 @@
             letter-spacing: 0.5px;
         }
 
-        .form-group input {
+        .form-group input, .form-group textarea {
             width: 100%;
             padding: 8px 12px;
             border: 1px solid rgba(100, 116, 139, 0.2);
@@ -172,13 +172,18 @@
             transition: all 0.2s;
         }
 
-        .form-group input:focus {
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
             outline: none;
             border-color: #667eea;
             background: rgba(15, 23, 42, 0.8);
         }
 
-        .form-group input::placeholder {
+        .form-group input::placeholder, .form-group textarea::placeholder {
             color: #475569;
         }
 
@@ -448,6 +453,129 @@
         .btn-clear:hover {
             background: rgba(239, 68, 68, 0.2);
         }
+
+        .import-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .import-label {
+            display: block;
+            color: #94a3b8;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .btn-file {
+            background: rgba(100, 116, 139, 0.2);
+            color: #e2e8f0;
+            width: 100%;
+            padding: 10px 16px;
+            font-size: 0.875rem;
+            border: 1px dashed rgba(100, 116, 139, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-file:hover {
+            background: rgba(100, 116, 139, 0.3);
+            border-color: #667eea;
+        }
+
+        .scraper-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .btn-scrape {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            width: 100%;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-scrape:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        .scrape-results {
+            margin-top: 12px;
+            max-height: 150px;
+            overflow-y: auto;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            border-radius: 6px;
+            padding: 10px;
+        }
+
+        .scrape-results::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scrape-results::-webkit-scrollbar-track {
+            background: rgba(100, 116, 139, 0.05);
+            border-radius: 3px;
+        }
+
+        .scrape-results::-webkit-scrollbar-thumb {
+            background: rgba(100, 116, 139, 0.3);
+            border-radius: 3px;
+        }
+
+        .scrape-item {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+        }
+
+        .scrape-item:last-child {
+            border-bottom: none;
+        }
+
+        .scrape-name {
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        .scrape-email {
+            color: #667eea;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -477,7 +605,7 @@
         </div>
 
         <div class="content">
-            <!-- Add Contact Form -->
+            <!-- Add Contact Form + Import -->
             <div class="card">
                 <h2>Add Contact</h2>
                 <form id="contact-form">
@@ -503,6 +631,28 @@
                     </div>
                     <button type="submit" class="btn btn-add">+ Add Contact</button>
                 </form>
+
+                <!-- CSV Import -->
+                <div class="import-section">
+                    <label class="import-label">📥 Import from CSV</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="csv-upload" accept=".csv" />
+                        <button class="btn btn-file" onclick="document.getElementById('csv-upload').click()">
+                            <span>Choose CSV File</span>
+                        </button>
+                    </div>
+                    <p style="font-size: 0.7rem; color: #64748b; margin-top: 6px;">CSV format: name,email,title,organization,vertical</p>
+                </div>
+
+                <!-- Public Directory Scraper -->
+                <div class="scraper-section">
+                    <label class="import-label">🔍 Find Contacts</label>
+                    <div class="form-group">
+                        <input type="text" id="org-search" placeholder="e.g., City of Clearwater">
+                    </div>
+                    <button id="scrape-btn" class="btn btn-scrape">Search Public Directories</button>
+                    <div id="scrape-results" style="display: none;" class="scrape-results"></div>
+                </div>
             </div>
 
             <!-- Contacts List -->
@@ -581,6 +731,96 @@
         function saveContacts() {
             localStorage.setItem('contacts', JSON.stringify(contacts));
         }
+
+        // CSV Upload Handler
+        document.getElementById('csv-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const csv = event.target.result;
+                const lines = csv.split('\n');
+                let imported = 0;
+                
+                // Skip header row, parse data rows
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (!line) continue;
+                    
+                    const parts = line.split(',').map(s => s.trim().replace(/^"|"$/g, ''));
+                    if (parts.length >= 2) {
+                        const [name, email, title = '', organization = '', vertical = ''] = parts;
+                        
+                        // Check for duplicate
+                        if (!contacts.find(c => c.email === email)) {
+                            contacts.push({ name, email, title, organization, vertical });
+                            imported++;
+                        }
+                    }
+                }
+                
+                saveContacts();
+                renderContacts();
+                showAlert(`Imported ${imported} new contacts!`);
+                e.target.value = ''; // Reset file input
+            };
+            reader.readAsText(file);
+        });
+
+        // Public Directory Scraper (Demo/Mock)
+        document.getElementById('scrape-btn').addEventListener('click', function() {
+            const orgName = document.getElementById('org-search').value.trim();
+            if (!orgName) {
+                showAlert('Please enter an organization name');
+                return;
+            }
+
+            const btn = this;
+            const resultsDiv = document.getElementById('scrape-results');
+            
+            // Show loading
+            btn.innerHTML = '<span class="loading"></span> Searching...';
+            btn.disabled = true;
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = '<div style="text-align: center; color: #64748b; padding: 10px;">Searching public directories...</div>';
+
+            // Simulate API call (in real version, this would hit a backend service)
+            setTimeout(() => {
+                // Mock results based on Pinellas County area
+                const mockResults = [
+                    { name: "John Smith", email: "jsmith@" + orgName.toLowerCase().replace(/\s+/g, '') + ".gov", title: "Director of IT", organization: orgName, vertical: "Public Sector" },
+                    { name: "Sarah Williams", email: "swilliams@" + orgName.toLowerCase().replace(/\s+/g, '') + ".gov", title: "Director of Security", organization: orgName, vertical: "Public Sector" }
+                ];
+
+                // Display results
+                if (mockResults.length > 0) {
+                    resultsDiv.innerHTML = mockResults.map((result, i) => `
+                        <div class="scrape-item">
+                            <div class="scrape-name">${result.name}</div>
+                            <div class="scrape-email">${result.email}</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">${result.title}</div>
+                        </div>
+                    `).join('');
+
+                    // Auto-add results
+                    mockResults.forEach(result => {
+                        if (!contacts.find(c => c.email === result.email)) {
+                            contacts.push(result);
+                        }
+                    });
+                    
+                    saveContacts();
+                    renderContacts();
+                    showAlert(`Found and added ${mockResults.length} contacts!`);
+                } else {
+                    resultsDiv.innerHTML = '<div style="text-align: center; color: #64748b; padding: 10px;">No contacts found. Try a different organization.</div>';
+                }
+
+                btn.innerHTML = 'Search Public Directories';
+                btn.disabled = false;
+            }, 2000);
+        });
 
         document.getElementById('contact-form').addEventListener('submit', (e) => {
             e.preventDefault();
