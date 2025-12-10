@@ -10,17 +10,17 @@
    DESIGN SYSTEM
    ========================================================= */
 :root {
-  --color-bg: #f2f2f7;
-  --color-bg-elevated: #ffffff;
-  --color-bg-subtle: #f8f8fb;
-  --color-border-subtle: #e2e2ea;
+  --color-bg: #050816;
+  --color-bg-elevated: #020617;
+  --color-bg-subtle: #020617;
+  --color-border-subtle: #1e293b;
   --color-primary: #123524;
-  --color-primary-soft: rgba(18, 53, 36, 0.12);
-  --color-primary-strong: rgba(18, 53, 36, 0.2);
-  --color-text: #111827;
-  --color-text-soft: #6b7280;
+  --color-primary-soft: rgba(34, 197, 94, 0.18);
+  --color-primary-strong: rgba(34, 197, 94, 0.4);
+  --color-text: #e5e7eb;
+  --color-text-soft: #9ca3af;
   --color-danger: #b91c1c;
-  --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --shadow-soft: 0 16px 40px rgba(15, 23, 42, 0.9);
   --radius-lg: 18px;
   --radius-xl: 24px;
   --transition-fast: 0.18s ease-out;
@@ -29,15 +29,15 @@
   --z-focus: 50;
 }
 
-/* Dark mode */
-body.theme-dark {
-  --color-bg: #050814;
-  --color-bg-elevated: #0b1120;
-  --color-bg-subtle: #020617;
-  --color-border-subtle: #1e293b;
-  --color-text: #e5e7eb;
-  --color-text-soft: #9ca3af;
-  --shadow-soft: 0 16px 40px rgba(15, 23, 42, 0.9);
+/* Light mode override */
+body.theme-light {
+  --color-bg: #f2f2f7;
+  --color-bg-elevated: #ffffff;
+  --color-bg-subtle: #f8f8fb;
+  --color-border-subtle: #e2e2ea;
+  --color-text: #111827;
+  --color-text-soft: #6b7280;
+  --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
 }
 
 /* =========================================================
@@ -52,7 +52,10 @@ body.theme-dark {
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background: radial-gradient(circle at top, #d1fae5 0, var(--color-bg) 40%);
+  background:
+    radial-gradient(circle at top, #22c55e20 0, transparent 50%),
+    radial-gradient(circle at bottom, #0ea5e920 0, transparent 50%),
+    var(--color-bg);
   color: var(--color-text);
   height: 100vh;
   overflow: hidden;
@@ -64,7 +67,7 @@ body {
 }
 
 /* =========================================================
-   LOGIN SCREEN
+   ULTRA-SECURE LOGIN SCREEN
    ========================================================= */
 .login-screen {
   position: fixed;
@@ -73,78 +76,163 @@ body {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(circle at top, rgba(18, 53, 36, 0.25), transparent 55%),
-    var(--color-bg);
+    radial-gradient(circle at top, rgba(15,23,42,0.9), rgba(2,6,23,1)),
+    #020617;
   z-index: 20;
-}
-
-.login-card {
-  background: var(--color-bg-elevated);
-  padding: 32px 26px 24px;
-  width: 340px;
-  border-radius: 26px;
-  box-shadow: var(--shadow-soft);
-  border: 1px solid var(--color-border-subtle);
-  text-align: center;
-  position: relative;
   overflow: hidden;
 }
 
-.login-card::before {
+/* animated safe rings */
+.login-screen::before,
+.login-screen::after {
   content: "";
   position: absolute;
-  top: -60px;
-  right: -60px;
-  width: 140px;
-  height: 140px;
-  border-radius: 999px;
-  background: radial-gradient(circle, var(--color-primary-soft), transparent 60%);
+  border-radius: 50%;
+  border: 1px dashed rgba(148,163,184,0.3);
+  inset: 8%;
+  animation: spin-slow 22s linear infinite;
+  pointer-events: none;
+}
+.login-screen::after {
+  inset: 16%;
+  animation-direction: reverse;
+  opacity: 0.4;
 }
 
-.login-title {
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.login-card {
+  position: relative;
+  background: radial-gradient(circle at top, #0b1220, #020617);
+  padding: 32px 26px 22px;
+  width: 360px;
+  border-radius: 28px;
+  box-shadow:
+    0 0 0 1px rgba(148,163,184,0.2),
+    0 24px 60px rgba(15,23,42,0.95);
+  text-align: center;
+  overflow: hidden;
+}
+
+.login-inner-glow {
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at top, rgba(34,197,94,0.15), transparent 55%),
+    radial-gradient(circle at bottom, rgba(59,130,246,0.15), transparent 60%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.login-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* lock / emblem */
+.login-emblem {
+  width: 70px;
+  height: 70px;
+  border-radius: 24px;
+  margin: 0 auto 14px;
+  background:
+    conic-gradient(from 180deg, #22c55e, #16a34a, #22c55e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 0 3px #020617,
+    0 18px 40px rgba(22,163,74,0.65);
+  position: relative;
+}
+
+.login-emblem-lock {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background: radial-gradient(circle at top, #f9fafb, #e5e7eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111827;
   font-size: 22px;
+  font-weight: 800;
+}
+
+.login-emblem-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,0.5);
+  box-shadow: 0 0 16px rgba(34,197,94,0.5);
+  opacity: 0.8;
+}
+
+/* headings */
+.login-title {
+  font-size: 20px;
   font-weight: 700;
   margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+
+.login-model {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #a5b4fc;
+  margin-bottom: 10px;
 }
 
 .login-subtitle {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--color-text-soft);
   margin-bottom: 16px;
 }
 
-.login-logo {
-  width: 52px;
-  height: 52px;
-  border-radius: 20px;
-  margin: 0 auto 16px;
-  background: radial-gradient(circle at 30% 20%, #bbf7d0, #16a34a);
-  box-shadow: 0 10px 30px rgba(22, 163, 74, 0.4);
+/* "encryption" bar */
+.login-meta-bar {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #022c22;
-  font-weight: 900;
-  font-size: 18px;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #9ca3af;
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,0.4);
+  padding: 5px 9px;
+  margin-bottom: 14px;
+  background: linear-gradient(120deg, rgba(15,23,42,0.8), rgba(15,23,42,0.9));
 }
 
+.login-meta-bar span strong {
+  color: #22c55e;
+}
+
+/* inputs / buttons */
 .login-input {
   width: 100%;
   padding: 11px 12px;
   border-radius: 12px;
-  border: 1px solid var(--color-border-subtle);
-  background: var(--color-bg-subtle);
+  border: 1px solid rgba(148,163,184,0.5);
+  background: rgba(15,23,42,0.9);
   font-size: 14px;
   margin-bottom: 10px;
   outline: none;
   color: var(--color-text);
-  transition: border var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+  transition: border var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+}
+
+.login-input::placeholder {
+  color: #6b7280;
 }
 
 .login-input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-primary-soft);
-  background: var(--color-bg-elevated);
+  border-color: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
+  background: #020617;
+  transform: translateY(-0.5px);
 }
 
 .btn {
@@ -164,19 +252,19 @@ body {
 }
 
 .btn-primary {
-  background: var(--color-primary);
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   color: #ecfdf3;
-  box-shadow: 0 10px 30px var(--color-primary-strong);
+  box-shadow: 0 10px 32px rgba(22,163,74,0.7);
 }
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 36px rgba(6, 95, 70, 0.55);
+  box-shadow: 0 14px 40px rgba(22,163,74,0.9);
 }
 
 .btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 6px 16px rgba(6, 95, 70, 0.5);
+  box-shadow: 0 8px 24px rgba(22,163,74,0.8);
 }
 
 .btn-ghost {
@@ -188,6 +276,13 @@ body {
   font-size: 11px;
   color: var(--color-text-soft);
   margin-top: 8px;
+}
+
+/* theme toggle hint */
+.login-toggle {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--color-text-soft);
 }
 
 /* =========================================================
@@ -210,7 +305,7 @@ body {
   border-radius: var(--radius-lg);
   padding: 0 16px;
   background: linear-gradient(120deg, var(--color-bg-elevated), var(--color-bg-subtle));
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-soft);
   border: 1px solid var(--color-border-subtle);
   margin-bottom: 12px;
 }
@@ -229,7 +324,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 800;
   color: #022c22;
 }
@@ -346,14 +441,14 @@ body {
 }
 
 .nav-link:hover {
-  background: var(--color-primary-soft);
+  background: rgba(148,163,184,0.2);
   color: var(--color-text);
   transform: translateY(-0.5px);
 }
 
 .nav-link.active {
-  background: var(--color-primary);
-  color: #ecfdf3;
+  background: #22c55e;
+  color: #022c22;
   transform: translateY(-1px);
 }
 
@@ -430,8 +525,8 @@ body {
 }
 
 .search-input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-primary-soft);
+  border-color: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
   background: var(--color-bg-elevated);
 }
 
@@ -458,14 +553,14 @@ body {
 }
 
 .filter-pill:hover {
-  background: var(--color-primary-soft);
+  background: rgba(148,163,184,0.25);
   transform: translateY(-0.5px);
 }
 
 .filter-pill.active {
-  background: var(--color-primary);
-  color: #ecfdf3;
-  border-color: var(--color-primary);
+  background: #22c55e;
+  color: #022c22;
+  border-color: #22c55e;
 }
 
 /* contact list */
@@ -490,14 +585,18 @@ body {
 }
 
 .contact-row:hover {
-  background: var(--color-bg-subtle);
+  background: rgba(15,23,42,0.85);
   transform: translateY(-0.5px);
 }
 
+body.theme-light .contact-row:hover {
+  background: var(--color-bg-subtle);
+}
+
 .contact-row.selected {
-  background: var(--color-primary-soft);
-  border-color: var(--color-primary);
-  box-shadow: 0 3px 14px rgba(15, 23, 42, 0.16);
+  background: rgba(34,197,94,0.18);
+  border-color: #22c55e;
+  box-shadow: 0 3px 14px rgba(22,163,74,0.4);
 }
 
 .contact-checkbox {
@@ -509,7 +608,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 11px;
-  color: var(--color-primary);
+  color: #22c55e;
   background: var(--color-bg-elevated);
 }
 
@@ -545,7 +644,7 @@ body {
   justify-content: space-between;
   padding: 6px 8px;
   border-radius: 999px;
-  background: var(--color-primary-soft);
+  background: rgba(34,197,94,0.15);
   font-size: 11px;
   margin-bottom: 2px;
 }
@@ -555,7 +654,6 @@ body {
   gap: 6px;
 }
 
-/* email preview drawer */
 .preview-drawer {
   border-radius: var(--radius-lg);
   background: var(--color-bg-subtle);
@@ -600,6 +698,7 @@ body {
   font-size: 11px;
 }
 
+/* textareas */
 .textarea-note,
 .textarea-template {
   width: 100%;
@@ -617,8 +716,8 @@ body {
 .textarea-note:focus,
 .textarea-template:focus {
   outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-primary-soft);
+  border-color: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
 }
 
 /* todo list */
@@ -685,7 +784,7 @@ body {
   position: absolute;
   cursor: pointer;
   inset: 0;
-  background-color: #d1d5db;
+  background-color: #4b5563;
   border-radius: 999px;
   transition: background var(--transition-fast);
 }
@@ -757,28 +856,46 @@ body {
 }
 </style>
 </head>
-<body>
+<body class="theme-dark">
 <!-- =======================================================
      LOGIN SCREEN
      ======================================================= -->
 <div class="login-screen" id="loginScreen">
   <div class="login-card">
-    <div class="login-logo">EB</div>
-    <div class="login-title">Email Blaster 4000</div>
-    <div class="login-subtitle">Your personal outbound command center.</div>
-    <input
-      id="passwordInput"
-      type="password"
-      class="login-input"
-      placeholder="Enter access password"
-    />
-    <button id="loginBtn" class="btn btn-primary" style="width:100%; margin-top:4px;">
-      <span>Unlock dashboard</span> <span>🔓</span>
-    </button>
-    <div class="login-hint">Hint: <code>sales</code></div>
-    <button id="loginDarkToggle" class="btn btn-ghost" style="margin-top:8px;font-size:11px;">
-      Toggle light / dark
-    </button>
+    <div class="login-inner-glow"></div>
+    <div class="login-content">
+      <div class="login-emblem">
+        <div class="login-emblem-ring"></div>
+        <div class="login-emblem-lock">🔒</div>
+      </div>
+      <div class="login-model">EB4000-EB4K • ENCRYPTED ACCESS</div>
+      <div class="login-title">Email Blaster 4000</div>
+      <div class="login-subtitle">Secure outbound console for high-value prospects.</div>
+
+      <div class="login-meta-bar">
+        <span>Model: <strong>EB4K</strong></span>
+        <span>Hash: <strong>SHA-512</strong></span>
+        <span>Mode: <strong>Zero-Trust</strong></span>
+      </div>
+
+      <input
+        id="passwordInput"
+        type="password"
+        class="login-input"
+        placeholder="Access key"
+        autocomplete="current-password"
+      />
+      <button id="loginBtn" class="btn btn-primary" style="width:100%; margin-top:4px;">
+        <span>Unlock EB4000-EB4K</span> <span>▶</span>
+      </button>
+      <div class="login-hint">Hint: <code>sales</code></div>
+
+      <div class="login-toggle">
+        <button id="loginDarkToggle" class="btn btn-ghost" style="font-size:11px;padding:4px 10px;">
+          Toggle light / dark UI
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -799,8 +916,8 @@ body {
     <div class="app-topbar-left">
       <div class="app-logo-small">EB</div>
       <div class="app-title-text">
-        <span class="app-title-main">Email Blaster 4000</span>
-        <span class="app-title-sub">Prospects • Pipelines • Productivity</span>
+        <span class="app-title-main">Email Blaster 4000-EB4K</span>
+        <span class="app-title-sub">Prospects • Pipelines • Productivity • Encrypted</span>
       </div>
     </div>
     <div class="app-topbar-right">
@@ -1013,7 +1130,7 @@ const storage = {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch {
-      // ignore quota errors silently
+      // ignore
     }
   }
 };
@@ -1029,23 +1146,25 @@ const appShell = document.getElementById("appShell");
 const themeToggleBtn = document.getElementById("themeToggleBtn");
 
 function applyTheme(theme) {
-  if (theme === "dark") {
-    document.body.classList.add("theme-dark");
-  } else {
+  if (theme === "light") {
+    document.body.classList.add("theme-light");
     document.body.classList.remove("theme-dark");
+  } else {
+    document.body.classList.add("theme-dark");
+    document.body.classList.remove("theme-light");
   }
   storage.set("eb4000-theme", theme);
 }
 
 function toggleTheme() {
-  const current = document.body.classList.contains("theme-dark") ? "dark" : "light";
-  applyTheme(current === "dark" ? "light" : "dark");
+  const isDark = document.body.classList.contains("theme-dark");
+  applyTheme(isDark ? "light" : "dark");
 }
 
 themeToggleBtn.addEventListener("click", toggleTheme);
 loginDarkToggle.addEventListener("click", toggleTheme);
 
-const savedTheme = storage.get("eb4000-theme", "light");
+const savedTheme = storage.get("eb4000-theme", "dark");
 applyTheme(savedTheme);
 
 function attemptLogin() {
@@ -1059,8 +1178,25 @@ function attemptLogin() {
 }
 
 loginBtn.addEventListener("click", attemptLogin);
+
+/* Enter key on password OR anywhere on login screen */
 passwordInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") attemptLogin();
+  if (e.key === "Enter") {
+    e.preventDefault();
+    attemptLogin();
+  }
+});
+document.addEventListener("keydown", e => {
+  if (loginScreen.style.display !== "none" && e.key === "Enter") {
+    // Only trigger if we're still on login
+    if (document.activeElement !== passwordInput) {
+      e.preventDefault();
+      passwordInput.focus();
+    } else {
+      e.preventDefault();
+      attemptLogin();
+    }
+  }
 });
 
 /* =========================================================
@@ -1079,8 +1215,7 @@ const previewDrawer = document.getElementById("previewDrawer");
 function getFilteredContacts() {
   const query = searchInput.value.toLowerCase().trim();
   return CONTACTS.filter(c => {
-    const matchesFilter =
-      activeFilter === "all" ? true : c.vertical === activeFilter;
+    const matchesFilter = activeFilter === "all" ? true : c.vertical === activeFilter;
     if (!matchesFilter) return false;
     if (!query) return true;
     const composite = `${c.name} ${c.email} ${c.org} ${c.title}`.toLowerCase();
@@ -1093,11 +1228,10 @@ function renderContacts() {
   contactListEl.innerHTML = "";
   contactCountLabel.textContent = CONTACTS.length.toString();
 
-  contacts.forEach((c, index) => {
+  contacts.forEach(c => {
     const row = document.createElement("div");
     row.className = "contact-row";
     if (selectedEmails.has(c.email)) row.classList.add("selected");
-
     row.dataset.email = c.email;
     row.title = `${c.name} • ${c.org} • ${c.title}`;
 
@@ -1117,7 +1251,6 @@ function renderContacts() {
 
     row.addEventListener("click", () => toggleSelect(c.email));
     row.addEventListener("dblclick", () => copySingleEmail(c.email));
-
     contactListEl.appendChild(row);
   });
 
@@ -1201,9 +1334,7 @@ function loadNotes() {
 function saveNotes() {
   storage.set("eb4000-notes", notesArea.value);
 }
-notesArea.addEventListener("input", () => {
-  saveNotes();
-});
+notesArea.addEventListener("input", saveNotes);
 
 /* To-do */
 let todos = [];
@@ -1306,24 +1437,22 @@ const templatesSection = document.getElementById("templatesSection");
 const integrationsSection = document.getElementById("integrationsSection");
 
 function switchView(view) {
-  // All views still visible but we can scroll to or highlight relevant sections.
-  // For now, we'll just gently highlight the corresponding section on the right.
   [notesSection, tasksSection, templatesSection, integrationsSection].forEach(section =>
     section.style.outline = "none"
   );
 
   if (view === "notes") {
     notesSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    notesSection.style.outline = "2px solid var(--color-primary-soft)";
+    notesSection.style.outline = "2px solid rgba(34,197,94,0.25)";
   } else if (view === "tasks") {
     tasksSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    tasksSection.style.outline = "2px solid var(--color-primary-soft)";
+    tasksSection.style.outline = "2px solid rgba(34,197,94,0.25)";
   } else if (view === "templates") {
     templatesSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    templatesSection.style.outline = "2px solid var(--color-primary-soft)";
+    templatesSection.style.outline = "2px solid rgba(34,197,94,0.25)";
   } else if (view === "integrations") {
     integrationsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    integrationsSection.style.outline = "2px solid var(--color-primary-soft)";
+    integrationsSection.style.outline = "2px solid rgba(34,197,94,0.25)";
   } else {
     contactsPanel.scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -1349,7 +1478,7 @@ function showShortcutHelp() {
       "  /          → Focus contact search",
       "  Esc        → Clear selection or exit Focus Mode",
       "  Ctrl/Cmd+A → Select all contacts in current filter",
-      "  Enter      → Login (on password field)",
+      "  Enter      → Login (on login screen)",
       "  Double-click contact → Copy that contact's email"
     ].join("\n")
   );
@@ -1358,7 +1487,8 @@ function showShortcutHelp() {
 shortcutHintBtn.addEventListener("click", showShortcutHelp);
 
 document.addEventListener("keydown", e => {
-  if (document.activeElement === passwordInput) return; // don't steal from login
+  if (loginScreen.style.display !== "none") return; // after login only
+
   if (focusOverlay.style.display === "flex" && e.key === "Escape") {
     e.preventDefault();
     exitFocusMode();
@@ -1378,7 +1508,6 @@ document.addEventListener("keydown", e => {
     }
   }
 
-  // Ctrl/Cmd + A → select all visible
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "a") {
     e.preventDefault();
     const filtered = getFilteredContacts();
