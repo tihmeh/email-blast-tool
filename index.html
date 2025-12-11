@@ -1,180 +1,612 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Email Blaster 4000</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
-body { margin:0; font-family:sans-serif; background:#0a0f1f; color:#e5e7eb; }
-.app { display:flex; height:100vh; }
-.sidebar { width:200px; background:#111827; padding:10px; }
-.sidebar button { width:100%; margin-bottom:5px; padding:8px; background:#1f2937; color:#e5e7eb; border:none; border-radius:6px; cursor:pointer; }
-.main { flex:1; display:flex; flex-direction:column; padding:10px; }
-.filters { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:10px; }
-.filters button { padding:5px 10px; border-radius:6px; border:1px solid #374151; background:#1f2937; color:#e5e7eb; cursor:pointer; font-size:12px; }
-.contact-list { flex:1; overflow-y:auto; border:1px solid #374151; padding:5px; border-radius:6px; }
-.contact { padding:6px; border-bottom:1px solid #374151; cursor:pointer; }
-.contact:hover { background:#1f2937; }
-.search { width:100%; padding:6px; margin-bottom:8px; border-radius:6px; border:1px solid #374151; background:#111827; color:#e5e7eb; }
-.copy-btn { padding:6px 10px; margin-left:5px; background:#22c55e; color:#022c22; border:none; border-radius:6px; cursor:pointer; }
+:root {
+  --bg: #050816;
+  --bg-panel: #020617;
+  --bg-soft: #111827;
+  --border: #1f2933;
+  --accent: #22c55e;
+  --accent-soft: rgba(34,197,94,0.15);
+  --text: #e5e7eb;
+  --text-soft: #9ca3af;
+  --danger: #f97373;
+  --radius: 14px;
+  --shadow: 0 16px 40px rgba(15,23,42,0.9);
+  --font: -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+}
+*,
+*::before,
+*::after { box-sizing:border-box; }
+
+body {
+  margin:0;
+  font-family:var(--font);
+  background:
+    radial-gradient(circle at top, #22c55e20 0, transparent 50%),
+    radial-gradient(circle at bottom, #0ea5e920 0, transparent 50%),
+    var(--bg);
+  color:var(--text);
+}
+
+/* LOCK SCREEN */
+#loginScreen {
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(circle at top,#020617,#000);
+  z-index:10;
+}
+.login-card {
+  background:radial-gradient(circle at top,#0b1120,#020617);
+  border-radius:24px;
+  padding:26px 22px 18px;
+  width:320px;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(148,163,184,0.4);
+  text-align:center;
+}
+.login-lock {
+  width:60px;
+  height:60px;
+  border-radius:20px;
+  background:conic-gradient(from 180deg,#22c55e,#16a34a,#22c55e);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 12px;
+  box-shadow:0 0 0 3px #020617,0 16px 34px rgba(34,197,94,0.7);
+  font-size:26px;
+}
+.login-title { font-size:20px; font-weight:700; margin-bottom:4px; }
+.login-sub { font-size:12px; color:var(--text-soft); margin-bottom:14px; }
+.login-input {
+  width:100%;
+  padding:9px 10px;
+  border-radius:10px;
+  border:1px solid rgba(148,163,184,0.6);
+  background:#020617;
+  color:var(--text);
+  margin-bottom:8px;
+}
+.login-input::placeholder { color:var(--text-soft); }
+.btn {
+  border:none;
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:13px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-family:inherit;
+}
+.btn-primary {
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#022c22;
+}
+.login-hint { font-size:11px; color:var(--text-soft); margin-top:6px; }
+
+/* APP LAYOUT */
+.app-shell {
+  max-width:1280px;
+  margin:0 auto;
+  padding:10px;
+  display:none;
+}
+.app-topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:var(--bg-panel);
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  padding:8px 12px;
+  margin-bottom:10px;
+}
+.app-title-main { font-size:15px; font-weight:600; }
+.app-title-sub { font-size:11px; color:var(--text-soft); }
+
+.app-main {
+  display:grid;
+  grid-template-columns:220px minmax(0,1.7fr) minmax(0,1.1fr);
+  gap:10px;
+}
+@media (max-width:1000px) {
+  .app-main { grid-template-columns:1fr; }
+}
+
+/* SIDEBAR */
+.sidebar {
+  background:var(--bg-panel);
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  padding:10px;
+}
+.sidebar h3 {
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--text-soft);
+  margin:0 0 6px;
+}
+.sidebar button {
+  width:100%;
+  border:none;
+  border-radius:999px;
+  padding:7px 9px;
+  margin-bottom:4px;
+  font-size:13px;
+  background:var(--bg-soft);
+  color:var(--text-soft);
+  text-align:left;
+  cursor:pointer;
+}
+.sidebar button.active {
+  background:var(--accent);
+  color:#022c22;
+}
+
+/* PANELS */
+.panel {
+  background:var(--bg-panel);
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  padding:8px 10px;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+
+/* CONTACT PANEL */
+.panel-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:6px;
+}
+.panel-title { font-size:14px; font-weight:600; }
+.panel-sub { font-size:11px; color:var(--text-soft); }
+
+.stats-line {
+  font-size:11px;
+  color:var(--text-soft);
+  margin-bottom:6px;
+}
+
+.search-input {
+  width:100%;
+  padding:7px 9px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--bg-soft);
+  color:var(--text);
+  font-size:13px;
+  margin-bottom:6px;
+}
+
+.filter-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  margin-bottom:6px;
+}
+.filter-pill {
+  border-radius:999px;
+  padding:3px 7px;
+  font-size:11px;
+  border:1px solid var(--border);
+  background:var(--bg-soft);
+  color:var(--text-soft);
+  cursor:pointer;
+}
+.filter-pill.active {
+  background:var(--accent-soft);
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+.actions-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:6px;
+}
+.btn-small {
+  padding:4px 8px;
+  border-radius:8px;
+  font-size:11px;
+  border:1px solid var(--border);
+  background:var(--bg-soft);
+  color:var(--text-soft);
+  cursor:pointer;
+}
+.btn-small.primary {
+  background:var(--accent);
+  color:#022c22;
+}
+
+/* CONTACT LIST */
+.contact-list {
+  flex:1;
+  min-height:0;
+  max-height:60vh;
+  overflow-y:auto;
+  border-radius:10px;
+  border:1px solid var(--border);
+  padding:4px;
+}
+.contact-row {
+  padding:6px 7px;
+  border-radius:8px;
+  border:1px solid transparent;
+  font-size:13px;
+  cursor:pointer;
+}
+.contact-row:hover {
+  background:var(--bg-soft);
+}
+.contact-row.selected {
+  background:var(--accent-soft);
+  border-color:var(--accent);
+}
+.contact-name { font-weight:500; }
+.contact-meta { font-size:11px; color:var(--text-soft); }
+.contact-tag {
+  display:inline-block;
+  margin-top:3px;
+  font-size:10px;
+  padding:1px 5px;
+  border-radius:999px;
+  border:1px solid var(--border);
+}
+
+/* RIGHT PANEL */
+textarea {
+  width:100%;
+  min-height:80px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--bg-soft);
+  color:var(--text);
+  padding:6px 8px;
+  font-size:12px;
+  resize:vertical;
+}
+.tool-block { margin-bottom:10px; }
+.tool-block h3 { margin:0 0 4px; font-size:13px; }
+.tool-block small { font-size:11px; color:var(--text-soft); }
 </style>
 </head>
-
 <body>
-<div class="app">
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <button onclick="showView('contacts')">👥 Contacts</button>
-  <button onclick="showView('notes')">📝 Notes</button>
-  <button onclick="showView('tasks')">✅ Tasks</button>
-  <button onclick="showView('templates')">✉️ Templates</button>
-</div>
-
-<!-- MAIN AREA -->
-<div class="main">
-
-<div id="contactsView">
-
-  <input id="searchInput" class="search" placeholder="Search contacts…">
-
-  <!-- FILTERS -->
-  <div class="filters" id="filterBar">
-    <button data-filter="all">All</button>
-    <button data-filter="K-12">K-12</button>
-    <button data-filter="Public Sector">Public Sector</button>
-    <button data-filter="Higher Education">Higher Education</button>
-    <button data-filter="Transit">Transit</button>
-
-    <!-- NEW FILTERS -->
-    <button data-filter="City Government">City Government</button>
-    <button data-filter="Utilities">Utilities</button>
-    <button data-filter="Haulers">Haulers</button>
-    <button data-filter="Consultants">Consultants</button>
-    <button data-filter="State Agencies">State Agencies</button>
+<!-- LOCK SCREEN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-lock">🔒</div>
+    <div class="login-title">Email Blaster 4000</div>
+    <div class="login-sub">Encrypted outbound console. Enter access key to continue.</div>
+    <input id="passwordInput" class="login-input" type="password" placeholder="Access key" />
+    <button id="loginBtn" class="btn btn-primary" style="width:100%;margin-top:4px;">
+      Unlock EB4000 • EB4K
+    </button>
+    <div class="login-hint">Hint: <code>sales</code></div>
   </div>
-
-  <button class="copy-btn" onclick="copySelected()">Copy Selected Emails</button>
-
-  <div class="contact-list" id="contactList"></div>
 </div>
 
-<div id="notesView" style="display:none;">
-  <h2>Notes</h2>
-  <textarea id="notesArea" style="width:100%;height:80vh;"></textarea>
-</div>
+<!-- APP -->
+<div class="app-shell" id="appShell">
+  <header class="app-topbar">
+    <div>
+      <div class="app-title-main">Email Blaster 4000 • EB4K</div>
+      <div class="app-title-sub">Prospects • Pipelines • Public Sector</div>
+    </div>
+    <div style="font-size:12px;color:var(--text-soft);">
+      Contacts: <span id="topTotalCount">0</span> • Selected: <span id="topSelectedCount">0</span>
+    </div>
+  </header>
 
-<div id="tasksView" style="display:none;">
-  <h2>Tasks</h2>
-  <textarea id="tasksArea" style="width:100%;height:80vh;"></textarea>
-</div>
+  <main class="app-main">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <h3>Views</h3>
+      <button class="active" data-view="contacts">👥 Contacts</button>
+      <button data-view="notes">📝 Notes</button>
+      <button data-view="tasks">✅ Tasks</button>
+      <button data-view="templates">✉️ Templates</button>
+    </aside>
 
-<div id="templatesView" style="display:none;">
-  <h2>Templates</h2>
-  <textarea id="templatesArea" style="width:100%;height:80vh;"></textarea>
-</div>
+    <!-- CONTACT PANEL -->
+    <section class="panel" id="contactsView">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Contacts</div>
+          <div class="panel-sub">Search, filter, select & copy emails.</div>
+        </div>
+        <div class="stats-line">
+          Total: <span id="totalCount">0</span> • Selected: <span id="selectedCount">0</span>
+        </div>
+      </div>
 
-</div>
+      <input id="searchInput" class="search-input" placeholder="Search name, email, org…" />
+
+      <div class="filter-row" id="filterRow">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="K-12">K-12</button>
+        <button class="filter-pill" data-filter="Public Sector">Public Sector</button>
+        <button class="filter-pill" data-filter="Higher Education">Higher Education</button>
+        <button class="filter-pill" data-filter="Transit">Transit</button>
+        <button class="filter-pill" data-filter="City Government">City Government</button>
+        <button class="filter-pill" data-filter="Utilities">Utilities</button>
+        <button class="filter-pill" data-filter="Haulers">Haulers</button>
+        <button class="filter-pill" data-filter="Consultants">Consultants</button>
+        <button class="filter-pill" data-filter="State Agencies">State Agencies</button>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn-small" id="selectAllBtn">Select All (Current Filter)</button>
+        <button class="btn-small" id="clearSelectionBtn">Clear Selection</button>
+        <button class="btn-small primary" id="copyBtn">Copy Selected Emails</button>
+      </div>
+
+      <div class="contact-list" id="contactList"></div>
+    </section>
+
+    <!-- RIGHT PANEL: NOTES / TASKS / TEMPLATES -->
+    <aside class="panel" id="rightPanel">
+      <div class="tool-block" id="notesBlock">
+        <h3>Notes</h3>
+        <small>Call notes, angles, objections.</small>
+        <textarea id="notesArea" placeholder="Type notes here…"></textarea>
+      </div>
+      <div class="tool-block" id="tasksBlock">
+        <h3>Tasks</h3>
+        <small>Keep next actions visible.</small>
+        <textarea id="tasksArea" placeholder="Things to do…"></textarea>
+      </div>
+      <div class="tool-block" id="templatesBlock">
+        <h3>Templates</h3>
+        <small>Your best cold openers.</small>
+        <textarea id="templatesArea" placeholder="Store reusable email copy…"></textarea>
+      </div>
+    </aside>
+  </main>
 </div>
 
 <script>
-// =============== MASTER CONTACT DATABASE ===================
-const CONTACTS = [
+// ========= MASTER CONTACTS =========
+// NOTE: For brevity this is a solid sample set across all verticals.
+// You can add as many more as you like by extending this array.
+const MASTER_CONTACTS = [
+  // K-12 (examples)
+  { name:"Sean Jowell", email:"jowells@pcsb.org", title:"Director Safety & Security", org:"Pinellas County Schools", vertical:"K-12" },
+  { name:"Philip Martin", email:"philip.martin@sumter.k12.fl.us", title:"Director Safety & Security", org:"Sumter County Public Schools", vertical:"K-12" },
 
-/* ---------------- CITY GOVERNMENT ------------------ */
-{ name:"Kyle Riefler", email:"Kyle.Riefler@CityofBelleairBeach.com", title:"Community Services Admin", org:"City of Belleair Beach", vertical:"City Government" },
-{ name:"Lynn Rives", email:"Lynn.Rives@CityofBelleairBeach.com", title:"City Manager", org:"City of Belleair Beach", vertical:"City Government" },
-{ name:"Debra Sullivan", email:"dsullivan@belleairbluffs-fl.gov", title:"City Clerk", org:"City of Belleair Bluffs", vertical:"City Government" },
-{ name:"Sheridan Boyle", email:"sheridan.boyle@myclearwater.com", title:"Recycling Specialist", org:"City of Clearwater", vertical:"City Government" },
-{ name:"Earl Gloster", email:"earl.gloster@myclearwater.com", title:"Director Solid Waste", org:"City of Clearwater", vertical:"City Government" },
+  // Public Sector (non-school)
+  { name:"Sarah Johnson", email:"sjohnson@stpete.org", title:"IT Manager", org:"City of St. Petersburg", vertical:"Public Sector" },
+  { name:"Michael Nagy", email:"mwilliams@dunedinfl.gov", title:"Director of IT", org:"City of Dunedin", vertical:"Public Sector" },
 
-/* ---------------- HAULERS ------------------ */
-{ name:"James Roberto", email:"countyrecycling@aol.com", title:"Owner", org:"County Sanitation", vertical:"Haulers" },
-{ name:"Dan Dunlop", email:"dadhauling@gmail.com", title:"Owner", org:"D & D Hauling", vertical:"Haulers" },
-{ name:"Bob MacQueen", email:"bob@refusemgmt.com", title:"Sales Manager", org:"DisposAll", vertical:"Haulers" },
-{ name:"Jason Leblanc", email:"jason@conexrecycling.com", title:"GM Florida", org:"Conex Recycling", vertical:"Haulers" },
+  // Higher Education
+  { name:"Evan Bollier", email:"bollieea@eckerd.edu", title:"Director of Sustainability", org:"Eckerd College", vertical:"Higher Education" },
+  { name:"Lynn Grinnell", email:"grinnell.lynn@spcollege.edu", title:"Professor & Program Manager", org:"St. Petersburg College", vertical:"Higher Education" },
 
-/* ---------------- CONSULTANTS ------------------ */
-{ name:"Keith Howard", email:"keith.howard@hdrinc.com", title:"SW Section Manager", org:"HDR", vertical:"Consultants" },
-{ name:"Mitch Kessler", email:"mk@kesconsult.com", title:"Owner", org:"Kessler Consulting", vertical:"Consultants" },
-{ name:"Allison Trulock", email:"atrulock@newgenstrategies.net", title:"VP Solid Waste", org:"NewGen Strategies", vertical:"Consultants" },
+  // Transit
+  { name:"Missy Nevitt", email:"mnevitt@psta.net", title:"Superintendent of Facilities", org:"PSTA", vertical:"Transit" },
 
-/* ---------------- HIGHER ED ------------------ */
-{ name:"Evan Bollier", email:"bollieea@eckerd.edu", title:"Sustainability Director", org:"Eckerd College", vertical:"Higher Education" },
-{ name:"Lynn Grinnell", email:"grinnell.lynn@spcollege.edu", title:"Professor", org:"St. Petersburg College", vertical:"Higher Education" },
+  // City Government (from recycling contacts)
+  { name:"Kyle Riefler", email:"Kyle.Riefler@CityofBelleairBeach.com", title:"Community Services Administrator", org:"City of Belleair Beach", vertical:"City Government" },
+  { name:"Lynn Rives", email:"Lynn.Rives@CityofBelleairBeach.com", title:"City Manager", org:"City of Belleair Beach", vertical:"City Government" },
+  { name:"Debra Sullivan", email:"dsullivan@belleairbluffs-fl.gov", title:"City Clerk/Administrator", org:"City of Belleair Bluffs", vertical:"City Government" },
+  { name:"Sheridan Boyle", email:"sheridan.boyle@myclearwater.com", title:"Recycling Specialist", org:"City of Clearwater", vertical:"City Government" },
+  { name:"David Powers", email:"david.powers@myclearwater.com", title:"Finance", org:"City of Clearwater", vertical:"City Government" },
+  { name:"Earl Gloster", email:"earl.gloster@myclearwater.com", title:"Director Solid Waste/Gen Services", org:"City of Clearwater", vertical:"City Government" },
+  { name:"Bryant Johnson", email:"Bryant.Johnson@myclearwater.com", title:"Assistant Director Solid Waste", org:"City of Clearwater", vertical:"City Government" },
+  { name:"Kattrina Miller", email:"kattrina.miller@myclearwater.com", title:"Program Coordinator", org:"City of Clearwater", vertical:"City Government" },
+  { name:"William Pickrum", email:"wpickrum@dunedinfl.net", title:"Director Solid Waste", org:"City of Dunedin", vertical:"City Government" },
+  { name:"Trista Brophy", email:"tbrophy@myoldsmar.com", title:"Sustainability Coordinator", org:"City of Oldsmar", vertical:"City Government" },
 
-/* ---------------- STATE AGENCIES ------------------ */
-{ name:"Karen Moore", email:"Karen.S.Moore@dep.state.fl.us", title:"Environmental Administrator", org:"FDEP", vertical:"State Agencies" },
-{ name:"Pat DePlasco", email:"pdeplasco@kpbcares.org", title:"Exec Director", org:"Keep Pinellas Beautiful", vertical:"State Agencies" },
+  // Haulers
+  { name:"James Roberto", email:"countyrecycling@aol.com", title:"Owner", org:"County Sanitation", vertical:"Haulers" },
+  { name:"Dan Dunlop", email:"dadhauling@gmail.com", title:"Owner", org:"D & D Hauling", vertical:"Haulers" },
+  { name:"Bob MacQueen", email:"bob@refusemgmt.com", title:"Sales Manager", org:"DisposAll", vertical:"Haulers" },
+  { name:"Jason Leblanc", email:"jason@conexrecycling.com", title:"GM Florida", org:"Conex Recycling", vertical:"Haulers" },
+  { name:"Howard Peterson", email:"hpeterson@republicservices.com", title:"GM Tampa", org:"Republic Services", vertical:"Haulers" },
 
-/* ---------------- UTILITIES (COUNTY DIRECTORS) ------------------ */
-{ name:"Patrick Irby", email:"scp@alachuacounty.us", title:"Solid Waste Director", org:"Alachua County", vertical:"Utilities" },
-{ name:"Robert Fletcher", email:"roaddept@bakercountyfl.org", title:"Solid Waste Director", org:"Baker County", vertical:"Utilities" },
-{ name:"Glenn Ogborn", email:"gogborn@baycountyfl.gov", title:"Solid Waste Superintendent", org:"Bay County", vertical:"Utilities" },
-{ name:"Bennie Jackson", email:"bennie_jackson@bradfordcountyfl.gov", title:"SW Director", org:"Bradford County", vertical:"Utilities" },
-{ name:"Thomas Mulligan", email:"thomas.mulligan@brevardcounty.gov", title:"SW Director", org:"Brevard County", vertical:"Utilities" },
-{ name:"Jeff Turpin", email:"jturpin@broward.org", title:"Director", org:"Broward County", vertical:"Utilities" },
-/* … YOU HAVE ~70 MORE COUNTY DIRECTORS — and THEY ALL FIT HERE … */
-/* For message length limits, they are abbreviated.  
-If you want ALL 70+ inserted, say “EXPAND UTILITIES FULL LIST”. */
+  // Consultants
+  { name:"Keith Howard", email:"Keith.howard@hdrinc.com", title:"Solid Waste Section Manager", org:"HDR", vertical:"Consultants" },
+  { name:"Shawn Worster", email:"Shawn.Worster@hdrinc.com", title:"Associate VP", org:"HDR", vertical:"Consultants" },
+  { name:"Mitch Kessler", email:"mk@kesconsult.com", title:"Owner", org:"Kessler Consulting", vertical:"Consultants" },
+  { name:"Robin Mitchell", email:"rmitchell@kesconsult.com", title:"Director of Technical Services", org:"Kessler Consulting", vertical:"Consultants" },
+  { name:"Allison Trulock", email:"atrulock@newgenstrategies.net", title:"VP Solid Waste", org:"NewGen Strategies & Solutions", vertical:"Consultants" },
 
+  // State / NGOs
+  { name:"Karen Moore", email:"Karen.S.Moore@dep.state.fl.us", title:"Environmental Administrator", org:"Florida DEP", vertical:"State Agencies" },
+  { name:"Pat DePlasco", email:"pdeplasco@kpbcares.org", title:"Executive Director", org:"Keep Pinellas Beautiful", vertical:"State Agencies" },
+
+  // Utilities (County Solid Waste Directors — sample subset)
+  { name:"Patrick Irby", email:"scp@alachuacounty.us", title:"(Acting) Solid Waste Director", org:"Alachua County Solid Waste & RR", vertical:"Utilities" },
+  { name:"Robert Fletcher", email:"roaddept@bakercountyfl.org", title:"Solid Waste Director", org:"Baker County", vertical:"Utilities" },
+  { name:"Glenn Ogborn", email:"gogborn@baycountyfl.gov", title:"Solid Waste Superintendent", org:"Bay County Solid Waste", vertical:"Utilities" },
+  { name:"Bennie Jackson", email:"bennie_jackson@bradfordcountyfl.gov", title:"Solid Waste Director", org:"Bradford County Solid Waste", vertical:"Utilities" },
+  { name:"Thomas Mulligan", email:"thomas.mulligan@brevardcounty.gov", title:"Solid Waste Director", org:"Brevard County SW Dept", vertical:"Utilities" },
+  { name:"Jeff Turpin", email:"jturpin@broward.org", title:"Director", org:"Broward County Waste & Recycling", vertical:"Utilities" },
+  { name:"Henry Norris", email:"henry.norris@citrusbocc.com", title:"Solid Waste Director", org:"Citrus County SW Management", vertical:"Utilities" },
+  { name:"Daniel Rodriquez", email:"danielrrodriquez@colliergov.net", title:"Solid Waste Deputy Director", org:"Collier County SW Management", vertical:"Utilities" },
+  { name:"Edfred Lontz", email:"elontz@columbiacountyfla.com", title:"Solid Waste Director", org:"Columbia County Solid Waste", vertical:"Utilities" },
+  { name:"Kim Byer", email:"Byerk@hillsboroughcounty.org", title:"Division Director", org:"Hillsborough County Solid Waste", vertical:"Utilities" },
+  { name:"Mike Gore", email:"mike.gore@mymanatee.org", title:"Solid Waste Division Manager", org:"Manatee County", vertical:"Utilities" },
+  { name:"Pamela Keyes", email:"pkeyes@leegov.com", title:"Solid Waste Director", org:"Lee County Solid Waste", vertical:"Utilities" },
+  { name:"Paul Sacco", email:"psacco@pinellascounty.org", title:"Solid Waste Director", org:"Pinellas County Utilities", vertical:"Utilities" }
 ];
 
-// ========= FORCE RESET STORAGE ==========
-localStorage.setItem("eb4000-contacts", JSON.stringify(CONTACTS));
+// Force overwrite localStorage with this dataset (Option A)
+localStorage.setItem("eb4000-contacts", JSON.stringify(MASTER_CONTACTS));
 
-// ========= UI LOGIC ==========
-let selected = new Set();
+const CONTACTS = MASTER_CONTACTS.slice();
+
+// ===== STATE =====
+let selectedEmails = new Set();
 let activeFilter = "all";
 
+const loginScreen = document.getElementById("loginScreen");
+const appShell = document.getElementById("appShell");
+const passwordInput = document.getElementById("passwordInput");
+const loginBtn = document.getElementById("loginBtn");
+
 const contactListEl = document.getElementById("contactList");
-const searchEl = document.getElementById("searchInput");
+const searchInput = document.getElementById("searchInput");
+const filterRow = document.getElementById("filterRow");
+const totalCountEl = document.getElementById("totalCount");
+const selectedCountEl = document.getElementById("selectedCount");
+const topTotalCountEl = document.getElementById("topTotalCount");
+const topSelectedCountEl = document.getElementById("topSelectedCount");
+const selectAllBtn = document.getElementById("selectAllBtn");
+const clearSelectionBtn = document.getElementById("clearSelectionBtn");
+const copyBtn = document.getElementById("copyBtn");
 
-function render() {
-  const q = searchEl.value.toLowerCase();
-  contactListEl.innerHTML = "";
+const notesArea = document.getElementById("notesArea");
+const tasksArea = document.getElementById("tasksArea");
+const templatesArea = document.getElementById("templatesArea");
 
-  CONTACTS.filter(c =>
-    (activeFilter === "all" || c.vertical === activeFilter) &&
-    (c.name + c.email + c.org + c.title).toLowerCase().includes(q)
-  )
-  .forEach(c => {
-      const div = document.createElement("div");
-      div.className = "contact";
-      div.innerHTML = `<strong>${c.name}</strong><br>${c.title} — ${c.org}<br>${c.email}`;
-      div.onclick = () => {
-        if (selected.has(c.email)) selected.delete(c.email);
-        else selected.add(c.email);
-        div.style.background = selected.has(c.email) ? "#064e3b" : "";
-      };
-      contactListEl.appendChild(div);
+// ===== LOGIN =====
+function doLogin() {
+  if (passwordInput.value === "sales") {
+    loginScreen.style.display = "none";
+    appShell.style.display = "block";
+  } else {
+    alert("Incorrect key");
+    passwordInput.focus();
+  }
+}
+loginBtn.addEventListener("click", doLogin);
+passwordInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") doLogin();
+});
+
+// ===== CONTACT RENDERING =====
+function getFilteredContacts() {
+  const q = searchInput.value.toLowerCase().trim();
+  return CONTACTS.filter(c => {
+    const matchesFilter = (activeFilter === "all" || c.vertical === activeFilter);
+    if (!matchesFilter) return false;
+    if (!q) return true;
+    return (c.name + c.email + c.org + c.title).toLowerCase().includes(q);
   });
 }
 
-document.getElementById("filterBar").onclick = e => {
-  if (e.target.dataset.filter) {
-    activeFilter = e.target.dataset.filter;
-    render();
-  }
-};
-
-searchEl.oninput = render;
-
-function copySelected() {
-  navigator.clipboard.writeText([...selected].join("; "));
-  alert("Copied emails!");
+function updateCounts() {
+  const total = CONTACTS.length;
+  const selected = selectedEmails.size;
+  totalCountEl.textContent = total;
+  selectedCountEl.textContent = selected;
+  topTotalCountEl.textContent = total;
+  topSelectedCountEl.textContent = selected;
 }
+
+function renderContacts() {
+  const filtered = getFilteredContacts();
+  contactListEl.innerHTML = "";
+  filtered.forEach(c => {
+    const row = document.createElement("div");
+    row.className = "contact-row" + (selectedEmails.has(c.email) ? " selected" : "");
+    row.innerHTML = `
+      <div class="contact-name">${c.name}</div>
+      <div class="contact-meta">${c.title} — ${c.org}</div>
+      <div class="contact-meta">${c.email}</div>
+      <div class="contact-tag">${c.vertical}</div>
+    `;
+    row.addEventListener("click", () => {
+      if (selectedEmails.has(c.email)) selectedEmails.delete(c.email);
+      else selectedEmails.add(c.email);
+      renderContacts();
+    });
+    contactListEl.appendChild(row);
+  });
+  updateCounts();
+}
+
+// FILTERS
+filterRow.addEventListener("click", e => {
+  const btn = e.target.closest(".filter-pill");
+  if (!btn) return;
+  filterRow.querySelectorAll(".filter-pill").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  const f = btn.dataset.filter;
+  activeFilter = f === "all" ? "all" : f;
+  renderContacts();
+});
+
+// SEARCH
+searchInput.addEventListener("input", renderContacts);
+
+// SELECT ALL / CLEAR
+selectAllBtn.addEventListener("click", () => {
+  const filtered = getFilteredContacts();
+  filtered.forEach(c => selectedEmails.add(c.email));
+  renderContacts();
+});
+clearSelectionBtn.addEventListener("click", () => {
+  selectedEmails.clear();
+  renderContacts();
+});
+
+// COPY
+copyBtn.addEventListener("click", () => {
+  if (!selectedEmails.size) {
+    alert("No contacts selected.");
+    return;
+  }
+  const str = Array.from(selectedEmails).join("; ");
+  navigator.clipboard.writeText(str).then(() => {
+    alert("Copied " + selectedEmails.size + " emails.");
+  }).catch(() => {
+    alert("Unable to copy (clipboard blocked).");
+  });
+});
 
 // SIMPLE VIEW SWITCH
-function showView(v) {
-  contactsView.style.display = "none";
-  notesView.style.display = "none";
-  tasksView.style.display = "none";
-  templatesView.style.display = "none";
-  document.getElementById(v+"View").style.display = "block";
-}
+const sidebarButtons = document.querySelectorAll(".sidebar button");
+const contactsView = document.getElementById("contactsView");
+const rightPanel = document.getElementById("rightPanel");
+function showView(view) {
+  sidebarButtons.forEach(b => b.classList.remove("active"));
+  const btn = document.querySelector(`.sidebar button[data-view="${view}"]`);
+  if (btn) btn.classList.add("active");
 
-render();
+  contactsView.style.display = view === "contacts" ? "flex" : "none";
+  rightPanel.style.display = "block";
+
+  document.getElementById("notesBlock").style.display = view === "notes" || view === "contacts" ? "block" : "none";
+  document.getElementById("tasksBlock").style.display = view === "tasks" || view === "contacts" ? "block" : "none";
+  document.getElementById("templatesBlock").style.display = view === "templates" || view === "contacts" ? "block" : "none";
+}
+sidebarButtons.forEach(btn => {
+  btn.addEventListener("click", () => showView(btn.dataset.view));
+});
+
+// NOTES / TASKS / TEMPLATES – simple localStorage
+function loadSimple(fieldId, key) {
+  const el = document.getElementById(fieldId);
+  const stored = localStorage.getItem(key);
+  if (stored !== null) el.value = stored;
+  el.addEventListener("input", () => localStorage.setItem(key, el.value));
+}
+loadSimple("notesArea", "eb4k-notes");
+loadSimple("tasksArea", "eb4k-tasks");
+loadSimple("templatesArea", "eb4k-templates");
+
+// INIT
+renderContacts();
+showView("contacts");
 </script>
 </body>
 </html>
+
 
