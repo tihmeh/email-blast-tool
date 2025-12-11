@@ -254,5 +254,1007 @@
     }
 
     .upload-sub-text {
-      font-si
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
 
+    .upload-hint {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      opacity: 0.8;
+    }
+
+    .upload-footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-top: 4px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .upload-footer-row strong {
+      color: var(--accent);
+    }
+
+    /* File list */
+    .file-list {
+      margin-top: 10px;
+      max-height: 210px;
+      overflow-y: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(15, 23, 42, 0.95);
+      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98));
+      padding: 6px 0;
+    }
+
+    .file-row {
+      padding: 7px 11px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-bottom: 1px solid rgba(30, 64, 175, 0.3);
+      font-size: 0.8rem;
+    }
+
+    .file-row:last-child {
+      border-bottom: none;
+    }
+
+    .file-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+    }
+
+    .file-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-tags {
+      font-size: 0.73rem;
+      color: var(--text-soft);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .file-tag-pill {
+      padding: 2px 5px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      font-size: 0.7rem;
+    }
+
+    .file-size {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      white-space: nowrap;
+    }
+
+    .file-remove-btn {
+      border: none;
+      background: transparent;
+      color: rgba(148, 163, 184, 0.9);
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 2px 4px;
+      border-radius: 999px;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+
+    .file-remove-btn:hover {
+      background: rgba(239, 68, 68, 0.16);
+      color: var(--danger);
+    }
+
+    .empty-state {
+      padding: 14px 10px;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 0.8rem;
+    }
+
+    .stats-row {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      gap: 8px;
+    }
+
+    /* Settings panel */
+    .settings-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .settings-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+    }
+
+    .settings-row-label {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .settings-row-label span {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .slider-input {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .slider-input input[type="range"] {
+      flex: 1;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(30, 64, 175, 0.7);
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3);
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+    }
+
+    .toggle {
+      width: 32px;
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(30, 64, 175, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      position: relative;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.16s ease, border 0.16s ease;
+    }
+
+    .toggle[data-on="true"] {
+      background: rgba(34, 197, 94, 0.45);
+      border-color: var(--accent);
+    }
+
+    .toggle-handle {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: #020617;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8),
+        0 0 10px rgba(34, 197, 94, 0.7);
+      transition: transform 0.16s ease;
+    }
+
+    .toggle[data-on="true"] .toggle-handle {
+      transform: translateX(13px);
+    }
+
+    .helper-text {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      margin-top: 6px;
+    }
+
+    /* Action footer */
+    .action-footer {
+      margin-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .left-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .primary-btn {
+      border: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 0 0, var(--accent-strong), #16a34a);
+      color: #0b1120;
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 9px 25px rgba(22, 163, 74, 0.6);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+    }
+
+    .primary-btn:disabled {
+      opacity: 0.45;
+      cursor: default;
+      box-shadow: 0 0 0 rgba(22, 163, 74, 0.3);
+    }
+
+    .primary-btn:not(:disabled):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(22, 163, 74, 0.75);
+    }
+
+    .ghost-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-soft);
+      padding: 6px 10px;
+      font-size: 0.76rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+    }
+
+    .ghost-btn:hover {
+      background: rgba(30, 64, 175, 0.4);
+      border-color: rgba(148, 163, 184, 0.8);
+      color: var(--text);
+    }
+
+    .label-pill {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .label-pill span.circle {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.9);
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.9);
+    }
+
+    .right-meta {
+      font-size: 0.76rem;
+      color: var(--text-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      text-align: right;
+    }
+
+    .right-meta strong {
+      color: var(--accent);
+    }
+
+    /* Progress & output */
+    .progress-shell {
+      margin-top: 6px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      background: radial-gradient(circle at 0 0, rgba(34, 197, 94, 0.2), transparent 60%);
+      padding: 10px 11px 11px;
+      font-size: 0.78rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      position: absolute;
+      inset: 0;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(
+        90deg,
+        rgba(34, 197, 94, 0.1),
+        rgba(34, 197, 94, 0.9),
+        rgba(249, 115, 22, 0.9)
+      );
+      transition: width 0.15s ease;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .status-pill {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 9px rgba(34, 197, 94, 0.9);
+    }
+
+    .status-dot.warn {
+      background: #f97316;
+      box-shadow: 0 0 9px rgba(249, 115, 22, 0.9);
+    }
+
+    .status-dot.error {
+      background: #ef4444;
+      box-shadow: 0 0 9px rgba(239, 68, 68, 0.9);
+    }
+
+    .status-msg {
+      flex: 1;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      text-align: right;
+    }
+
+    .highlight-output {
+      margin-top: 6px;
+      padding: 9px 10px;
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .highlight-output a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+
+    .highlight-output a:hover {
+      text-decoration: underline;
+    }
+
+    .mini-chip {
+      font-size: 0.72rem;
+      padding: 3px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-soft);
+    }
+
+    .dim {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="title-block">
+        <h1>
+          MMA Highlight Builder
+          <span class="title-pill">
+            <span class="dot"></span>
+            AI Knockout Cuts
+          </span>
+        </h1>
+        <p>Drop raw fight footage & training clips. Get AI-cut knockout highlight reels ready for socials.</p>
+      </div>
+      <div class="badge-strip">
+        <span><strong>Multi-clip</strong> upload</span>
+        <span><strong>KO-first</strong> logic</span>
+        <span><strong>Vercel</strong> ready</span>
+      </div>
+    </header>
+
+    <main class="layout-grid">
+      <!-- LEFT: Uploads -->
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="panel-header-row">
+            <div>
+              <p class="panel-title">Source Clips</p>
+              <p class="panel-subtitle">
+                Drop fight footage, sparring rounds, pad work, or training clips. The more chaos, the better.
+              </p>
+            </div>
+            <div class="small-pill">
+              <span></span>
+              RAW MMA FEED
+            </div>
+          </div>
+
+          <div
+            class="upload-zone"
+            id="uploadZone"
+          >
+            <div class="upload-icon">⬆️</div>
+            <div class="upload-main-text">
+              Drop <span>MP4 / MOV / MKV</span> here
+            </div>
+            <div class="upload-sub-text">
+              Or click to browse and select multiple clips.
+            </div>
+            <div class="upload-hint">
+              Tip: Keep original quality. AI can handle long rounds & full fights.
+            </div>
+            <div class="upload-footer-row">
+              <div>Clips queued: <strong id="clipCount">0</strong></div>
+              <div>Total size: <strong id="totalSize">0 MB</strong></div>
+            </div>
+          </div>
+          <input
+            type="file"
+            id="fileInput"
+            accept="video/*"
+            multiple
+            style="display:none"
+          />
+
+          <div class="file-list" id="fileList">
+            <div class="empty-state">
+              No clips loaded yet. Drop fight footage to start building a highlight reel.
+            </div>
+          </div>
+
+          <div class="stats-row">
+            <span id="estDurationLabel">Estimated input length: —</span>
+            <span id="formatHint">Best results: 1080p, 30–60 FPS.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: Settings + Render -->
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="panel-header-row">
+            <div>
+              <p class="panel-title">Highlight Engine</p>
+              <p class="panel-subtitle">
+                Set the vibe: brutal KOs, sharp combos, or technical pressure.
+              </p>
+            </div>
+            <div class="small-pill">
+              <span></span>
+              EDIT PROFILE
+            </div>
+          </div>
+
+          <div class="settings-list">
+            <div class="settings-row">
+              <div class="settings-row-label">
+                Highlight length (sec)
+                <span>Final reel duration target.</span>
+              </div>
+              <div class="slider-input">
+                <input
+                  id="lengthSlider"
+                  type="range"
+                  min="15"
+                  max="120"
+                  value="45"
+                />
+                <div id="lengthValue">45s</div>
+              </div>
+            </div>
+
+            <div class="settings-row">
+              <div class="settings-row-label">
+                Aggression
+                <span>Prioritize knockdowns & clean shots.</span>
+              </div>
+              <div class="slider-input">
+                <input
+                  id="aggressionSlider"
+                  type="range"
+                  min="1"
+                  max="10"
+                  value="8"
+                />
+                <div id="aggressionValue">8/10</div>
+              </div>
+            </div>
+
+            <div class="settings-row">
+              <div class="settings-row-label">
+                Pace
+                <span>Clip density & speed.</span>
+              </div>
+              <div class="slider-input">
+                <input
+                  id="paceSlider"
+                  type="range"
+                  min="1"
+                  max="10"
+                  value="7"
+                />
+                <div id="paceValue">7/10</div>
+              </div>
+            </div>
+
+            <div class="toggle-row">
+              <div
+                class="toggle"
+                id="includeAudioToggle"
+                data-on="true"
+              >
+                <div class="toggle-handle"></div>
+              </div>
+              Include original crowd/commentary audio where possible.
+            </div>
+
+            <div class="toggle-row">
+              <div
+                class="toggle"
+                id="slowmoToggle"
+                data-on="true"
+              >
+                <div class="toggle-handle"></div>
+              </div>
+              Auto slow-mo on big knockouts.
+            </div>
+          </div>
+
+          <p class="helper-text">
+            Note: This UI is wired to call <code>/api/generate-highlight</code>. You’ll plug in your actual AI/video logic in a Vercel Serverless Function or separate backend.
+          </p>
+
+          <div class="action-footer">
+            <div class="action-row">
+              <div class="left-actions">
+                <button
+                  class="primary-btn"
+                  id="generateBtn"
+                  disabled
+                >
+                  <span>⚡</span>
+                  <span>Generate Highlight Reel</span>
+                </button>
+                <button
+                  class="ghost-btn"
+                  id="clearBtn"
+                >
+                  🧹 Clear clips
+                </button>
+              </div>
+              <div class="right-meta">
+                <div class="label-pill">
+                  <span class="circle"></span>
+                  RUNTIME ENGINE
+                </div>
+                <div>
+                  Status: <strong id="engineStatus">Idle</strong>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="progress-shell"
+              id="progressShell"
+              style="display:none"
+            >
+              <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+              </div>
+              <div class="status-row">
+                <div class="status-pill" id="statusPill">
+                  <span class="status-dot" id="statusDot"></span>
+                  <span id="statusLabel">Preparing</span>
+                </div>
+                <div class="status-msg" id="statusMsg">
+                  Uploading clips & sending to highlight engine…
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="highlight-output"
+              id="outputShell"
+              style="display:none"
+            >
+              <div id="outputText">
+                Highlight ready. Download or preview the reel.
+              </div>
+              <div id="outputActions">
+                <a
+                  href="#"
+                  id="downloadLink"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  ⬇️ Download highlight
+                </a>
+                <span class="mini-chip dim" id="outputMeta">~45s KO reel</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      const uploadZone = document.getElementById("uploadZone");
+      const fileInput = document.getElementById("fileInput");
+      const fileList = document.getElementById("fileList");
+      const clipCountLabel = document.getElementById("clipCount");
+      const totalSizeLabel = document.getElementById("totalSize");
+      const estDurationLabel = document.getElementById("estDurationLabel");
+      const generateBtn = document.getElementById("generateBtn");
+      const clearBtn = document.getElementById("clearBtn");
+      const engineStatus = document.getElementById("engineStatus");
+
+      const lengthSlider = document.getElementById("lengthSlider");
+      const lengthValue = document.getElementById("lengthValue");
+      const aggressionSlider = document.getElementById("aggressionSlider");
+      const aggressionValue = document.getElementById("aggressionValue");
+      const paceSlider = document.getElementById("paceSlider");
+      const paceValue = document.getElementById("paceValue");
+      const includeAudioToggle = document.getElementById("includeAudioToggle");
+      const slowmoToggle = document.getElementById("slowmoToggle");
+
+      const progressShell = document.getElementById("progressShell");
+      const progressFill = document.getElementById("progressFill");
+      const statusPill = document.getElementById("statusPill");
+      const statusDot = document.getElementById("statusDot");
+      const statusLabel = document.getElementById("statusLabel");
+      const statusMsg = document.getElementById("statusMsg");
+
+      const outputShell = document.getElementById("outputShell");
+      const downloadLink = document.getElementById("downloadLink");
+      const outputMeta = document.getElementById("outputMeta");
+
+      /** File storage */
+      let clips = [];
+
+      function formatSize(bytes) {
+        const mb = bytes / (1024 * 1024);
+        return mb.toFixed(1);
+      }
+
+      function estimateDuration(files) {
+        // Simple rough guess: 1 minute per 200MB
+        if (!files.length) return "—";
+        const totalMB =
+          files.reduce((sum, f) => sum + f.size, 0) / (1024 * 1024);
+        const minutes = totalMB / 200;
+        if (minutes <= 0.5) return "< 30s (rough guess)";
+        const rounded = Math.round(minutes * 10) / 10;
+        return `${rounded} min (rough guess)`;
+      }
+
+      function refreshFileList() {
+        clipCountLabel.textContent = clips.length.toString();
+        const totalBytes = clips.reduce((sum, f) => sum + f.size, 0);
+        totalSizeLabel.textContent = `${formatSize(totalBytes)} MB`;
+        estDurationLabel.textContent =
+          "Estimated input length: " + estimateDuration(clips);
+
+        generateBtn.disabled = clips.length === 0;
+
+        if (!clips.length) {
+          fileList.innerHTML =
+            '<div class="empty-state">No clips loaded yet. Drop fight footage to start building a highlight reel.</div>';
+          return;
+        }
+
+        fileList.innerHTML = "";
+        clips.forEach((file, index) => {
+          const row = document.createElement("div");
+          row.className = "file-row";
+
+          const meta = document.createElement("div");
+          meta.className = "file-meta";
+
+          const name = document.createElement("div");
+          name.className = "file-name";
+          name.textContent = file.name;
+
+          const tags = document.createElement("div");
+          tags.className = "file-tags";
+          const tag1 = document.createElement("span");
+          tag1.className = "file-tag-pill";
+          tag1.textContent = file.type || "video/*";
+          const tag2 = document.createElement("span");
+          tag2.className = "file-tag-pill";
+          tag2.textContent = "Clip #" + (index + 1);
+          tags.appendChild(tag1);
+          tags.appendChild(tag2);
+
+          meta.appendChild(name);
+          meta.appendChild(tags);
+
+          const size = document.createElement("div");
+          size.className = "file-size";
+          size.textContent = formatSize(file.size) + " MB";
+
+          const removeBtn = document.createElement("button");
+          removeBtn.className = "file-remove-btn";
+          removeBtn.textContent = "✕";
+          removeBtn.title = "Remove clip";
+          removeBtn.addEventListener("click", () => {
+            clips.splice(index, 1);
+            refreshFileList();
+          });
+
+          row.appendChild(meta);
+          row.appendChild(size);
+          row.appendChild(removeBtn);
+
+          fileList.appendChild(row);
+        });
+      }
+
+      function addFiles(fileListLike) {
+        const files = Array.from(fileListLike || []).filter((f) =>
+          f.type.startsWith("video/")
+        );
+        if (!files.length) return;
+
+        clips = clips.concat(files);
+        refreshFileList();
+      }
+
+      /* Upload handlers */
+      uploadZone.addEventListener("click", () => {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener("change", (e) => {
+        if (e.target.files) addFiles(e.target.files);
+        fileInput.value = "";
+      });
+
+      ["dragenter", "dragover"].forEach((eventName) => {
+        uploadZone.addEventListener(
+          eventName,
+          (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadZone.classList.add("dragover");
+          },
+          false
+        );
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        uploadZone.addEventListener(
+          eventName,
+          (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadZone.classList.remove("dragover");
+          },
+          false
+        );
+      });
+
+      uploadZone.addEventListener("drop", (e) => {
+        const dt = e.dataTransfer;
+        if (dt && dt.files) addFiles(dt.files);
+      });
+
+      /* UI sliders */
+      function syncSlider(slider, label, suffix) {
+        label.textContent = slider.value + suffix;
+      }
+
+      syncSlider(lengthSlider, lengthValue, "s");
+      syncSlider(aggressionSlider, aggressionValue, "/10");
+      syncSlider(paceSlider, paceValue, "/10");
+
+      lengthSlider.addEventListener("input", () =>
+        syncSlider(lengthSlider, lengthValue, "s")
+      );
+      aggressionSlider.addEventListener("input", () =>
+        syncSlider(aggressionSlider, aggressionValue, "/10")
+      );
+      paceSlider.addEventListener("input", () =>
+        syncSlider(paceSlider, paceValue, "/10")
+      );
+
+      function toggleSwitch(el) {
+        const current = el.getAttribute("data-on") === "true";
+        el.setAttribute("data-on", String(!current));
+      }
+
+      includeAudioToggle.addEventListener("click", () =>
+        toggleSwitch(includeAudioToggle)
+      );
+      slowmoToggle.addEventListener("click", () =>
+        toggleSwitch(slowmoToggle)
+      );
+
+      /* Clear */
+      clearBtn.addEventListener("click", () => {
+        clips = [];
+        refreshFileList();
+        outputShell.style.display = "none";
+        progressShell.style.display = "none";
+        engineStatus.textContent = "Idle";
+      });
+
+      /* Progress helpers */
+      function setProgress(val, label, msg, mode) {
+        progressShell.style.display = "block";
+        progressFill.style.width = val + "%";
+        statusLabel.textContent = label || statusLabel.textContent;
+        statusMsg.textContent = msg || statusMsg.textContent;
+
+        statusDot.classList.remove("warn", "error");
+        if (mode === "warn") statusDot.classList.add("warn");
+        else if (mode === "error") statusDot.classList.add("error");
+      }
+
+      /* Generate handler */
+      generateBtn.addEventListener("click", async () => {
+        if (!clips.length) return;
+
+        outputShell.style.display = "none";
+        engineStatus.textContent = "Running";
+
+        setProgress(
+          8,
+          "Preparing",
+          "Packaging clips and settings for highlight engine…"
+        );
+
+        const formData = new FormData();
+        clips.forEach((file, i) => {
+          formData.append("clips", file, file.name || "clip_" + i + ".mp4");
+        });
+
+        const config = {
+          targetLengthSec: parseInt(lengthSlider.value, 10),
+          aggression: parseInt(aggressionSlider.value, 10),
+          pace: parseInt(paceSlider.value, 10),
+          includeAudio: includeAudioToggle.getAttribute("data-on") === "true",
+          slowmoKOs: slowmoToggle.getAttribute("data-on") === "true",
+        };
+        formData.append("config", JSON.stringify(config));
+
+        // Front-end only; you must implement /api/generate-highlight on Vercel.
+        const endpoint = "/api/generate-highlight";
+
+        try {
+          // Fake progress animation while waiting
+          let fakeProgress = 10;
+          const interval = setInterval(() => {
+            fakeProgress = Math.min(fakeProgress + 5, 85);
+            setProgress(
+              fakeProgress,
+              "Processing",
+              "Analyzing clips for clean strikes, knockdowns, and highlight moments…"
+            );
+            if (fakeProgress >= 85) clearInterval(interval);
+          }, 400);
+
+          const res = await fetch(endpoint, {
+            method: "POST",
+            body: formData,
+          });
+
+          clearInterval(interval);
+
+          if (!res.ok) {
+            throw new Error("Non-200 response from backend");
+          }
+
+          const data = await res.json();
+          const videoUrl = data.videoUrl || "#";
+
+          setProgress(
+            100,
+            "Complete",
+            "Highlight reel generated by backend.",
+            null
+          );
+          engineStatus.textContent = "Complete";
+
+          downloadLink.href = videoUrl;
+          outputMeta.textContent =
+            "~" + config.targetLengthSec + "s KO reel (server)";
+          outputShell.style.display = "flex";
+        } catch (err) {
+          console.error(err);
+          // If no backend yet, show a friendly hint
+          setProgress(
+            100,
+            "Backend missing",
+            "Could not reach /api/generate-highlight. Deploy your serverless function or backend, then wire it here.",
+            "error"
+          );
+          engineStatus.textContent = "Error";
+
+          // Optional: demo URL to show UX flow even without backend
+          const fakeUrl = "#";
+          downloadLink.href = fakeUrl;
+          outputMeta.textContent =
+            "~" + lengthSlider.value + "s demo reel (front-end only)";
+          outputShell.style.display = "flex";
+        }
+      });
+
+      // Initial render
+      refreshFileList();
+    })();
+  </script>
+</body>
+</html>
