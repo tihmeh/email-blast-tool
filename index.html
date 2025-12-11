@@ -1,376 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>Email Blaster 4000</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif; background:#050816; color:#e5e7eb; }
-* { box-sizing:border-box; }
-
-/* LOCKSCREEN -------------------------------------------------- */
-#loginScreen {
-  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-  background:radial-gradient(circle at top,#020617,#000); z-index:20;
-}
-.login-card {
-  background:#0b1120; padding:26px 22px 18px; width:320px; border-radius:24px;
-  text-align:center; border:1px solid rgba(148,163,184,0.4); box-shadow:0 16px 40px rgba(0,0,0,0.6);
-}
-.login-lock {
-  width:60px; height:60px; margin:0 auto 12px; border-radius:20px; font-size:26px;
-  background:conic-gradient(from 180deg,#22c55e,#16a34a,#22c55e);
-  display:flex; align-items:center; justify-content:center;
-}
-.login-title { font-size:20px; font-weight:700; margin-bottom:4px; }
-.login-sub { font-size:12px; color:#9ca3af; margin-bottom:14px; }
-.login-input {
-  width:100%; padding:9px 10px; border-radius:10px; border:1px solid rgba(148,163,184,0.6);
-  background:#020617; color:#e5e7eb; margin-bottom:8px;
-}
-.btn { padding:8px 14px; border-radius:999px; cursor:pointer; border:none; font-size:13px; }
-.btn-primary { background:linear-gradient(135deg,#22c55e,#16a34a); color:#022c22; }
-.login-hint { margin-top:6px; font-size:11px; color:#9ca3af; }
-
-/* APP LAYOUT -------------------------------------------------- */
-.app-shell { display:none; max-width:1280px; margin:0 auto; padding:10px; }
-.app-topbar {
-  display:flex; justify-content:space-between; align-items:center;
-  background:#0f172a; border:1px solid #1e293b; border-radius:14px;
-  padding:8px 12px; margin-bottom:10px;
-}
-.app-title-main { font-size:15px; font-weight:600; }
-.app-title-sub { font-size:11px; color:#9ca3af; }
-
-/* MAIN LAYOUT -------------------------------------------------- */
-.app-main {
-  display:grid; grid-template-columns:220px minmax(0,1fr) 300px;
-  gap:10px;
-}
-@media(max-width:1000px){ .app-main{grid-template-columns:1fr;} }
-
-/* SIDEBAR ------------------------------------------------------ */
-.sidebar {
-  background:#0f172a; border-radius:14px; border:1px solid #1e293b; padding:10px;
-}
-.sidebar h3 { font-size:11px; font-weight:600; margin:0 0 8px; color:#9ca3af; }
-.sidebar button {
-  width:100%; padding:7px 9px; margin-bottom:4px; border-radius:999px;
-  border:none; cursor:pointer; background:#1f2937; color:#9ca3af; font-size:13px; text-align:left;
-}
-.sidebar button.active { background:#22c55e; color:#022c22; }
-
-/* PANELS -------------------------------------------------------- */
-.panel {
-  background:#0f172a; border-radius:14px; border:1px solid #1e293b;
-  padding:10px; display:flex; flex-direction:column;
-}
-
-.panel h2 { margin:0 0 6px; font-size:14px; }
-.panel small { font-size:11px; color:#9ca3af; }
-
-/* CONTACT PANEL ------------------------------------------------ */
-.search-input {
-  width:100%; padding:7px 9px; border-radius:999px; border:1px solid #1e293b;
-  background:#1f2937; color:#e5e7eb; font-size:13px; margin-bottom:8px;
-}
-
-.accordion-section { margin-bottom:10px; border:1px solid #1e293b; border-radius:10px; }
-.accordion-header {
-  padding:8px; background:#1f2937; cursor:pointer; font-size:13px; border-radius:10px 10px 0 0;
-}
-.accordion-header:hover { background:#374151; }
-.accordion-body {
-  max-height:0; overflow:hidden; transition:max-height 0.2s ease; background:#111827;
-}
-.accordion-body.open { padding:6px; max-height:300px; overflow-y:auto; }
-
-.contact {
-  padding:6px; border-bottom:1px solid #1e293b; cursor:pointer; border-radius:6px;
-}
-.contact:hover { background:#1f2937; }
-.contact.selected { background:rgba(34,197,94,0.18); border-left:3px solid #22c55e; }
-.contact .tag {
-  display:inline-block; font-size:10px; padding:2px 6px;
-  border:1px solid #374151; border-radius:999px; margin-top:3px;
-}
-
-/* RIGHT PANEL -------------------------------------------------- */
-textarea {
-  width:100%; min-height:80px; padding:6px 8px; background:#1f2937; color:#e5e7eb;
-  border:1px solid #1e293b; border-radius:10px; font-size:12px; resize:vertical;
-}
+body { margin:0; font-family:sans-serif; background:#0a0f1f; color:#e5e7eb; padding:10px; }
+h1 { margin:0 0 10px; }
+input,button { font-size:14px; }
+#search { width:100%; padding:8px; border-radius:6px; border:1px solid #1e293b; background:#111827; color:#e5e7eb; margin-bottom:10px; }
+button { padding:6px 10px; border:none; border-radius:6px; cursor:pointer; }
+#copyBtn { background:#22c55e; color:#022c22; }
+#selectAllBtn,#clearBtn { background:#1e293b; color:#e5e7eb; }
+#contactList { margin-top:10px; max-height:80vh; overflow-y:auto; border:1px solid #1e293b; padding:6px; border-radius:6px; }
+.contact { padding:6px; border-bottom:1px solid #1e293b; cursor:pointer; }
+.contact:hover { background:#1e293b; }
+.selected { background:rgba(34,197,94,0.25); }
+.meta { font-size:12px; color:#9ca3af; }
+.tag { font-size:10px; padding:1px 4px; border:1px solid #374151; border-radius:999px; display:inline-block; margin-top:2px; }
+.counts { margin-bottom:10px; font-size:14px; }
 </style>
 </head>
-
 <body>
 
-<!-- LOCK SCREEN -->
-<div id="loginScreen">
-  <div class="login-card">
-    <div class="login-lock">🔒</div>
-    <div class="login-title">Email Blaster 4000</div>
-    <div class="login-sub">Encrypted outbound console. Enter access key.</div>
-    <input id="passwordInput" class="login-input" type="password" placeholder="Access key">
-    <button id="loginBtn" class="btn btn-primary" style="width:100%;margin-top:4px;">Unlock EB4000</button>
-    <div class="login-hint">Hint: <code>sales</code></div>
-  </div>
+<h1>Email Blaster 4000</h1>
+<div class="counts">
+Total: <span id="totalCount">0</span> • Selected: <span id="selectedCount">0</span>
 </div>
 
-<!-- APP ---------------------------------------------------------->
-<div class="app-shell" id="appShell">
-  <header class="app-topbar">
-    <div>
-      <div class="app-title-main">Email Blaster 4000 • EB4K</div>
-      <div class="app-title-sub">Prospects • Pipelines • Public Sector</div>
-    </div>
-    <div style="font-size:12px;color:#9ca3af;">
-      Total: <span id="totalCount">0</span> • Selected: <span id="selectedCount">0</span>
-    </div>
-  </header>
+<input id="search" placeholder="Search…">
 
-  <main class="app-main">
+<button id="selectAllBtn">Select All (Filtered)</button>
+<button id="clearBtn">Clear</button>
+<button id="copyBtn">Copy Selected Emails</button>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <h3>Views</h3>
-      <button class="active" data-view="contactsView">👥 Contacts</button>
-      <button data-view="notesView">📝 Notes</button>
-      <button data-view="tasksView">✅ Tasks</button>
-      <button data-view="templatesView">✉️ Templates</button>
-    </aside>
-
-    <!-- CONTACT PANEL -->
-    <section class="panel" id="contactsView">
-      <h2>Contacts</h2>
-      <small>Select by vertical, scroll inside each box, copy emails.</small>
-
-      <input id="searchInput" class="search-input" placeholder="Search...">
-
-      <button id="copySelected" class="btn btn-primary" style="margin-bottom:10px;">Copy Selected Emails</button>
-
-      <div id="accordionContainer"></div>
-    </section>
-
-    <!-- RIGHT PANEL -->
-    <section class="panel" id="rightPanel">
-      <div>
-        <h2>Notes</h2>
-        <textarea id="notesArea"></textarea>
-      </div>
-      <div>
-        <h2>Tasks</h2>
-        <textarea id="tasksArea"></textarea>
-      </div>
-      <div>
-        <h2>Templates</h2>
-        <textarea id="templatesArea"></textarea>
-      </div>
-    </section>
-
-  </main>
-</div>
+<div id="contactList"></div>
 
 <script>
-// ============================================================================
-// MASTER CONTACT LIST (SAMPLE)
-// Full list goes here when you're ready.
-// ============================================================================
-[
-  {
-    "name": "Patrick Irby",
-    "email": "scp@alachuacounty.us",
-    "title": "Solid Waste Director",
-    "org": "Alachua County",
-    "vertical": "Utilities"
-  },
-  {
-    "name": "Robert Fletcher",
-    "email": "roaddept@bakercountyfl.org",
-    "title": "Solid Waste Director",
-    "org": "Baker County",
-    "vertical": "Utilities"
-  },
-  {
-    "name": "Glenn Ogborn",
-    "email": "gogborn@baycountyfl.gov",
-    "title": "Solid Waste Superintendent",
-    "org": "Bay County",
-    "vertical": "Utilities"
-  },
-  {
-    "name": "Bennie Jackson Jr",
-    "email": "bennie_jackson@bradfordcountyfl.gov",
-    "title": "Solid Waste Director",
-    "org": "Bradford County",
-    "vertical": "Utilities"
-  },
-  {
-    "name": "Thomas Mulligan",
-    "email": "thomas.mulligan@brevardcounty.gov",
-    "title": "Solid Waste Director",
-    "org": "Brevard County",
-    "vertical": "Utilities"
-  },
-  {
-    "name": "Jeff Turpin",
-    "email": "jturpin@broward.org",
-    "title": "Director",
-    "org": "Broward County Waste & Recycling",
-    "vertical": "Utilities"
-  },
-  {
-    "name": "Sheridan Boyle",
-    "email": "sheridan.boyle@myclearwater.com",
-    "title": "Recycling Specialist",
-    "org": "City of Clearwater",
-    "vertical": "City Government"
-  },
-  {
-    "name": "James Roberto",
-    "email": "countyrecycling@aol.com",
-    "title": "Owner",
-    "org": "County Sanitation",
-    "vertical": "Haulers"
-  }
-]
+// =====================================================================
+// COMPRESSED CONTACTS DATABASE (CSV FORMAT — ALL CONTACTS INCLUDED)
+// =====================================================================
 
-// ============================================================================
-// IF YOU WANT THE FULL LIST, SAY: "Send full contact list JSON"
-// ============================================================================
+// FORMAT: name,email,title,org,vertical
+const CSV = `
+Sean Jowell,jowells@pcsb.org,Director Safety & Security,Pinellas County Schools,K-12
+Philip Martin,philip.martin@sumter.k12.fl.us,Director Safety & Security,Sumter County Schools,K-12
+Sarah Johnson,sjohnson@stpete.org,IT Manager,City of St. Petersburg,Public Sector
+Michael Nagy,mwilliams@dunedinfl.gov,Director of IT,City of Dunedin,Public Sector
+Evan Bollier,bollieea@eckerd.edu,Director Sustainability,Eckerd College,Higher Education
+Lynn Grinnell,grinnell.lynn@spcollege.edu,Professor,St. Petersburg College,Higher Education
+Missy Nevitt,mnevitt@psta.net,Facilities Superintendent,PSTA,Transit
+Kyle Riefler,Kyle.Riefler@CityofBelleairBeach.com,Community Services Admin,City of Belleair Beach,City Government
+Lynn Rives,Lynn.Rives@CityofBelleairBeach.com,City Manager,City of Belleair Beach,City Government
+Debra Sullivan,dsullivan@belleairbluffs-fl.gov,City Clerk,City of Belleair Bluffs,City Government
+Sheridan Boyle,sheridan.boyle@myclearwater.com,Recycling Specialist,City of Clearwater,City Government
+David Powers,david.powers@myclearwater.com,Finance,City of Clearwater,City Government
+Earl Gloster,earl.gloster@myclearwater.com,Director Solid Waste,City of Clearwater,City Government
+Bryant Johnson,Bryant.Johnson@myclearwater.com,Assistant Director Solid Waste,City of Clearwater,City Government
+Kattrina Miller,kattrina.miller@myclearwater.com,Program Coordinator,City of Clearwater,City Government
+William Pickrum,wpickrum@dunedinfl.net,Director Solid Waste,City of Dunedin,City Government
+Trista Brophy,tbrophy@myoldsmar.com,Sustainability Coordinator,City of Oldsmar,City Government
 
-// ============================================================================
-// LOCKSCREEN
-// ============================================================================
-const loginScreen = document.getElementById("loginScreen");
-const appShell = document.getElementById("appShell");
-const loginBtn = document.getElementById("loginBtn");
-const passwordInput = document.getElementById("passwordInput");
+James Roberto,countyrecycling@aol.com,Owner,County Sanitation,Haulers
+Dan Dunlop,dadhauling@gmail.com,Owner,D & D Hauling,Haulers
+Bob MacQueen,bob@refusemgmt.com,Sales Manager,DisposAll,Haulers
+Jason Leblanc,jason@conexrecycling.com,GM Florida,Conex Recycling,Haulers
+Howard Peterson,hpeterson@republicservices.com,GM Tampa,Republic Services,Haulers
 
-loginBtn.onclick = () => {
-  if (passwordInput.value === "sales") {
-    loginScreen.style.display = "none";
-    appShell.style.display = "block";
-  } else alert("Incorrect key");
-};
-passwordInput.onkeydown = e => { if (e.key==="Enter") loginBtn.onclick(); };
+Keith Howard,keith.howard@hdrinc.com,Section Manager,HDR,Consultants
+Shawn Worster,Shawn.Worster@hdrinc.com,Associate VP,HDR,Consultants
+Mitch Kessler,mk@kesconsult.com,Owner,Kessler Consulting,Consultants
+Robin Mitchell,rmitchell@kesconsult.com,Director Technical Services,Kessler Consulting,Consultants
+Allison Trulock,atrulock@newgenstrategies.net,VP Solid Waste,NewGen Strategies,Consultants
 
-// ============================================================================
-// GLOBAL STATE
-// ============================================================================
-let selected = new Set();
-let searchQuery = "";
+Karen Moore,Karen.S.Moore@dep.state.fl.us,Environmental Admin,FDEP,State Agencies
+Pat DePlasco,pdeplasco@kpbcares.org,Executive Director,Keep Pinellas Beautiful,State Agencies
 
-// ============================================================================
-// ACCORDION RENDERING
-// ============================================================================
-const accordionContainer = document.getElementById("accordionContainer");
+Patrick Irby,scp@alachuacounty.us,Solid Waste Director,Alachua County,Utilities
+Robert Fletcher,roaddept@bakercountyfl.org,Solid Waste Director,Baker County,Utilities
+Glenn Ogborn,gogborn@baycountyfl.gov,Solid Waste Superintendent,Bay County,Utilities
+Bennie Jackson Jr,bennie_jackson@bradfordcountyfl.gov,Solid Waste Director,Bradford County,Utilities
+Thomas Mulligan,thomas.mulligan@brevardcounty.gov,Solid Waste Director,Brevard County,Utilities
+Jeff Turpin,jturpin@broward.org,Director,Broward County,Utilities
+Angie Smith,asmith@calhouncountygov.com,Director of Operations,Calhoun County,Utilities
+Richard Allen,richard.allen@charlottecountyfl.gov,Operations Manager,Charlotte County,Utilities
+Henry Norris,henry.norris@citrusbocc.com,Solid Waste Director,Citrus County,Utilities
+Milton Towns,milton.towns@claycountygov.com,Environmental Services Director,Clay County,Utilities
+Daniel Rodriquez,danielrrodriquez@colliergov.net,Deputy Director,Collier County,Utilities
+Edfred Lontz,elontz@columbiacountyfla.com,Solid Waste Director,Columbia County,Utilities
+HW Grimes,H.Grimes@desotobocc.com,Environmental Services Director,DeSoto County,Utilities
+Billy Padgett,billypadgett27@gmail.com,Solid Waste Director,Dixie County,Utilities
+Will Williams,jrobinson@coj.net,Chief,Duval County,Utilities
+Donald Seitz,dlseitz@myescambia.com,Solid Waste Director,Escambia County,Utilities
+Heidi Petito,hpetito@flaglercounty.org,Director,Flagler County,Utilities
+Fonda Davis,fcswd@gtcom.net,Solid Waste Director,Franklin County,Utilities
+Herb Chancey,hchancey@gadsdencountyfl.gov,Director,Gadsden County,Utilities
+Bobby Rush,recycle@gilchrist.fl.us,Supervisor,Gilchrist County,Utilities
+Paul Carlisle,pcarlisle@myglades.com,County Manager,Glades County,Utilities
+Mark Cothran,mcothran@gulfcounty-fl.gov,Public Works Director,Gulf County,Utilities
+Dale Jackson,hamco@windstream.net,Solid Waste Director,Hamilton County,Utilities
+Marissa Alexander,marissa.alexander@hardeecounty.net,Solid Waste Manager,Hardee County,Utilities
+Tommy Vaughan Jr,tvaughan@hendryfla.net,Special Districts Director,Hendry County,Utilities
+Scott Harper,sharper@hernandocounty.us,Services Manager,Hernando County,Utilities
+Robert Diefendorf,rdiefendorf@highlandsfl.gov,Project Manager,Highlands County,Utilities
+Kim Byer,Byerk@hillsboroughcounty.org,Division Director,Hillsborough County,Utilities
+David Corbin,hcc@holmescountyfl.org,County Coordinator,Holmes County,Utilities
+Himanshu Mehta,hmehta@ircgov.com,Managing Director,Indian River County,Utilities
+Larry Alvarez,lalvarez@jacksoncountyfl.com,County Engineer,Jackson County,Utilities
+Robbie Slack,rslack@jeffersoncountyfl.gov,Solid Waste Director,Jefferson County,Utilities
+Scott Sadler,lafayetteroad@gmail.com,Solid Waste Director,Lafayette County,Utilities
+Cari Christian,cari.christian@lakecountyfl.gov,Assistant County Manager,Lake County,Utilities
+Pamela Keyes,pkeyes@leegov.com,Solid Waste Director,Lee County,Utilities
+Roshaunda Bradley,bradleyr@leoncountyfl.gov,Solid Waste Director,Leon County,Utilities
+Benny Jerrels,solidwaste@levycounty.org,Operations Director,Levy County,Utilities
+Daniel R Stanley,dstanley@libertyclerk.com,County Clerk,Liberty County,Utilities
+Clay Blair,swcoord@madisoncountyfl.com,Recycling Director,Madison County,Utilities
+Mike Gore,mike.gore@mymanatee.org,Division Manager,Manatee County,Utilities
+Jody Kirkman,jody.kirkman@marioncountyfl.org,Solid Waste Director,Marion County,Utilities
+Sam Amerson,samerson@martin.fl.us,Director,Martin County,Utilities
+Michael Fernandez,mfern@miamidade.gov,Director,Miami-Dade County,Utilities
+Cheryl Sullivan,sullivan-cheryl@monroecounty-fl.gov,Director,Monroe County,Utilities
+Douglas Podiak,dpodiak@nassaucountyfl.com,Public Works Director,Nassau County,Utilities
+Scott Henson,shenson@co.okaloosa.fl.us,Env Regulatory Manager,Okaloosa County,Utilities
+Russel Roland,rrowland@co.okeechobee.fl.us,Solid Waste Director,Okeechobee County,Utilities
+David Gregory,david.gregory@ocfl.net,Solid Waste Director,Orange County,Utilities
+Danny Sheaffer,dshe@osceola.org,Solid Waste Director,Osceola County,Utilities
+Dan Pellowitz,dpellowitz@swa.org,Executive Director,Palm Beach County,Utilities
+John Power,jpower@pascocountyfl.net,Facility Manager,Pasco County,Utilities
+Paul Sacco,psacco@pinellascounty.org,Solid Waste Director,Pinellas County,Utilities
+Ana Wood,anawood@polk-county.net,Solid Waste Director,Polk County,Utilities
+John Tilton,jay.tilton@putnam-fl.com,Solid Waste Director,Putnam County,Utilities
+George Landry,landryg@stlucieco.org,Division Director,St. Lucie County,Utilities
+Kaz Szymoniak,kazs@santarosa.fl.gov,Environmental Manager,Santa Rosa County,Utilities
+Larry Alexander,lAlexand@scgov.net,Solid Waste Manager,Sarasota County,Utilities
+Oliver Bond,obond@seminolecountyfl.gov,Division Manager,Seminole County,Utilities
+Wendy Hicks,whicks@sjcfl.us,Solid Waste Manager,St. Johns County,Utilities
+Michael Bryant,michael.bryant@sumtercountyfl.gov,Asst Public Works Dir,Sumter County,Utilities
+Randy Harris,randyh@suwgov.org,Solid Waste Director,Suwannee County,Utilities
+Gary Wambolt,Solid.Waste@taylorcountygov.com,Solid Waste Director,Taylor County,Utilities
+Kim Hayes,solidwaste@unioncounty-fl.gov,Solid Waste Director,Union County,Utilities
+Regina Montgomery,rmontgomery@co.volusia.fl.us,Solid Waste Director,Volusia County,Utilities
+Nannette Watts,nwatts@mywakulla.com,Public Works Director,Wakulla County,Utilities
+Billy McKee,landfildepartment@co.walton.fl.us,Manager,Walton County,Utilities
+Jeff Massey,jmassey@washingtonfl.com,County Administrator,Washington County,Utilities
+Glenton Gilzean Jr,ggilzean@RCID.org,District Administrator,Reedy Creek ID,Utilities
+`;
 
-const VERTICALS = [
-  "K-12",
-  "Public Sector",
-  "Higher Education",
-  "Transit",
-  "City Government",
-  "Utilities",
-  "Haulers",
-  "Consultants",
-  "State Agencies"
-];
+// =====================================================================
+// PARSE CSV INTO CONTACT OBJECTS
+// =====================================================================
+const CONTACTS = CSV.trim().split("\n").map(row => {
+  const [name,email,title,org,vertical] = row.split(",");
+  return { name,email,title,org,vertical };
+});
 
-function renderAccordion() {
-  accordionContainer.innerHTML = "";
+// =====================================================================
+// RENDERING
+// =====================================================================
+const listEl=document.getElementById("contactList");
+const searchEl=document.getElementById("search");
+let selected=new Set();
 
-  VERTICALS.forEach(vertical => {
-    const section = document.createElement("div");
-    section.className = "accordion-section";
-
-    const header = document.createElement("div");
-    header.className = "accordion-header";
-    header.textContent = vertical + " (" + CONTACTS.filter(c => c.vertical === vertical).length + ")";
-    
-    const body = document.createElement("div");
-    body.className = "accordion-body";
-
-    header.onclick = () => body.classList.toggle("open");
-
-    accordionContainer.appendChild(section);
-    section.appendChild(header);
-    section.appendChild(body);
-
-    renderVerticalList(vertical, body);
-  });
-}
-
-function renderVerticalList(vertical, container) {
-  container.innerHTML = "";
-
+function render(){
+  const q=searchEl.value.toLowerCase();
+  listEl.innerHTML="";
   CONTACTS.filter(c =>
-    c.vertical === vertical &&
-    (c.name + c.email + c.org + c.title).toLowerCase().includes(searchQuery)
-  )
-  .forEach(c => {
-    const div = document.createElement("div");
-    div.className = "contact" + (selected.has(c.email) ? " selected" : "");
-    div.innerHTML = `
-      <div class="name">${c.name}</div>
+    (c.name+c.email+c.org+c.title).toLowerCase().includes(q)
+  ).forEach(c=>{
+    const d=document.createElement("div");
+    d.className="contact"+(selected.has(c.email)?" selected":"");
+    d.innerHTML=`
+      <div><strong>${c.name}</strong></div>
       <div class="meta">${c.title} — ${c.org}</div>
       <div class="meta">${c.email}</div>
       <span class="tag">${c.vertical}</span>
     `;
-    div.onclick = () => {
-      if (selected.has(c.email)) selected.delete(c.email);
+    d.onclick=()=>{
+      if(selected.has(c.email)) selected.delete(c.email);
       else selected.add(c.email);
       updateCounts();
-      renderAccordion();
+      render();
     };
-    container.appendChild(div);
+    listEl.appendChild(d);
   });
 }
 
-// ============================================================================
-// SEARCH
-// ============================================================================
-document.getElementById("searchInput").oninput = e => {
-  searchQuery = e.target.value.toLowerCase();
-  renderAccordion();
-};
-
-// ============================================================================
-// COPY SELECTED
-// ============================================================================
-document.getElementById("copySelected").onclick = () => {
-  if (!selected.size) return alert("No contacts selected.");
-  navigator.clipboard.writeText([...selected].join("; ")).then(() => {
-    alert("Copied " + selected.size + " emails.");
-  });
-};
-
-// ============================================================================
-// COUNTS
-// ============================================================================
-function updateCounts() {
-  document.getElementById("totalCount").textContent = CONTACTS.length;
-  document.getElementById("selectedCount").textContent = selected.size;
+function updateCounts(){
+  document.getElementById("totalCount").textContent=CONTACTS.length;
+  document.getElementById("selectedCount").textContent=selected.size;
 }
+
+searchEl.oninput=render;
+
+document.getElementById("selectAllBtn").onclick=()=>{
+  CONTACTS.filter(c =>
+    (c.name+c.email+c.org+c.title).toLowerCase().includes(searchEl.value.toLowerCase())
+  ).forEach(c=>selected.add(c.email));
+  updateCounts();
+  render();
+};
+
+document.getElementById("clearBtn").onclick=()=>{
+  selected.clear();
+  updateCounts();
+  render();
+};
+
+document.getElementById("copyBtn").onclick=()=>{
+  if(!selected.size) return alert("No contacts selected.");
+  const s=[...selected].join("; ");
+  navigator.clipboard.writeText(s);
+  alert("Copied "+selected.size+" emails.");
+};
+
+// INIT
 updateCounts();
-renderAccordion();
+render();
 
-// ============================================================================
-// VIEW SWITCHING
-// ============================================================================
-const sidebarButtons = document.querySelectorAll(".sidebar button");
-sidebarButtons.forEach(btn => {
-  btn.onclick = () => {
-    sidebarButtons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    document.getElementById("contactsView").style.display = btn.dataset.view==="contactsView" ? "flex" : "none";
-    document.getElementById("notesView").style.display = btn.dataset.view==="notesView" ? "block" : "none";
-    document.getElementById("tasksView").style.display = btn.dataset.view==="tasksView" ? "block" : "none";
-    document.getElementById("templatesView").style.display = btn.dataset.view==="templatesView" ? "block" : "none";
-  };
-});
 </script>
 </body>
 </html>
